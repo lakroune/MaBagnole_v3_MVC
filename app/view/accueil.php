@@ -62,7 +62,7 @@ $categories = $categorie->getAllCategories();
             transform: translateY(-10px);
         }
 
-        /* DataTable Custom Styling */
+      
         .dataTables_wrapper .dataTables_paginate .paginate_button.current {
             background: #2563eb !important;
             color: white !important;

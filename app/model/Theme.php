@@ -13,7 +13,7 @@ class Theme
     private $descriptionTheme;
 
     public function __construct() {}
-    //geter
+    
     public function getIdTheme(): int
     {
         return $this->idTheme;
@@ -26,7 +26,7 @@ class Theme
     {
         return $this->descriptionTheme;
     }
-    //seter
+    
     public function setIdTheme(int $idTheme): void
     {
         if ($idTheme < 1)
@@ -49,13 +49,13 @@ class Theme
             $this->descriptionTheme = $descriptionTheme;
     }
 
-    //to string 
+    
     public function __toString(): string
     {
         return "idTheme :$this->idTheme, nomTheme :$this->nomTheme, descriptionTheme :$this->descriptionTheme";
     }
 
-    // ajouter theme 
+
     public function  ajouterTheme(): bool
     {
         try {
@@ -74,7 +74,7 @@ class Theme
         }
     }
 
-    //modifier  Theme 
+
 
     public function  modifierTheme(): bool
     {
@@ -111,13 +111,13 @@ class Theme
         }
     }
 
-    public function getTheme(): ?Theme
+    public function getThemeById( int $idTheme): ?Theme
     {
         try {
             $db = Connexion::connect()->getConnexion();
             $sql = "select * from themes where idTheme=:idTheme";
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(":idTheme", $this->idTheme);
+            $stmt->bindParam(":idTheme", $idTheme);
             if ($stmt->execute())
                 return $stmt->fetchObject(Theme::class);
             else
@@ -128,7 +128,7 @@ class Theme
         }
     }
 
-    public function getAllTheme(): array
+    static function getAllTheme(): array
     {
         try {
             $db = Connexion::connect()->getConnexion();

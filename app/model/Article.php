@@ -119,4 +119,92 @@ class Article
     {
         return "idArticle :$this->idArticle, titreArticle :$this->titreArticle, contenuArticle :$this->contenuArticle, dateCreationArticle :$this->dateCreationArticle, idTheme :$this->idTheme, idAuteur :$this->idAuteur";
     }
+
+    public  function AjouterArticle(): bool
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $query = "INSERT INTO article (titreArticle, contenuArticle, statutArticle, dateCreationArticle, idTheme, idAuteur) 
+                      VALUES (:titreArticle, :contenuArticle, :statutArticle, :dateCreationArticle, :idTheme, :idAuteur)";
+            $stmt = $db->prepare($query);
+            $stmt->bindValue(':titreArticle', $this->titreArticle);
+            $stmt->bindValue(':contenuArticle', $this->contenuArticle);
+            $stmt->bindValue(':statutArticle', $this->statutArticle);
+            $stmt->bindValue(':dateCreationArticle', $this->dateCreationArticle);
+            $stmt->bindValue(':idTheme', $this->idTheme);
+            $stmt->bindValue(':idAuteur', $this->idAuteur);
+            return $stmt->execute();
+        } catch (\Exception $e) {
+            throw new \Exception("Erreur lors de l'ajout de l'article : " . $e->getMessage());
+        }
+    }
+
+    public function getAllArticles(): array
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "SELECT * FROM articles";
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll(\PDO::FETCH_CLASS, Article::class);
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
+
+    public function getArticleById(int $idArticle): ?Article
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "SELECT * FROM articles WHERE idArticle = :idArticle";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idArticle", $idArticle);
+            $stmt->execute();
+            $stmt->setFetchMode(\PDO::FETCH_CLASS, Article::class);
+            $article = $stmt->fetch();
+            return $article ?: null;
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+    public function supprimerArticle($idArticle): bool
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "DELETE FROM articles WHERE idArticle = :idArticle";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idArticle", $idArticle);
+            return $stmt->execute();
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    static function nbArticlesByTheme(int $idTheme): int
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "SELECT COUNT(*) as nbArticles FROM articles WHERE idTheme = :idTheme";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idTheme", $idTheme);
+            $stmt->execute();
+            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+            return (int)$result['nbArticles'] ?? 0;
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+    static function getArticlesByTheme(int $idTheme): array
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "SELECT * FROM articles WHERE idTheme = :idTheme";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idTheme", $idTheme);
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_CLASS, Article::class);
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
 }
