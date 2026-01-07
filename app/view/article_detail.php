@@ -1,5 +1,40 @@
+<?php
+
+namespace app\view;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use app\model\Theme;
+use app\model\Article;
+use app\model\Client;
+use app\model\Tag;
+
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    header("Location: themes_list.php");
+    exit();
+}
+
+try {
+    $idArticle = (int)($_GET['id']);
+
+    $article = new Article();
+    $theme = new Theme();
+    $auteur = new Client;
+    $tag = new Tag();
+    $article = $article->getArticleById($idArticle);
+    $theme = $theme->getThemeById($article->getIdTheme());
+    $auteur = $auteur->getClientById($article->getIdAuteur());
+} catch (\Exception $e) {
+    header("Location: themes_list.php");
+    exit();
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +42,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-slate-50 min-h-screen">
 
     <nav class="bg-white border-b border-slate-100 px-8 py-4 sticky top-0 z-50">
@@ -27,8 +63,8 @@
                 <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div class="absolute bottom-10 left-10">
-                    <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Thème : Sportive</span>
-                    <h1 class="text-4xl font-black text-white leading-tight">Pourquoi la Porsche 911 reste l'icône indétrônable ?</h1>
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Thème :<?= $theme->getNomTheme() ?> </span>
+                    <h1 class="text-4xl font-black text-white leading-tight"><?= $article->getTitreArticle() ?></h1>
                 </div>
             </div>
 
@@ -37,7 +73,7 @@
                     <div class="flex items-center gap-4">
                         <img src="https://i.pravatar.cc/100?u=author" class="w-12 h-12 rounded-2xl border-2 border-white shadow-sm">
                         <div>
-                            <p class="text-sm font-black text-slate-800">Yassine El Amrani</p>
+                            <p class="text-sm font-black text-slate-800"><?= ""// $auteur->getNomUtilisateur().' '.$auteur->getPrenomUtilisateur() ?></p>
                             <p class="text-[10px] text-slate-400 font-bold uppercase">Publié le 05 Janvier 2026</p>
                         </div>
                     </div>
@@ -48,9 +84,9 @@
                 </div>
 
                 <div class="prose prose-slate max-w-none text-slate-600 text-lg leading-relaxed">
-                    <p class="mb-6 font-bold text-slate-800">L'histoire de la Porsche 911 est celle d'une évolution constante plutôt que d'une révolution.</p>
-                    <p class="mb-6">Depuis son introduction en 1963, elle a su conserver son ADN tout en intégrant les technologies les plus modernes. Louer une 911 chez <strong>MaBagnole</strong>, c'est toucher du doigt une légende mécanique...</p>
-                    </div>
+                    <p class="mb-6 font-bold text-slate-800"><?= $article->getContenuArticle() ?></p>
+                    <!-- <p class="mb-6">Depuis son introduction en 1963, elle a su conserver son ADN tout en intégrant les technologies les plus modernes. Louer une 911 chez <strong>MaBagnole</strong>, c'est toucher du doigt une légende mécanique...</p> -->
+                </div>
             </div>
         </article>
 
@@ -63,8 +99,8 @@
                 <div class="flex gap-4">
                     <img src="https://i.pravatar.cc/100?u=me" class="w-12 h-12 rounded-2xl">
                     <div class="flex-1">
-                        <textarea id="commentText" placeholder="Partagez votre avis sur cet article..." 
-                                  class="w-full p-5 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm min-h-[120px] transition"></textarea>
+                        <textarea id="commentText" placeholder="Partagez votre avis sur cet article..."
+                            class="w-full p-5 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm min-h-[120px] transition"></textarea>
                         <div class="flex justify-end mt-4">
                             <button onclick="handleComment()" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-600 transition shadow-lg">
                                 Envoyer
@@ -109,7 +145,7 @@
     <script>
         function handleComment() {
             const text = document.getElementById('commentText').value;
-            if(!text) {
+            if (!text) {
                 // Utiliser le Popup Error
                 openActionModal({
                     type: 'warning',
@@ -124,7 +160,9 @@
                 type: 'success',
                 title: 'Merci !',
                 message: 'Votre commentaire a été publié avec succès.',
-                onConfirm: () => { document.getElementById('commentText').value = ""; }
+                onConfirm: () => {
+                    document.getElementById('commentText').value = "";
+                }
             });
         }
 
@@ -133,7 +171,9 @@
                 type: 'danger',
                 title: 'Supprimer ?',
                 message: 'Voulez-vous vraiment retirer ce commentaire ?',
-                onConfirm: () => { console.log("Commentaire supprimé"); }
+                onConfirm: () => {
+                    console.log("Commentaire supprimé");
+                }
             });
         }
 
@@ -145,4 +185,5 @@
     </script>
 
 </body>
+
 </html>

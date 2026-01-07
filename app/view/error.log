@@ -1,0 +1,25 @@
+26-01-07 10:06:23 Connexion :error .PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\MaBagnole_v2\app\model\Client.php:119
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Client.php(119): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\view\article_detail.php(26): app\model\Client->getClientById('1')
+#2 {main}
+26-01-07 10:06:24 Connexion :error .PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\MaBagnole_v2\app\model\Client.php:119
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Client.php(119): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\view\article_detail.php(26): app\model\Client->getClientById('1')
+#2 {main}
+26-01-07 10:06:25 Connexion :error .PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\MaBagnole_v2\app\model\Client.php:119
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Client.php(119): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\view\article_detail.php(26): app\model\Client->getClientById('1')
+#2 {main}
+26-01-07 10:06:25 Connexion :error .PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\MaBagnole_v2\app\model\Client.php:119
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Client.php(119): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\view\article_detail.php(26): app\model\Client->getClientById('1')
+#2 {main}
+26-01-07 10:06:29 Connexion :error .PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\MaBagnole_v2\app\model\Client.php:119
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Client.php(119): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\view\article_detail.php(26): app\model\Client->getClientById('1')
+#2 {main}

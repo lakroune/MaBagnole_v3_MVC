@@ -142,6 +142,7 @@ class Utilisateur
             session_start();
         }
         session_unset();
+        session_abort();
         session_destroy();
         return true;
     }

@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <h3 class="text-lg font-black text-slate-800 mb-3 group-hover:text-blue-600 transition leading-tight"><?= $article->getTitreArticle() ?></h3>
                         <p class="text-sm text-slate-500 line-clamp-2 mb-6"><?= $article->getContenuArticle() ?>.</p>
 
-                        <a href="article_detail.php?id=1" class="inline-flex items-center text-xs font-black text-slate-900 group-hover:text-blue-600 transition">
+                        <a href="article_detail.php?id=<?= $article->getIdArticle() ?>" class="inline-flex items-center text-xs font-black text-slate-900 group-hover:text-blue-600 transition">
                             Lire l'article <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     </div>
