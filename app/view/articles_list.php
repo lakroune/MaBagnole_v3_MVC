@@ -13,14 +13,20 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 }
 
 try {
-    $articles = Article::getArticlesByTheme($_GET['id']);
+    $idTheme = (int)($_GET['id']);
+    $articles = Article::getArticlesByTheme($idTheme);
     $theme = new Theme();
-    $theme =$theme->getThemeById($_GET['id']);
+    $theme = $theme->getThemeById($idTheme);
 } catch (\Exception $e) {
     header("Location: themes_list.php");
     exit();
 }
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $search = $_POST['search'] ?? '';
+    $tag = $_POST['tag'] ?? '';
+    $art = new Article();
+    $articles = $art->rechercherArticlesParTitre($search, $idTheme);
+}
 
 ?>
 
@@ -54,10 +60,13 @@ try {
         <div class="max-w-5xl mx-auto px-6">
             <h1 class="text-3xl font-black text-slate-900 mb-8 text-center">Découvrez nos <span class="text-blue-600">Publications</span></h1>
 
-            <form action="" method="GET" class="grid grid-cols-1 md:grid-cols-12 gap-4">
+            <form action="" method="POST" class="grid grid-cols-1 md:grid-cols-12 gap-4">
                 <div class="md:col-span-6 relative">
                     <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                     <input type="text" name="search" placeholder="Rechercher par titre..."
+                        <?php
+                        if (isset($search) && !empty($search))  echo 'value="' . htmlspecialchars($search) . '"';
+                        ?>
                         class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 transition text-sm">
                 </div>
 
@@ -90,28 +99,28 @@ try {
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <?php foreach ($articles as $article) : ?>
-            <div class="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
-                <div class="h-48 overflow-hidden relative">
-                    <img src="https://images.unsplash.com/photo-1542362567-b055002b91f4?w=800" class="w-full h-full object-cover">
-                    <button class="absolute top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-[10px] font-black text-blue-600 uppercase tracking-tighter bg-blue-50 px-2 py-0.5 rounded">
-                            <?= $theme->getNomTheme()  ?>
-                        </span>
-                        <span class="text-[10px] font-bold text-slate-300 uppercase"><?= "date" ?></span>
+                <div class="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1542362567-b055002b91f4?w=800" class="w-full h-full object-cover">
+                        <button class="absolute top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
+                            <i class="fas fa-heart"></i>
+                        </button>
                     </div>
-                    <h3 class="text-lg font-black text-slate-800 mb-3 group-hover:text-blue-600 transition leading-tight"><?= $article->getTitreArticle() ?></h3>
-                    <p class="text-sm text-slate-500 line-clamp-2 mb-6"><?= $article->getContenuArticle() ?>.</p>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-[10px] font-black text-blue-600 uppercase tracking-tighter bg-blue-50 px-2 py-0.5 rounded">
+                                <?= $theme->getNomTheme()  ?>
+                            </span>
+                            <span class="text-[10px] font-bold text-slate-300 uppercase"><?= "date" ?></span>
+                        </div>
+                        <h3 class="text-lg font-black text-slate-800 mb-3 group-hover:text-blue-600 transition leading-tight"><?= $article->getTitreArticle() ?></h3>
+                        <p class="text-sm text-slate-500 line-clamp-2 mb-6"><?= $article->getContenuArticle() ?>.</p>
 
-                    <a href="article_detail.php?id=1" class="inline-flex items-center text-xs font-black text-slate-900 group-hover:text-blue-600 transition">
-                        Lire l'article <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                        <a href="article_detail.php?id=1" class="inline-flex items-center text-xs font-black text-slate-900 group-hover:text-blue-600 transition">
+                            Lire l'article <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
             <?php endforeach; ?>
         </div>
     </main>

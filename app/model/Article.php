@@ -207,4 +207,19 @@ class Article
             return [];
         }
     }
+    public function rechercherArticlesParTitre(string $searchTerm, int $idTheme): array
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "SELECT * FROM articles WHERE idTheme= :idTheme and titreArticle LIKE :searchTerm";
+            $stmt = $db->prepare($sql);
+            $likeTerm = "%" . $searchTerm . "%";
+            $stmt->bindParam(":searchTerm", $likeTerm);
+            $stmt->bindParam(":idTheme", $idTheme);
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_CLASS, Article::class);
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
 }
