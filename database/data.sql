@@ -205,3 +205,5 @@ VALUES
 ('Bon rapport qualité/prix',4, 8, 1, 9),
 ('Très satisfait',          5, 9, 1, 10);
  
+
+ INSERT INTO tags (`nomTag`) VALUES ("sport"),("voyeges");

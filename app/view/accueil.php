@@ -230,7 +230,7 @@ $categories = $categorie->getAllCategories();
     </div>
 
     <script>
-        // AJAX for favorite button
+       
         $(document).ready(function() {
 
             $('.favorite-btn').on('click', function(e) {
@@ -279,9 +279,9 @@ $categories = $categorie->getAllCategories();
     <script>
         $(document).ready(function() {
             var table = $('#vehicleTable').DataTable({
-                "dom": 'tip', // Hide default search bar
+                "dom": 'tip', //   search bar
                 "pageLength": 6,
-                "ordering": false, // order by default
+                "ordering": false, 
                 "language": {
                     "paginate": {
                         "previous": "<i class='fas fa-arrow-left'></i>",

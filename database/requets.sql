@@ -45,7 +45,7 @@ CREATE table Vehicules (
     Constraint check_statusVehicule check (
         statusVehicule between 0 and 1
     ),
-    FOREIGN KEY (idCategorie) REFERENCES Categories (idCategorie)
+    FOREIGN KEY (idCategorie) REFERENCES Categories (idCategorie) 
 );
 
 CREATE table Reservations (
@@ -160,3 +160,6 @@ CREATE table Commentaires (
     FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur),
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 )
+
+
+select * from tags

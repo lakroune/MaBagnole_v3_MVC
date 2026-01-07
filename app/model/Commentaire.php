@@ -1,11 +1,9 @@
-
 <?php
-
 
 namespace app\model;
 
-
 use app\model\Connexion;
+
 
 class Commentaire
 {
@@ -90,5 +88,55 @@ class Commentaire
     public function __toString(): string
     {
         return "idCommentaire : $this->idCommentaire idClient : $this->idClient idArticle : $this->idArticle textCommentaire : $this->textCommentaire dateCommentaire : $this->dateCommentaire";
+    }
+
+    public function ajouterCommentaire(): bool
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "INSERT INTO commentaires (idClient, idArticle, textCommentaire, dateCommentaire) VALUES (:idClient, :idArticle, :textCommentaire, :dateCommentaire)";
+        try {
+            $stmt = $db->prepare($sql);
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+            return false;
+        }
+        $stmt->bindParam(":idClient", $this->idClient);
+        $stmt->bindParam(":idArticle", $this->idArticle);
+        $stmt->bindParam(":textCommentaire", $this->textCommentaire);
+        $stmt->bindParam(":dateCommentaire", $this->dateCommentaire);
+        if ($stmt->execute())
+            return true;
+        return false;
+    }
+    public function   modifierCommentaire(): bool
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "update commentaires set textCommentaire=:textCommentaire where idCommentaire=:idCommentaire";
+        try {
+            $stmt = $db->prepare($sql);
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+            return false;
+        }
+        $stmt->bindParam(":textCommentaire", $this->textCommentaire);
+        $stmt->bindParam(":idCommentaire", $this->idCommentaire);
+        if ($stmt->execute())
+            return true;
+        return false;
+    }
+    public function supprimerCommentaire(): bool
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "delete from commentaires where idCommentaire=:idCommentaire";
+        try {
+            $stmt = $db->prepare($sql);
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+            return false;
+        }
+        $stmt->bindParam(":idCommentaire", $this->idCommentaire);
+        if ($stmt->execute())
+            return true;
+        return false;
     }
 }
