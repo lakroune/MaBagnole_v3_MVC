@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-slate-50 min-h-screen flex">
 
     <?php include 'sidebar.php'; ?>
 
-     <main class="max-w-7xl mx-auto px-8 py-12">
+    <main class="max-w-7xl mx-auto px-8 py-12">
         <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
             <div>
                 <h1 class="text-4xl font-black text-slate-900 mb-2">Gestion des <span class="text-blue-600">Thèmes</span></h1>
@@ -70,15 +72,15 @@
     <div id="themeModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[150] p-4">
         <div class="bg-white w-full max-w-lg rounded-[3rem] p-10 shadow-2xl scale-95 animate-in zoom-in duration-300">
             <h3 id="modalTitle" class="text-3xl font-black text-slate-800 mb-8">Ajouter Thème</h3>
-            
-            <form id="themeForm" class="space-y-6">
+
+            <form id="themeForm" action="../controler/ThermeContoler.php" method="POST"  class="space-y-6">
                 <input type="hidden" id="themeId">
                 <div>
                     <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest block mb-2 ml-2">Nom du Thème</label>
-                    <input type="text" id="themeName" required class="w-full p-5 bg-slate-50 border-none rounded-2xl outline-none focus:ring-4 focus:ring-blue-500/10 transition">
+                    <input type="text" id="themeName" name="nomTheme" required class="w-full p-5 bg-slate-50 border-none rounded-2xl outline-none focus:ring-4 focus:ring-blue-500/10 transition">
                 </div>
                 <div>
-                    <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest block mb-2 ml-2">Description</label>
+                    <label name="descriptionTheme" class="text-[10px] font-black uppercase text-slate-400 tracking-widest block mb-2 ml-2">Description</label>
                     <textarea id="themeDesc" rows="4" class="w-full p-5 bg-slate-50 border-none rounded-2xl outline-none focus:ring-4 focus:ring-blue-500/10 transition"></textarea>
                 </div>
 
@@ -147,20 +149,20 @@
             const iconBg = document.getElementById('actionIconBg');
             const icon = document.getElementById('actionIcon');
             const btn = document.getElementById('confirmActionBtn');
-            
+
             iconBg.className = "w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl";
             icon.className = "fas fa-trash-alt";
             btn.className = "flex-1 py-4 bg-red-500 text-white rounded-xl font-black shadow-lg";
-            
+
             document.getElementById('actionTitle').innerText = "Supprimer ?";
             document.getElementById('actionMsg').innerText = `Voulez-vous vraiment supprimer le thème "${name}" ?`;
-            
+
             btn.onclick = () => {
                 console.log("Delete triggered for ID:", id);
                 closeModal('actionModal');
                 showToast("Thème supprimé avec succès", "success");
             };
-            
+
             showModal('actionModal');
         }
 
@@ -176,7 +178,7 @@
             }, 3000);
         }
 
-        // --- Form Submission Simulation ---
+        // --- Form Submission ---
         document.getElementById('themeForm').onsubmit = (e) => {
             e.preventDefault();
             const id = document.getElementById('themeId').value;
@@ -185,4 +187,5 @@
         }
     </script>
 </body>
+
 </html>
