@@ -80,7 +80,6 @@ CREATE Table optionReservation (
     FOREIGN KEY (idOption) REFERENCES Option (idOption)
 );
 
-
 CREATE table Avis (
     idAvis int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     commentaireAvis varchar(255) NOT NULL,
@@ -103,7 +102,7 @@ CREATE Table Favoris (
     FOREIGN KEY (idVehicule) REFERENCES Vehicules (idVehicule)
 );
 
-CREATE Table reagirAvis (
+CREATE Table ReagirAvis (
     idAvis int(11) NOT NULL,
     idClient int(11) NOT NULL,
     statusReagirAvis ENUM("0", "1") DEFAULT 1,
@@ -112,75 +111,52 @@ CREATE Table reagirAvis (
     FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur)
 );
 
+CREATE TABLE Themes (
+    idTheme INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    nomTheme VARCHAR(255) NOT NULL,
+    descriptionTheme VARCHAR(255) NOT NULL
+);
 
-DROP PROCEDURE IF EXISTS AjouterReservation;
-DELIMITER //
+CREATE TABLE Tags (
+    idTag INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    nomTag VARCHAR(255) NOT NULL
+);
 
-CREATE PROCEDURE AjouterReservation(
-    IN idClient INT,
-    IN idVehicule INT,
-    IN dateDebut DATETIME,
-    IN dateFin DATETIME,
-    IN lieuChange VARCHAR(255)
+CREATE Table Articles (
+    idArticle INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    titreArticle VARCHAR(255) NOT NULL,
+    contenuArticle TEXT NOT NULL,
+    statutArticle INT NOT NULL DEFAULT 1,
+    datePublicationArticle TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    idTheme INT(11) NOT NULL,
+    idAuteur INT(11) NOT NULL,
+    constraint check_statutArticle check (statutArticle between 0 and 1),
+    FOREIGN KEY (idAuteur) REFERENCES Utilisateurs (idUtilisateur),
+    FOREIGN KEY (idTheme) REFERENCES Themes (idTheme)
+);
+
+CREATE Table ArticlesTags (
+    idArticle INT(11) NOT NULL,
+    idTag INT(11) NOT NULL,
+    PRIMARY KEY (idArticle, idTag),
+    FOREIGN KEY (idArticle) REFERENCES Articles (idArticle),
+    FOREIGN KEY (idTag) REFERENCES Tags (idTag)
+);
+
+CREATE Table AimerArticle (
+    idArticle INT(11) NOT NULL,
+    idClient INT(11) NOT NULL,
+    PRIMARY KEY (idArticle, idClient),
+    FOREIGN KEY (idArticle) REFERENCES Articles (idArticle),
+    FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur)
+);
+
+CREATE table Commentaires (
+    idCommentaire INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    textCommentaire VARCHAR(255) NOT NULL,
+    dateCommentaire TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    idArticle INT(11) NOT NULL,
+    idClient INT(11) NOT NULL,
+    FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur),
+    FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 )
-BEGIN
-    IF dateDebut >= dateFin THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'La date de début iinférieure la date de fin.';
-    
-    -- 2. Check  (statusVehicule = 1)
-    ELSEIF (SELECT statusVehicule FROM Vehicules WHERE idVehicule = idVehicule LIMIT 1) = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = ' pas disponible.';
-        
-    ELSE
-        -- 3. Insert  reservation
-        INSERT INTO Reservations (
-            dateDebutReservation, 
-            dateFinReservation, 
-            lieuChange, 
-            idVehicule, 
-            idClient
-        ) 
-        VALUES (
-            dateDebut, 
-            dateFin, 
-            lieuChange, 
-            idVehicule, 
-            idClient
-        );
-    END IF;
-END //
-DELIMITER ;
-
-DROP PROCEDURE if EXISTS confirmerReservation;
-
-CREATE Procedure confirmerReservation(
-    IN reservationId INT
-)
-BEGIN
-    UPDATE Reservations
-    SET statusReservation = 'confirmer'
-    WHERE idReservation = reservationId;
-    UPDATE vehicules
-    SET statusVehicule = 0
-    WHERE idVehicule = (SELECT idVehicule FROM Reservations WHERE idReservation = reservationId);
-END;    
-
-create view detailsVehicule as
-select 
-    v.idVehicule,
-    v.marqueVehicule,
-    v.modeleVehicule,        
-    v.anneeVehicule,
-    v.imageVehicule,        
-    v.typeBoiteVehicule,
-    v.typeCarburantVehicule,
-    v.statusVehicule,
-    v.couleurVehicule,
-    v.prixVehicule,
-    v.idCategorie,
-    c.titreCategorie,
-    c.descriptionCategorie
-from Vehicules v
-join Categories c on v.idCategorie = c.idCategorie;
