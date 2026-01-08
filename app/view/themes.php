@@ -109,8 +109,9 @@ $tags = Tag::getAllTag();
                     <div>
                         <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest block mb-2">Thème</label>
                         <select name="idTheme" class="w-full p-4 bg-slate-50 border rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none">
-                            <option value="1">Voyages</option>
-                            <option value="2">Mécanique</option>
+                           <?php foreach ($themes as $theme) : ?>
+                                <option value="<?= $theme->getIdTheme() ?>"><?= $theme->getNomTheme() ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div>
