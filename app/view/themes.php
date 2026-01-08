@@ -65,7 +65,7 @@ $tags = Tag::getAllTag();
     <main class="max-w-7xl mx-auto px-8 py-16">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <?php foreach ($themes as $theme) : ?>
-                <a href="articles_list.php?id=<?= $theme->getIdTheme() ?>" class="group relative bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+                <a href="articles.php?id=<?= $theme->getIdTheme() ?>" class="group relative bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden">
                     <div class="absolute -right-4 -top-4 w-24 h-24 bg-blue-50 rounded-full group-hover:scale-[3] transition-transform duration-700"></div>
 
                     <div class="relative z-10">

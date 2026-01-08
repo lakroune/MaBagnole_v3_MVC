@@ -21,6 +21,7 @@ try {
     $theme = new Theme();
     $auteur = new Client;
     $tag = new Tag();
+    $tagsList = $tag->getTagsByArticle($idArticle);
     $article = $article->getArticleById($idArticle);
     $theme = $theme->getThemeById($article->getIdTheme());
     $auteur = $auteur->getClientById($article->getIdAuteur());
@@ -78,8 +79,10 @@ try {
                         </div>
                     </div>
                     <div class="flex gap-2">
+                        <?php foreach ($tagsList as $tag) : ?>
                         <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">#Luxe</span>
-                        <span class="text-[10px] font-bold text-slate-400 bg-slate-50 px-3 py-1 rounded-lg">#Performance</span>
+                        <?php endforeach; ?>
+                        <!-- <span class="text-[10px] font-bold text-slate-400 bg-slate-50 px-3 py-1 rounded-lg">#Performance</span> -->
                     </div>
                 </div>
 

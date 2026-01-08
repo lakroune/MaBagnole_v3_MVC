@@ -126,6 +126,8 @@ CREATE Table Articles (
     idArticle INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titreArticle VARCHAR(255) NOT NULL,
     contenuArticle TEXT NOT NULL,
+    imageArticle VARCHAR(255) NOT NULL DEFAULT 'image',
+    deleteArticle INT NOT NULL DEFAULT 0,
     statutArticle INT NOT NULL DEFAULT 0,
     datePublicationArticle TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     idTheme INT(11) NOT NULL,
@@ -156,9 +158,11 @@ CREATE Table AimerArticle (
 CREATE table Commentaires (
     idCommentaire INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     textCommentaire VARCHAR(255) NOT NULL,
+    deleteCommentaire INT NOT NULL DEFAULT 0,
     dateCommentaire TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     idArticle INT(11) NOT NULL,
     idClient INT(11) NOT NULL,
+    COnstraint check_deleteCommentaire check (deleteCommentaire between 0 and 1),
     FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur),
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 );

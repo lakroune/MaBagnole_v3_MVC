@@ -48,13 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
             <div class="flex items-center gap-6">
-                <a href="blog_main.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Thèmes</a>
-                <a href="catalogue.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Catalogue</a>
-                <div class="w-10 h-10 rounded-full bg-slate-100 border-2 border-white shadow-sm overflow-hidden">
-                    <img src="https://i.pravatar.cc/100?u=me">
-                </div>
+              
             </div>
+            <?php include('infoClient.php');  ?>
         </div>
+          
     </nav>
 
     <header class="py-12 bg-white border-b border-slate-100 shadow-sm">
@@ -102,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php foreach ($articles as $article) : ?>
                 <div class="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
                     <div class="h-48 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1542362567-b055002b91f4?w=800" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-full h-full object-cover">
                         <button class="absolute top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
                             <i class="fas fa-heart"></i>
                         </button>

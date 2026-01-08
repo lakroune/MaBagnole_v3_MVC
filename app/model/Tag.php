@@ -125,4 +125,21 @@ class Tag
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_CLASS, Tag::class);
     }
+    public function getTagsByArticle(int $idArticle): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "SELECT t.* FROM Tags t
+                JOIN ArticlesTags at ON t.idTag = at.idTag
+                WHERE at.idArticle = :idArticle";
+        try {
+            $stmt = $db->prepare($sql);
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+            return [];
+        }
+        $stmt->bindParam(":idArticle", $idArticle);
+        if ($stmt->execute())
+            return $stmt->fetchAll(\PDO::FETCH_CLASS, Tag::class);
+        return [];
+    }
 }

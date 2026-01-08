@@ -225,7 +225,7 @@ class Article
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "SELECT * FROM articles WHERE idTheme = :idTheme";
+            $sql = "SELECT * FROM articles WHERE idTheme = :idTheme and statutArticle = 1 ORDER BY idArticle DESC";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idTheme", $idTheme);
             $stmt->execute();
