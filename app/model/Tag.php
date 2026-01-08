@@ -48,10 +48,10 @@ class Tag
         return "idTag : $this->idTag, nomTag : $this->nomTag";
     }
 
-    public function     ajouterTag(): bool
+    public function  ajouterTag(): bool
     {
         $db = Connexion::connect()->getConnexion();
-        $sql = "INSERT INTO tags (nomTag) VALUES (:nomTag)";
+        $sql = "INSERT INTO Tags (nomTag) VALUES (:nomTag)";
         try {
             $stmt = $db->prepare($sql);
         } catch (\Exception $e) {
@@ -126,5 +126,3 @@ class Tag
         return $stmt->fetchAll(\PDO::FETCH_CLASS, Tag::class);
     }
 }
-
- 

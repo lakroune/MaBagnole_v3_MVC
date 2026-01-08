@@ -161,3 +161,24 @@ Stack trace:
 #1 C:\xampp\htdocs\MaBagnole\app\controler\ClientControler.php(32): app\controler\ClientControler->gestionFavoris()
 #2 C:\xampp\htdocs\MaBagnole\app\controler\ClientControler.php(166): app\controler\ClientControler->index()
 #3 {main}
+26-01-08 10:09:10 Connexion :error .PDOException: SQLSTATE[HY000] [2002] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée in C:\xampp\htdocs\MaBagnole_v2\app\model\Connexion.php:17
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Connexion.php(17): PDO->__construct('mysql:host=loca...', 'root', Object(SensitiveParameterValue))
+#1 C:\xampp\htdocs\MaBagnole_v2\app\model\Connexion.php(28): app\model\Connexion->__construct()
+#2 C:\xampp\htdocs\MaBagnole_v2\app\model\Tag.php(53): app\model\Connexion::connect()
+#3 C:\xampp\htdocs\MaBagnole_v2\app\controler\TagControler.php(13): app\model\Tag->ajouterTag()
+#4 {main}
+26-01-08 10:09:26 Connexion :error .PDOException: SQLSTATE[HY000] [2002] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée in C:\xampp\htdocs\MaBagnole_v2\app\model\Connexion.php:17
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Connexion.php(17): PDO->__construct('mysql:host=loca...', 'root', Object(SensitiveParameterValue))
+#1 C:\xampp\htdocs\MaBagnole_v2\app\model\Connexion.php(28): app\model\Connexion->__construct()
+#2 C:\xampp\htdocs\MaBagnole_v2\app\model\Tag.php(53): app\model\Connexion::connect()
+#3 C:\xampp\htdocs\MaBagnole_v2\app\controler\TagControler.php(13): app\model\Tag->ajouterTag()
+#4 {main}
+26-01-08 10:10:51 Connexion :error .PDOException: SQLSTATE[HY000] [2002] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée in C:\xampp\htdocs\MaBagnole_v2\app\model\Connexion.php:17
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Connexion.php(17): PDO->__construct('mysql:host=loca...', 'root', Object(SensitiveParameterValue))
+#1 C:\xampp\htdocs\MaBagnole_v2\app\model\Connexion.php(28): app\model\Connexion->__construct()
+#2 C:\xampp\htdocs\MaBagnole_v2\app\model\Tag.php(53): app\model\Connexion::connect()
+#3 C:\xampp\htdocs\MaBagnole_v2\app\controler\TagControler.php(13): app\model\Tag->ajouterTag()
+#4 {main}

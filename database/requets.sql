@@ -122,6 +122,7 @@ CREATE TABLE Tags (
     nomTag VARCHAR(255) NOT NULL
 );
 
+
 CREATE Table Articles (
     idArticle INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titreArticle VARCHAR(255) NOT NULL,
