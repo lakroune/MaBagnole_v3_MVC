@@ -98,7 +98,7 @@ class Theme
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "delete from themes where idTheme=:idTheme";
+            $sql = "update themes set deleteTheme=1 where idTheme=:idTheme";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idTheme", $idTheme);
             if ($stmt->execute())
