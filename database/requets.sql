@@ -45,7 +45,7 @@ CREATE table Vehicules (
     Constraint check_statusVehicule check (
         statusVehicule between 0 and 1
     ),
-    FOREIGN KEY (idCategorie) REFERENCES Categories (idCategorie) 
+    FOREIGN KEY (idCategorie) REFERENCES Categories (idCategorie)
 );
 
 CREATE table Reservations (
@@ -122,7 +122,6 @@ CREATE TABLE Tags (
     nomTag VARCHAR(255) NOT NULL
 );
 
-
 CREATE Table Articles (
     idArticle INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titreArticle VARCHAR(255) NOT NULL,
@@ -135,8 +134,7 @@ CREATE Table Articles (
     FOREIGN KEY (idAuteur) REFERENCES Utilisateurs (idUtilisateur),
     FOREIGN KEY (idTheme) REFERENCES Themes (idTheme)
 );
-SELECT * from articles;
-DELETE from articles where idArticle between 6 and 50000;
+
 CREATE Table ArticlesTags (
     idArticle INT(11) NOT NULL,
     idTag INT(11) NOT NULL,
@@ -144,6 +142,8 @@ CREATE Table ArticlesTags (
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle),
     FOREIGN KEY (idTag) REFERENCES Tags (idTag)
 );
+
+SELECT * from articlestags;
 
 CREATE Table AimerArticle (
     idArticle INT(11) NOT NULL,
@@ -162,4 +162,3 @@ CREATE table Commentaires (
     FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur),
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 );
-

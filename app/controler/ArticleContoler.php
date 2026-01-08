@@ -7,6 +7,8 @@ namespace app\controler;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use app\model\Article;
+use app\model\ArticleTags;
+use app\model\Connexion;
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['action']) || empty($_POST['action']) || ($_POST['action'] !== 'add' && $_POST['action'] !== 'delete')) {
     header("Location: ../view/");
@@ -25,19 +27,15 @@ if ($_POST['action'] === 'add') {
         $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
 
 
-        if ($article->ajouterArticle()) {
-            foreach ($tags as $tag):
-                //ajoute tageAricle
-            endforeach;
-
+        if ($article->ajouterArticle($tags)) {
             header("Location: ../view/themes.php?status=success");
             exit();
         } else {
-            header("Location: ../view/themes.php?status=error_db");
+            header("Location: ../view/themes.php?status=error");
             exit();
         }
     } else {
-        header("Location: ../view/themes.php?status=missing_fields");
+        header("Location: ../view/themes.php?status=invalid");
         exit();
     }
 }

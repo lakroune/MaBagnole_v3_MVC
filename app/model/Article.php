@@ -4,6 +4,7 @@ namespace app\model;
 
 use app\model\Connexion;
 use app\model\Tag;
+use Exception;
 
 class Article
 {
@@ -126,10 +127,11 @@ class Article
         return "idArticle :$this->idArticle, titreArticle :$this->titreArticle, contenuArticle :$this->contenuArticle, datePublicationArticle :$this->datePublicationArticle, idTheme :$this->idTheme, idAuteur :$this->idAuteur";
     }
 
-    public  function AjouterArticle(): bool
+    public  function AjouterArticle(array $tags): bool
     {
         try {
             $db = Connexion::connect()->getConnexion();
+            $db->beginTransaction();
             $query = "INSERT INTO articles (titreArticle, contenuArticle, idTheme, idAuteur)
                       VALUES (:titreArticle, :contenuArticle,  :idTheme, :idAuteur)";
             $stmt = $db->prepare($query);
@@ -137,11 +139,28 @@ class Article
             $stmt->bindValue(':contenuArticle', $this->contenuArticle);
             $stmt->bindValue(':idTheme', $this->idTheme);
             $stmt->bindValue(':idAuteur', $this->idAuteur);
-            if ($stmt->execute());
-            return true;
+            if ($stmt->execute()) {
+                $lastId = $db->lastInsertId();
+
+                if (!empty($tags)) {
+                    $sqlTag =  "INSERT INTO ArticlesTags (idArticle, idTag)VALUES (:idArticle, :idTag)";
+                    $stmtTag = $db->prepare($sqlTag);
+                    foreach ($tags as $idTag) {
+
+                        $stmtTag = $db->prepare($sqlTag);
+                        $stmtTag->bindValue(':idArticle', $lastId);
+                        $stmtTag->bindValue(':idTag', $idTag);
+                        $stmtTag->execute();
+                    }
+                }
+                $db->commit();
+                return true;
+            } else
+                return false;
             return false;
-        } catch (\Exception $e) {
-            throw new \Exception("Erreur lors de l'ajout de l'article : " . $e->getMessage());
+        } catch (Exception $e) {
+            $db->rollBack();
+            throw new Exception("Erreur lors de l'ajout de l'article : " . $e);
             return false;
         }
     }
