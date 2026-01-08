@@ -94,13 +94,13 @@ class Theme
             return false;
         }
     }
-    public function supprimerTheme()
+    public function supprimerTheme(int $idTheme): bool
     {
         try {
             $db = Connexion::connect()->getConnexion();
             $sql = "delete from themes where idTheme=:idTheme";
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(":idTheme", $this->idTheme);
+            $stmt->bindParam(":idTheme", $idTheme);
             if ($stmt->execute())
                 return true;
             else

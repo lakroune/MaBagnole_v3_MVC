@@ -1,5 +1,24 @@
+<?php
+
+namespace app\view;
+
+use app\model\Article;
+use app\model\Client;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+
+
+$auteur = new Client();
+
+$articlesList = Article::getAllArticles();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +27,36 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden; }
-        .modal-animate { animation: zoomIn 0.3s ease-out; }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
+        }
+
+        .modal-animate {
+            animation: zoomIn 0.3s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
+
 <body class="bg-slate-50 flex h-screen">
 
-     <?php include "sidebar.php"; ?>
+    <?php include "sidebar.php"; ?>
 
     <div class="flex-1 flex flex-col h-screen overflow-y-auto">
-       
+
 
         <main class="p-8">
             <div class="mb-10">
@@ -27,24 +65,30 @@
             </div>
 
             <div class="space-y-4">
-                <div id="art-1" class="bg-white p-5 rounded-[2rem] border border-slate-100 flex flex-col lg:flex-row items-center justify-between gap-6 hover:shadow-xl transition-all duration-300">
-                    <div class="flex items-center gap-6">
-                        <img src="https://images.unsplash.com/photo-1542362567-b055002b91f4?w=400" class="w-24 h-20 rounded-2xl object-cover shadow-inner">
-                        <div>
-                            <span class="bg-amber-100 text-amber-600 text-[9px] font-black uppercase px-2 py-0.5 rounded">Pending</span>
-                            <h3 class="font-black text-slate-800 text-lg mt-1 leading-tight">L'impact des moteurs hybrides en 2026</h3>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase mt-1">Auteur: Mehdi Ben • Il y a 45 min</p>
+                <?php foreach ($articlesList as $article) : ?>
+                    <div id="art-1" class="bg-white p-5 rounded-[2rem] border border-slate-100 flex flex-col lg:flex-row items-center justify-between gap-6 hover:shadow-xl transition-all duration-300">
+                        <div class="flex items-center gap-6">
+                            <img src="https://images.unsplash.com/photo-1542362567-b055002b91f4?w=400" class="w-24 h-20 rounded-2xl object-cover shadow-inner">
+                            <div>
+                                <span class="bg-amber-100 text-amber-600 text-[9px] font-black uppercase px-2 py-0.5 rounded">Pending</span>
+                                <h3 class="font-black text-slate-800 text-lg mt-1 leading-tight"><?php echo $article->getTitreArticle() ?>!</h3>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase mt-1">Auteur:
+                                    <?php $auteur = ($auteur->getClientById($article->getIdAuteur()));
+                                    echo $auteur;
+
+                                    ?> • Il y a 45 min</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="confirmAction('approve', 1, 'L\'impact des moteurs hybrides...')" class="bg-green-500 text-white px-6 py-3 rounded-xl font-black text-xs hover:bg-green-600 transition shadow-lg shadow-green-100 flex items-center gap-2">
+                                <i class="fas fa-check"></i> Approuver
+                            </button>
+                            <button onclick="confirmAction('delete', 1, 'L\'impact des moteurs hybrides...')" class="w-12 h-12 bg-slate-50 text-slate-400 rounded-xl hover:bg-red-500 hover:text-white transition flex items-center justify-center shadow-sm">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="flex gap-2">
-                        <button onclick="confirmAction('approve', 1, 'L\'impact des moteurs hybrides...')" class="bg-green-500 text-white px-6 py-3 rounded-xl font-black text-xs hover:bg-green-600 transition shadow-lg shadow-green-100 flex items-center gap-2">
-                            <i class="fas fa-check"></i> Approuver
-                        </button>
-                        <button onclick="confirmAction('delete', 1, 'L\'impact des moteurs hybrides...')" class="w-12 h-12 bg-slate-50 text-slate-400 rounded-xl hover:bg-red-500 hover:text-white transition flex items-center justify-center shadow-sm">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </main>
     </div>
@@ -132,4 +176,5 @@
         }
     </script>
 </body>
+
 </html>

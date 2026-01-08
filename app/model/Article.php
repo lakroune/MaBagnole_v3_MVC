@@ -139,7 +139,7 @@ class Article
         }
     }
 
-    public function getAllArticles(): array
+    static function getAllArticles(): array
     {
         try {
             $db = Connexion::connect()->getConnexion();

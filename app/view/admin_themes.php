@@ -9,7 +9,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 
 
-$themes = new Theme();
+$theme_nb = new Theme();
 $themesList = Theme::getAllTheme();
 
 ?>
@@ -60,22 +60,22 @@ $themesList = Theme::getAllTheme();
                                     </div>
                                     <div>
                                         <span class="font-black text-slate-800 block"><?php echo $theme->getNomTheme(); ?></span>
-                                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight">ID: #<?= $theme->getNbArticles($theme->getIdTheme()) ?></span>
+                                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight">ID: #<?= $theme->getIdTheme(); ?></span>
                                     </div>
                                 </div>
                             </td>
                             <td class="p-8">
-                                <p class="text-sm text-slate-500 max-w-xs leading-relaxed">Conseils pratiques pour maintenir votre moteur en parfait état.</p>
+                                <p class="text-sm text-slate-500 max-w-xs leading-relaxed"><?= $theme->getDescriptionTheme(); ?>.</p>
                             </td>
                             <td class="p-8">
-                                <span class="bg-slate-100 text-slate-600 px-4 py-1.5 rounded-full text-xs font-black"><?php echo $theme->getNbArticles(); ?></span>
+                                <span class="bg-slate-100 text-slate-600 px-4 py-1.5 rounded-full text-xs font-black"><?php echo $theme->getNbArticles($theme->getIdTheme()); ?></span>
                             </td>
                             <td class="p-8">
                                 <div class="flex justify-end gap-3">
-                                    <button onclick="openEditModal(1, 'Entretien Auto', 'Conseils pratiques...')" class="w-11 h-11 bg-slate-50 text-slate-400 rounded-xl hover:bg-blue-600 hover:text-white transition shadow-sm">
+                                    <button onclick="openEditModal(<?= $theme->getIdTheme(); ?>, '<?= $theme->getNomTheme(); ?>', '<?= $theme->getDescriptionTheme(); ?>')" class="w-11 h-11 bg-slate-50 text-slate-400 rounded-xl hover:bg-blue-600 hover:text-white transition shadow-sm">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button onclick="handleDelete(1, 'Entretien Auto')" class="w-11 h-11 bg-slate-50 text-slate-400 rounded-xl hover:bg-red-500 hover:text-white transition shadow-sm">
+                                    <button onclick="handleDelete(<?= $theme->getIdTheme(); ?>, '<?= $theme->getNomTheme(); ?>')" class="w-11 h-11 bg-slate-50 text-slate-400 rounded-xl hover:bg-red-500 hover:text-white transition shadow-sm">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </div>
@@ -92,7 +92,8 @@ $themesList = Theme::getAllTheme();
             <h3 id="modalTitle" class="text-3xl font-black text-slate-800 mb-8">Ajouter Thème</h3>
 
             <form id="themeForm" action="../controler/ThemeControler.php" method="POST" class="space-y-6">
-                <input type="hidden" id="themeId">
+                <input type="hidden" name="idTheme" id="themeId">
+                <input type="hidden" id="themeAction" name="action">
                 <div>
                     <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest block mb-2 ml-2">Nom du Thème</label>
                     <input type="text" id="themeName" name="nomTheme" required class="w-full p-5 bg-slate-50 border-none rounded-2xl outline-none focus:ring-4 focus:ring-blue-500/10 transition">
@@ -126,10 +127,14 @@ $themesList = Theme::getAllTheme();
             </div>
             <h3 id="actionTitle" class="text-2xl font-black text-slate-800 mb-2">Confirmation</h3>
             <p id="actionMsg" class="text-slate-500 text-sm mb-8 leading-relaxed"></p>
-            <div class="flex gap-3">
-                <button onclick="closeModal('actionModal')" class="flex-1 py-4 font-bold text-slate-400 bg-slate-50 rounded-xl">Non</button>
-                <button id="confirmActionBtn" class="flex-1 py-4 text-white rounded-xl font-black shadow-lg">Oui, continuer</button>
-            </div>
+            <form action="../controler/ThemeControler.php" method="POST">
+                <input type="hidden" name="idTheme" id="actionId">
+                <input type="hidden" name="action" id="action" value="delete">
+                <div class="flex gap-3">
+                    <button onclick="closeModal('actionModal')" class="flex-1 py-4 font-bold text-slate-400 bg-slate-50 rounded-xl">Non</button>
+                    <button type="submit" id="confirmActionBtn" class="flex-1 py-4 text-white rounded-xl font-black shadow-lg">Oui, continuer</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -138,6 +143,7 @@ $themesList = Theme::getAllTheme();
             document.getElementById('modalTitle').innerText = "Nouveau Thème";
             document.getElementById('themeForm').reset();
             document.getElementById('themeId').value = "";
+            document.getElementById('themeAction').value = "add";
             showModal('themeModal');
         }
 
@@ -146,6 +152,7 @@ $themesList = Theme::getAllTheme();
             document.getElementById('themeId').value = id;
             document.getElementById('themeName').value = name;
             document.getElementById('themeDesc').value = desc;
+            document.getElementById('themeAction').value = "edit";
             showModal('themeModal');
         }
 
@@ -165,19 +172,12 @@ $themesList = Theme::getAllTheme();
             const iconBg = document.getElementById('actionIconBg');
             const icon = document.getElementById('actionIcon');
             const btn = document.getElementById('confirmActionBtn');
-
+            document.getElementById('actionId').value = id;
             iconBg.className = "w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl";
             icon.className = "fas fa-trash-alt";
             btn.className = "flex-1 py-4 bg-red-500 text-white rounded-xl font-black shadow-lg";
-
             document.getElementById('actionTitle').innerText = "Supprimer ?";
-            document.getElementById('actionMsg').innerText = `Voulez-vous vraiment supprimer le thème "${name}" ?`;
-
-            btn.onclick = () => {
-                console.log("Delete triggered for ID:", id);
-                closeModal('actionModal');
-                showToast("Thème supprimé avec succès", "success");
-            };
+            document.getElementById('actionMsg').innerText = `Voulez-vous vraiment supprimer le thème "${name}" ?`;  
 
             showModal('actionModal');
         }

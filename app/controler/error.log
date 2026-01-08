@@ -182,3 +182,8 @@ Stack trace:
 #2 C:\xampp\htdocs\MaBagnole_v2\app\model\Tag.php(53): app\model\Connexion::connect()
 #3 C:\xampp\htdocs\MaBagnole_v2\app\controler\TagControler.php(13): app\model\Tag->ajouterTag()
 #4 {main}
+26-01-08 11:51:48 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`mabagnole`.`articles`, CONSTRAINT `articles_ibfk_2` FOREIGN KEY (`idTheme`) REFERENCES `themes` (`idTheme`)) in C:\xampp\htdocs\MaBagnole_v2\app\model\Theme.php:104
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Theme.php(104): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\ThemeControler.php(36): app\model\Theme->supprimerTheme('4')
+#2 {main}

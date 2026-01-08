@@ -135,7 +135,7 @@ CREATE Table Articles (
     FOREIGN KEY (idAuteur) REFERENCES Utilisateurs (idUtilisateur),
     FOREIGN KEY (idTheme) REFERENCES Themes (idTheme)
 );
-
+delete from Themes where idTheme=18;
 CREATE Table ArticlesTags (
     idArticle INT(11) NOT NULL,
     idTag INT(11) NOT NULL,
