@@ -59,8 +59,8 @@ $themesList = Theme::getAllTheme();
                                         <i class="fas fa-car"></i>
                                     </div>
                                     <div>
-                                        <span class="font-black text-slate-800 block">Entretien Auto</span>
-                                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight">ID: #0122</span>
+                                        <span class="font-black text-slate-800 block"><?php echo $theme->getNomTheme(); ?></span>
+                                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tight">ID: #<?= $theme->getNbArticles($theme->getIdTheme()) ?></span>
                                     </div>
                                 </div>
                             </td>
@@ -68,7 +68,7 @@ $themesList = Theme::getAllTheme();
                                 <p class="text-sm text-slate-500 max-w-xs leading-relaxed">Conseils pratiques pour maintenir votre moteur en parfait état.</p>
                             </td>
                             <td class="p-8">
-                                <span class="bg-slate-100 text-slate-600 px-4 py-1.5 rounded-full text-xs font-black">24</span>
+                                <span class="bg-slate-100 text-slate-600 px-4 py-1.5 rounded-full text-xs font-black"><?php echo $theme->getNbArticles(); ?></span>
                             </td>
                             <td class="p-8">
                                 <div class="flex justify-end gap-3">

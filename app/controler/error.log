@@ -1,7 +1,7 @@
 26-01-04 11:34:54 Connexion :error .PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'lieu' in 'field list' in C:\xampp\htdocs\MaBagnole\app\model\Reservation.php:140
 Stack trace:
 #0 C:\xampp\htdocs\MaBagnole\app\model\Reservation.php(140): PDOStatement->execute()
-#1 C:\xampp\htdocs\MaBagnole\app\controler\ClientControler.php(101): app\model\Reservation->ajouterReservation()
+#1 C:\xampp\htdoc\MaBagnole\app\controler\ClientControler.php(101): app\model\Reservation->ajouterReservation()
 #2 C:\xampp\htdocs\MaBagnole\app\controler\ClientControler.php(36): app\controler\ClientControler->gestionReservation()
 #3 C:\xampp\htdocs\MaBagnole\app\controler\ClientControler.php(132): app\controler\ClientControler->index()
 #4 {main}

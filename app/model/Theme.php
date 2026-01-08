@@ -13,7 +13,7 @@ class Theme
     private $descriptionTheme;
 
     public function __construct() {}
-    
+
     public function getIdTheme(): int
     {
         return $this->idTheme;
@@ -26,7 +26,7 @@ class Theme
     {
         return $this->descriptionTheme;
     }
-    
+
     public function setIdTheme(int $idTheme): void
     {
         if ($idTheme < 1)
@@ -49,7 +49,7 @@ class Theme
             $this->descriptionTheme = $descriptionTheme;
     }
 
-    
+
     public function __toString(): string
     {
         return "idTheme :$this->idTheme, nomTheme :$this->nomTheme, descriptionTheme :$this->descriptionTheme";
@@ -111,7 +111,7 @@ class Theme
         }
     }
 
-    public function getThemeById( int $idTheme): ?Theme
+    public function getThemeById(int $idTheme): ?Theme
     {
         try {
             $db = Connexion::connect()->getConnexion();
@@ -141,6 +141,22 @@ class Theme
         } catch (\Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return [];
+        }
+    }
+    public function getNbArticles(int $idTheme): int
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "select count(*) as nbArticle from articles where idTheme=:idTheme";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idTheme", $idTheme);
+            if ($stmt->execute())
+                return $stmt->fetch(\PDO::FETCH_ASSOC)["nbArticle"];
+            else
+                return 0;
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+            return 0;
         }
     }
 }
