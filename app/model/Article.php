@@ -132,12 +132,13 @@ class Article
         try {
             $db = Connexion::connect()->getConnexion();
             $db->beginTransaction();
-            $query = "INSERT INTO articles (titreArticle, contenuArticle, idTheme, idAuteur)
-                      VALUES (:titreArticle, :contenuArticle,  :idTheme, :idAuteur)";
+            $query = "INSERT INTO articles (titreArticle, contenuArticle,statutArticle, idTheme, idAuteur)
+                      VALUES (:titreArticle, :contenuArticle,  :statutArticle,:idTheme, :idAuteur)";
             $stmt = $db->prepare($query);
             $stmt->bindValue(':titreArticle', $this->titreArticle);
             $stmt->bindValue(':contenuArticle', $this->contenuArticle);
             $stmt->bindValue(':idTheme', $this->idTheme);
+            $stmt->bindValue(':statutArticle', 0);
             $stmt->bindValue(':idAuteur', $this->idAuteur);
             if ($stmt->execute()) {
                 $lastId = $db->lastInsertId();

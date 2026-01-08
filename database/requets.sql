@@ -126,7 +126,7 @@ CREATE Table Articles (
     idArticle INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titreArticle VARCHAR(255) NOT NULL,
     contenuArticle TEXT NOT NULL,
-    statutArticle INT NOT NULL DEFAULT 1,
+    statutArticle INT NOT NULL DEFAULT 0,
     datePublicationArticle TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     idTheme INT(11) NOT NULL,
     idAuteur INT(11) NOT NULL,
