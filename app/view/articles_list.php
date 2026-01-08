@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use app\model\Theme;
 use app\model\Article;
+use DateTime;
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: themes_list.php");
@@ -111,7 +112,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <span class="text-[10px] font-black text-blue-600 uppercase tracking-tighter bg-blue-50 px-2 py-0.5 rounded">
                                 <?= $theme->getNomTheme()  ?>
                             </span>
-                            <span class="text-[10px] font-bold text-slate-300 uppercase"><?= "date" ?></span>
+                            <span class="text-[10px] font-bold text-slate-300 uppercase">
+                                <?php
+                                $toDay = new DateTime();
+                                $articleDate = new DateTime($article->getDatePublicationArticle());
+                                $interval = $toDay->diff($articleDate);
+                                if ($interval->d > 0) {
+                                    echo $interval->d . ' jours';
+                                } elseif ($interval->h > 0) {
+                                    echo $interval->h . ' heures';
+                                } elseif ($interval->i > 0) {
+                                    echo $interval->i . ' minutes';
+                                } else {
+                                    echo "À l\'instant";
+                                }
+
+                                ?>
+                            </span>
                         </div>
                         <h3 class="text-lg font-black text-slate-800 mb-3 group-hover:text-blue-600 transition leading-tight"><?= $article->getTitreArticle() ?></h3>
                         <p class="text-sm text-slate-500 line-clamp-2 mb-6"><?= $article->getContenuArticle() ?>.</p>

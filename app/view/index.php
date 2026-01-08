@@ -14,6 +14,9 @@
     <nav class="flex justify-between items-center px-8 py-6 fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
         <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
         <div class="flex gap-6 items-center">
+
+            <a href="blog_main.php" class="text-sm font-bold text-slate-600 hover:text-blue-600">Thèmes</a>
+
             <a href="#stats" class="text-sm font-bold text-slate-600 hover:text-blue-600">Pourquoi nous?</a>
             <a href="login.php" class="text-sm font-bold text-slate-800">Connexion</a>
             <a href="register.php" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">S'inscrire</a>
@@ -44,7 +47,30 @@
             </div>
         </div>
     </section>
+    <!-- blog  (rheme explore article sur vehicule de mabagnole) -->
 
+    <section class="py-20 bg-blue-50">
+        <div class="max-w-5xl mx-auto px-8 text-center space-y-8">
+            <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest">
+                <i class="fas fa-enlightened"></i> Le Mag MaBagnole
+            </div>
+
+            <h2 class="text-4xl md:text-5xl font-black text-slate-900">
+                Bien plus qu'une simple <span class="text-blue-600">location</span>
+            </h2>
+
+            <p class="text-slate-600 text-lg leading-relaxed max-w-2xl mx-auto">
+                Conseils de conduite au Maroc, guides d'achat, actualités automobiles et astuces pour entretenir votre véhicule. Plongez dans notre univers thématique dédié aux passionnés du volant.
+            </p>
+
+            <div class="pt-4">
+                <a href="themes.php" class="inline-flex items-center gap-3 bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-slate-900 transition-all shadow-xl shadow-blue-200 group">
+                    Accéder au Blog
+                    <i class="fas fa-chevron-right group-hover:translate-x-1 transition"></i>
+                </a>
+            </div>
+        </div>
+    </section>
     <section id="stats" class="bg-slate-900 py-20">
         <div class="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             <div class="space-y-2">

@@ -207,3 +207,37 @@ VALUES
  
 
  INSERT INTO tags (`nomTag`) VALUES ("sport"),("voyeges");
+
+ INSERT INto themes (nomTheme, descriptionTheme) VALUES
+('Conseils d''entretien', 'Articles sur l''entretien et les soins à apporter à votre véhicule.'),
+('Nouveautés automobiles', 'Dernières tendances et innovations dans le monde de l''automobile.'),
+('Destinations de voyage', 'Idées de destinations pour vos prochaines aventures en voiture.'),
+('Sécurité routière', 'Conseils et informations pour une conduite sûre et responsable.'),
+('Technologie automobile', 'Évolutions technologiques et gadgets pour les passionnés de voitures.');
+
+INSERT INto tags (nomTag) VALUES
+('Entretien'),
+('Innovation'),
+('Voyage'),
+('Sécurité'),
+('Technologie');
+INSERT into articles (titreArticle, contenuArticle, statutArticle, idTheme, idAuteur) VALUES
+('5 astuces pour entretenir votre voiture', 'Découvrez nos conseils pour garder votre véhicule en parfait état.', 1, 1, 1),
+('Les dernières innovations en matière de voitures électriques', 'Un aperçu des avancées technologiques dans le domaine des véhicules électriques.', 1, 2, 1),
+('Top 10 des destinations à visiter en voiture', 'Explorez les meilleures routes et destinations pour vos voyages en voiture.', 1, 3, 1),
+('Comment assurer votre sécurité sur la route', 'Des conseils pratiques pour une conduite sûre et responsable.', 1, 4, 1),
+('Les gadgets technologiques incontournables pour votre voiture', 'Découvrez les accessoires high-tech qui amélioreront votre expérience de conduite.', 1, 5, 1);
+INSERT into articlesTags (idArticle, idTag) VALUES
+(1, 1);
+
+
+--insert into table 8 defirent articles  pour theme 1
+INSERT INTO articles (titreArticle, contenuArticle, statutArticle, datePublicationArticle, idTheme, idAuteur) VALUES
+('Guide complet pour l''entretien de votre voiture', 'Apprenez à entretenir votre véhicule avec nos conseils experts.', 1, '2024-05-01 10:00:00', 1, 1),
+('Les erreurs courantes à éviter lors de l''entretien automobile', 'Découvrez les pièges à éviter pour prolonger la vie de votre voiture.', 1, '2024-05-02 11:30:00', 1, 1),
+('Comment choisir les bons produits d''entretien pour votre voiture', 'Un guide pour sélectionner les meilleurs produits pour votre véhicule.', 1, '2024-05-03 09:15:00', 1, 1),
+('L''importance de la vidange régulière', 'Pourquoi et comment effectuer une vidange pour maintenir les performances de votre moteur.', 1, '2024-05-04 14:45:00', 1, 1),
+('Conseils pour garder l''intérieur de votre voiture propre', 'Astuces pratiques pour un habitacle toujours impeccable.', 1, '2024-05-05 16:20:00', 1, 1),
+('Comment vérifier et entretenir les pneus de votre voiture', 'Tout ce que vous devez savoir sur l''entretien des pneus.', 1, '2024-05-06 12:10:00', 1, 1),
+('Les avantages de l''entretien préventif', 'Découvrez pourquoi l''entretien régulier est essentiel pour votre voiture.', 1, '2024-05-07 13:50:00', 1, 1),
+('Guide d''entretien saisonnier pour votre véhicule', 'Préparez votre voiture pour chaque saison avec nos conseils d''entretien.', 1, '2024-05-08 15:30:00', 1, 1); 

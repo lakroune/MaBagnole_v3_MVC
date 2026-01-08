@@ -135,7 +135,8 @@ CREATE Table Articles (
     FOREIGN KEY (idAuteur) REFERENCES Utilisateurs (idUtilisateur),
     FOREIGN KEY (idTheme) REFERENCES Themes (idTheme)
 );
-delete from Themes where idTheme=18;
+SELECT * from articles;
+DELETE from articles where idArticle between 6 and 50000;
 CREATE Table ArticlesTags (
     idArticle INT(11) NOT NULL,
     idTag INT(11) NOT NULL,
@@ -162,24 +163,3 @@ CREATE table Commentaires (
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 );
 
-INSERT INto themes (nomTheme, descriptionTheme) VALUES
-('Conseils d''entretien', 'Articles sur l''entretien et les soins à apporter à votre véhicule.'),
-('Nouveautés automobiles', 'Dernières tendances et innovations dans le monde de l''automobile.'),
-('Destinations de voyage', 'Idées de destinations pour vos prochaines aventures en voiture.'),
-('Sécurité routière', 'Conseils et informations pour une conduite sûre et responsable.'),
-('Technologie automobile', 'Évolutions technologiques et gadgets pour les passionnés de voitures.');
-
-INSERT INto tags (nomTag) VALUES
-('Entretien'),
-('Innovation'),
-('Voyage'),
-('Sécurité'),
-('Technologie');
-INSERT into articles (titreArticle, contenuArticle, statutArticle, idTheme, idAuteur) VALUES
-('5 astuces pour entretenir votre voiture', 'Découvrez nos conseils pour garder votre véhicule en parfait état.', 1, 1, 1),
-('Les dernières innovations en matière de voitures électriques', 'Un aperçu des avancées technologiques dans le domaine des véhicules électriques.', 1, 2, 1),
-('Top 10 des destinations à visiter en voiture', 'Explorez les meilleures routes et destinations pour vos voyages en voiture.', 1, 3, 1),
-('Comment assurer votre sécurité sur la route', 'Des conseils pratiques pour une conduite sûre et responsable.', 1, 4, 1),
-('Les gadgets technologiques incontournables pour votre voiture', 'Découvrez les accessoires high-tech qui amélioreront votre expérience de conduite.', 1, 5, 1);
-INSERT into articlesTags (idArticle, idTag) VALUES
-(1, 1);

@@ -7,14 +7,13 @@ use app\model\Tag;
 
 class Article
 {
-
     private int $idArticle;
     private string $titreArticle;
     private string $contenuArticle;
-    private array $medias;
+    private string $media;
     private int $statutArticle;
     private Tag $tag;
-    private string $dateCreationArticle;
+    private string $datePublicationArticle;
     private int $idTheme;
     private int $idAuteur;
 
@@ -35,9 +34,9 @@ class Article
         return $this->contenuArticle;
     }
 
-    public function getMedias(): array
+    public function getMedia(): string
     {
-        return $this->medias;
+        return $this->media;
     }
 
     public function getStatutArticle(): int
@@ -45,9 +44,9 @@ class Article
         return $this->statutArticle;
     }
 
-    public function getDateCreationArticle(): string
+    public function getDatePublicationArticle(): string
     {
-        return $this->dateCreationArticle;
+        return $this->datePublicationArticle;
     }
 
     public function getIdTheme(): int
@@ -82,6 +81,13 @@ class Article
         else
             $this->contenuArticle = $contenuArticle;
     }
+    public function setMedia(string $media)
+    {
+        if (empty($media))
+            throw new \InvalidArgumentException("Media article invalide : $media");
+        else
+            $this->media = $media;
+    }
 
     public function setStatutArticle(int $statutArticle)
     {
@@ -90,12 +96,12 @@ class Article
         else
             $this->statutArticle = $statutArticle;
     }
-    public function setDateCreationArticle(string $dateCreationArticle)
+    public function setDatePublicationArticle(string $datePublicationArticle)
     {
-        if (empty($dateCreationArticle))
-            throw new \InvalidArgumentException("Date article invalide : $dateCreationArticle");
+        if (empty($datePublicationArticle))
+            throw new \InvalidArgumentException("Date article invalide : $datePublicationArticle");
         else
-            $this->dateCreationArticle = $dateCreationArticle;
+            $this->datePublicationArticle = $datePublicationArticle;
     }
     public function setIdTheme(int $idTheme)
     {
@@ -117,25 +123,26 @@ class Article
 
     public function __toString(): string
     {
-        return "idArticle :$this->idArticle, titreArticle :$this->titreArticle, contenuArticle :$this->contenuArticle, dateCreationArticle :$this->dateCreationArticle, idTheme :$this->idTheme, idAuteur :$this->idAuteur";
+        return "idArticle :$this->idArticle, titreArticle :$this->titreArticle, contenuArticle :$this->contenuArticle, datePublicationArticle :$this->datePublicationArticle, idTheme :$this->idTheme, idAuteur :$this->idAuteur";
     }
 
     public  function AjouterArticle(): bool
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $query = "INSERT INTO article (titreArticle, contenuArticle, statutArticle, dateCreationArticle, idTheme, idAuteur) 
-                      VALUES (:titreArticle, :contenuArticle, :statutArticle, :dateCreationArticle, :idTheme, :idAuteur)";
+            $query = "INSERT INTO articles (titreArticle, contenuArticle, idTheme, idAuteur)
+                      VALUES (:titreArticle, :contenuArticle,  :idTheme, :idAuteur)";
             $stmt = $db->prepare($query);
             $stmt->bindValue(':titreArticle', $this->titreArticle);
             $stmt->bindValue(':contenuArticle', $this->contenuArticle);
-            $stmt->bindValue(':statutArticle', $this->statutArticle);
-            $stmt->bindValue(':dateCreationArticle', $this->dateCreationArticle);
             $stmt->bindValue(':idTheme', $this->idTheme);
             $stmt->bindValue(':idAuteur', $this->idAuteur);
-            return $stmt->execute();
+            if ($stmt->execute());
+            return true;
+            return false;
         } catch (\Exception $e) {
             throw new \Exception("Erreur lors de l'ajout de l'article : " . $e->getMessage());
+            return false;
         }
     }
 
