@@ -187,3 +187,18 @@ Stack trace:
 #0 C:\xampp\htdocs\MaBagnole_v2\app\model\Theme.php(104): PDOStatement->execute()
 #1 C:\xampp\htdocs\MaBagnole_v2\app\controler\ThemeControler.php(36): app\model\Theme->supprimerTheme('4')
 #2 {main}
+26-01-08 10:25:48 Connexion :error .PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleteTheme' in 'field list' in C:\xampp\htdocs\MaBagnole_v2\app\model\Theme.php:104
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Theme.php(104): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\ThemeControler.php(36): app\model\Theme->supprimerTheme('1')
+#2 {main}
+26-01-08 10:26:15 Connexion :error .PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleteTheme' in 'field list' in C:\xampp\htdocs\MaBagnole_v2\app\model\Theme.php:104
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Theme.php(104): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\ThemeControler.php(36): app\model\Theme->supprimerTheme('2')
+#2 {main}
+26-01-08 10:26:20 Connexion :error .PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleteTheme' in 'field list' in C:\xampp\htdocs\MaBagnole_v2\app\model\Theme.php:104
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Theme.php(104): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\ThemeControler.php(36): app\model\Theme->supprimerTheme('2')
+#2 {main}

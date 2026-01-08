@@ -132,7 +132,7 @@ class Theme
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select * from themes";
+            $sql = "select * from themes where deleteTheme = 0";
             $stmt = $db->prepare($sql);
             if ($stmt->execute())
                 return $stmt->fetchAll(\PDO::FETCH_CLASS, Theme::class);

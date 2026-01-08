@@ -111,6 +111,12 @@ CREATE Table ReagirAvis (
     FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur)
 );
 
+-- DROP TABLE IF EXISTS Commentaires;
+-- DROP TABLE IF EXISTS AimerArticle;
+-- DROP TABLE IF EXISTS ArticlesTags;
+-- DROP TABLE IF EXISTS Articles;
+-- drop TABLE IF EXISTS Themes;
+--  DROP TABLE IF EXISTS Tags;
 CREATE TABLE Themes (
     idTheme INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nomTheme VARCHAR(255) NOT NULL,
@@ -150,7 +156,6 @@ CREATE Table ArticlesTags (
     FOREIGN KEY (idTag) REFERENCES Tags (idTag)
 );
 
-SELECT * from articlestags;
 
 CREATE Table AimerArticle (
     idArticle INT(11) NOT NULL,

@@ -228,7 +228,9 @@ INSERT into articles (titreArticle, contenuArticle, statutArticle, idTheme, idAu
 ('Comment assurer votre sécurité sur la route', 'Des conseils pratiques pour une conduite sûre et responsable.', 1, 4, 1),
 ('Les gadgets technologiques incontournables pour votre voiture', 'Découvrez les accessoires high-tech qui amélioreront votre expérience de conduite.', 1, 5, 1);
 INSERT into articlesTags (idArticle, idTag) VALUES
-(1, 1);
+
+(2,2);
+
 
 
 --insert into table 8 defirent articles  pour theme 1
