@@ -147,7 +147,7 @@ class Theme
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select count(*) as nbArticle from articles where idTheme=:idTheme";
+            $sql = "select count(*) as nbArticle from articles where deleteArticle = 0 and idTheme=:idTheme";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idTheme", $idTheme);
             if ($stmt->execute())

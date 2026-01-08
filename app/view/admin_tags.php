@@ -6,17 +6,11 @@ use app\model\Tag;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-
-
-
-
-
-
 $tags = Tag::getAllTag();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -24,6 +18,23 @@ $tags = Tag::getAllTag();
     <title>MaBagnole Admin | Gestion des Tags</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-toast {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+    </style>
 </head>
 
 <body class="bg-slate-50 min-h-screen flex">
@@ -43,25 +54,20 @@ $tags = Tag::getAllTag();
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            <?php foreach ($tags as $tag) :  ?>
-                <div id="tag-1" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:border-blue-500 transition">
-                    <span class="font-bold text-slate-700">#<?= $tag->getNomTag() ?></span>
-                    <button onclick="confirmDeleteTag(1, 'Vitesse')" class="text-slate-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100">
+            <?php foreach ($tags as $tag) : ?>
+                <div id="tag-<?= $tag->getIdTag() ?>" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:border-blue-500 transition">
+                    <span class="font-bold text-slate-700">#<?= htmlspecialchars($tag->getNomTag()) ?></span>
+                    <button onclick="confirmDeleteTag(<?= $tag->getIdTag() ?>, '<?= addslashes($tag->getNomTag()) ?>')"
+                        class="text-slate-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100">
                         <i class="fas fa-times-circle"></i>
                     </button>
                 </div>
             <?php endforeach; ?>
-            <!-- <div id="tag-2" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between group hover:border-blue-500 transition">
-                <span class="font-bold text-slate-700">#Electrique</span>
-                <button onclick="confirmDeleteTag(2, 'Electrique')" class="text-slate-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100">
-                    <i class="fas fa-times-circle"></i>
-                </button>
-            </div> -->
         </div>
     </main>
 
     <div id="bulkTagsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[110] p-4">
-        <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl animate-in zoom-in duration-300">
+        <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-2xl font-black text-slate-800">Nouveaux Tags</h3>
                 <button onclick="closeBulkTagsModal()" class="text-slate-300 hover:text-slate-600"><i class="fas fa-times"></i></button>
@@ -83,29 +89,83 @@ $tags = Tag::getAllTag();
         </div>
     </div>
 
+    <div id="confirmModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[120] p-4">
+        <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 shadow-2xl text-center">
+            <div class="w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                <i class="fas fa-trash-alt"></i>
+            </div>
+            <h3 class="text-2xl font-black text-slate-800 mb-2">Supprimer ?</h3>
+            <p id="confirmMessage" class="text-slate-500 font-medium mb-8 text-sm italic"></p>
+
+            <div class="flex gap-3">
+                <button onclick="closeConfirmModal()" class="flex-1 py-4 font-bold text-slate-400 bg-slate-50 rounded-2xl">Annuler</button>
+                <button id="btnConfirmDelete" class="flex-1 py-4 bg-red-600 text-white rounded-2xl font-black shadow-lg hover:bg-red-700 transition">
+                    Supprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-[150] flex flex-col gap-3"></div>
+
     <script>
         function openBulkTagsModal() {
-            const modal = document.getElementById('bulkTagsModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            document.getElementById('bulkTagsModal').classList.replace('hidden', 'flex');
         }
 
         function closeBulkTagsModal() {
-            const modal = document.getElementById('bulkTagsModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            document.getElementById('bulkTagsModal').classList.replace('flex', 'hidden');
         }
 
+        let tagToDelete = null;
+
         function confirmDeleteTag(id, name) {
-            openActionModal({
-                type: 'danger',
-                title: 'Supprimer le Tag',
-                message: `Voulez-vous vraiment supprimer le tag #${name} ? Cela l'enlèvera de tous les articles.`,
-                onConfirm: () => {
-                    console.log("Tag " + id + " supprimé");
-                    document.getElementById('tag-' + id).remove();
-                }
-            });
+            tagToDelete = id;
+            const modal = document.getElementById('confirmModal');
+            document.getElementById('confirmMessage').innerText = `Êtes-vous sûr de vouloir supprimer le tag #${name} ?`;
+            modal.classList.replace('hidden', 'flex');
+
+            document.getElementById('btnConfirmDelete').onclick = function() {
+                executeDeletion(id, name);
+            };
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.replace('flex', 'hidden');
+        }
+
+        function executeDeletion(id, name) {
+            const element = document.getElementById('tag-' + id);
+            if (element) {
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.remove();
+                    showToast(`Le tag #${name} a été supprimé.`, 'success');
+                }, 300);
+            }
+            closeConfirmModal();
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+
+            const bgColor = type === 'success' ? 'bg-emerald-500' : 'bg-red-500';
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+
+            toast.className = `${bgColor} text-white px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 animate-toast`;
+            toast.innerHTML = `
+                <i class="fas ${icon}"></i>
+                <span class="font-bold text-sm">${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = '0.5s';
+                setTimeout(() => toast.remove(), 500);
+            }, 4000);
         }
     </script>
 </body>
