@@ -225,7 +225,7 @@ class Article
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "SELECT * FROM articles WHERE idTheme = :idTheme and statutArticle = 1 ORDER BY idArticle DESC";
+            $sql = "SELECT * FROM articles WHERE idTheme = :idTheme and statutArticle = 1 and deleteArticle = 0 ORDER BY idArticle DESC";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idTheme", $idTheme);
             $stmt->execute();
@@ -242,6 +242,23 @@ class Article
             $stmt = $db->prepare($sql);
             $likeTerm = "%" . $searchTerm . "%";
             $stmt->bindParam(":searchTerm", $likeTerm);
+            $stmt->bindParam(":idTheme", $idTheme);
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_CLASS, Article::class);
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
+    public function feltrerArticlesParTag(int $idTag, int $idTheme): array
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "SELECT a.* FROM articles a
+                    JOIN ArticlesTags at ON a.idArticle = at.idArticle
+                    WHERE at.idTag = :idTag AND a.idTheme = :idTheme AND a.statutArticle = 1 AND a.deleteArticle = 0
+                    ORDER BY a.idArticle DESC";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idTag", $idTag);
             $stmt->bindParam(":idTheme", $idTheme);
             $stmt->execute();
             return $stmt->fetchAll(\PDO::FETCH_CLASS, Article::class);
