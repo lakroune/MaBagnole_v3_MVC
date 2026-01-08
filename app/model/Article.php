@@ -170,7 +170,7 @@ class Article
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "SELECT * FROM articles";
+            $sql = "SELECT * FROM articles WHERE deleteArticle = 0 ORDER BY datePublicationArticle DESC";
             $stmt = $db->prepare($sql);
             $stmt->execute();
             return  $stmt->fetchAll(\PDO::FETCH_CLASS, Article::class);

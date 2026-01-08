@@ -65,18 +65,43 @@ $articlesList = Article::getAllArticles();
             </div>
 
             <div class="space-y-4">
-                <?php foreach ($articlesList as $article) : ?>
+               <table>
+                   <thead>
+                          <tr class="text-left text-slate-600 border-b border-slate-200 pb-4">
+                             
+                          </tr>
+                   </thead>
+                   <tbody>
+                     <?php foreach ($articlesList as $article) : ?>
                     <div id="art-1" class="bg-white p-5 rounded-[2rem] border border-slate-100 flex flex-col lg:flex-row items-center justify-between gap-6 hover:shadow-xl transition-all duration-300">
                         <div class="flex items-center gap-6">
-                            <img src="https://images.unsplash.com/photo-1542362567-b055002b91f4?w=400" class="w-24 h-20 rounded-2xl object-cover shadow-inner">
+                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-24 h-20 rounded-2xl object-cover shadow-inner">
                             <div>
                                 <span class="bg-amber-100 text-amber-600 text-[9px] font-black uppercase px-2 py-0.5 rounded">Pending</span>
                                 <h3 class="font-black text-slate-800 text-lg mt-1 leading-tight"><?php echo $article->getTitreArticle() ?>!</h3>
                                 <p class="text-[10px] text-slate-400 font-bold uppercase mt-1">Auteur:
-                                    <?php $auteur = ($auteur->getClientById($article->getIdAuteur()));
-                                    echo $auteur;
+                                    <?php 
+                                    // $auteur = ($auteur->getClientById($article->getIdAuteur()));
+                                    // echo $auteur;
 
-                                    ?> • Il y a 45 min</p>
+                                    ?> • Il y a 
+                                    <?php
+                                    $toDay = new \DateTime();
+                                    $articleDate = new \DateTime($article->getDatePublicationArticle());
+                                    $interval = $toDay->diff($articleDate);
+                                    if ($interval->d > 0) {
+                                        echo $interval->d . ' jours';
+                                    } elseif ($interval->h > 0) {
+                                        echo $interval->h . ' heures';
+                                    } elseif ($interval->i > 0) {
+                                        echo $interval->i . ' minutes';
+                                    } else {
+                                        echo "À l\'instant";
+                                    }   
+                                    ?>
+                                    
+                                
+                                </p>
                             </div>
                         </div>
                         <div class="flex gap-2">
@@ -89,6 +114,7 @@ $articlesList = Article::getAllArticles();
                         </div>
                     </div>
                 <?php endforeach; ?>
+               </table>
             </div>
         </main>
     </div>
@@ -107,17 +133,7 @@ $articlesList = Article::getAllArticles();
         </div>
     </div>
 
-    <div id="toast" class="fixed bottom-10 right-10 z-[210] transform translate-y-32 opacity-0 transition-all duration-500">
-        <div class="bg-slate-900 text-white px-8 py-5 rounded-[1.5rem] shadow-2xl flex items-center gap-4 border border-slate-700">
-            <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-[10px] shadow-lg shadow-green-500/30">
-                <i class="fas fa-check"></i>
-            </div>
-            <div>
-                <p class="font-black text-xs uppercase tracking-widest text-slate-400">Notification</p>
-                <p id="toastMsg" class="font-bold text-sm"></p>
-            </div>
-        </div>
-    </div>
+    
 
     <script>
         function confirmAction(type, id, title) {
@@ -134,16 +150,15 @@ $articlesList = Article::getAllArticles();
                 btn.className = "flex-1 py-4 bg-green-500 text-white rounded-2xl font-black shadow-lg shadow-green-100";
                 titleEl.innerText = "Publier l'article ?";
                 msgEl.innerText = `Souhaitez-vous approuver et publier l'article "${title}" ?`;
-                btn.onclick = () => processAction(id, "publié");
+                
             } else {
                 iconCont.className = "w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl shadow-inner";
                 icon.className = "fas fa-exclamation-triangle";
                 btn.className = "flex-1 py-4 bg-red-500 text-white rounded-2xl font-black shadow-lg shadow-red-100";
                 titleEl.innerText = "Supprimer ?";
                 msgEl.innerText = `Êtes-vous sûr de vouloir supprimer définitivement "${title}" ?`;
-                btn.onclick = () => processAction(id, "supprimé");
+               
             }
-
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
@@ -153,27 +168,9 @@ $articlesList = Article::getAllArticles();
             document.getElementById('actionModal').classList.remove('flex');
         }
 
-        function processAction(id, actionText) {
-            closeActionModal();
-            // Simulate removal/update
-            const row = document.getElementById('art-' + id);
-            row.style.opacity = '0';
-            row.style.transform = 'translateX(20px)';
-            setTimeout(() => {
-                row.remove();
-                showToast(`L'article a été ${actionText} avec succès !`);
-            }, 500);
-        }
+        
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            t.classList.remove('translate-y-32', 'opacity-0');
-            t.classList.add('translate-y-0', 'opacity-100');
-            setTimeout(() => {
-                t.classList.add('translate-y-32', 'opacity-0');
-            }, 3000);
-        }
+        
     </script>
 </body>
 
