@@ -24,21 +24,48 @@
              <a href="admin_clients.php" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-users"></i> Clients
              </a>
-                <a href="admin_articles.php" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="admin_articles.php" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-newspaper"></i> Articles
              </a>
-                <a href="admin_themes.php" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="admin_themes.php" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-th-large"></i> Themes
              </a>
-                <a href="admin_tags.php" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="admin_tags.php" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-tags"></i> Tags
              </a>
          </nav>
      </div>
 
      <div class="p-4 border-t border-slate-800">
-         <a href="logout.php" class="flex items-center gap-3 p-3 text-red-400 hover:bg-red-500/10 rounded-xl transition font-bold">
+         <button onclick="toggleLogoutModal()" class="flex items-center gap-3 p-3 text-red-400 hover:bg-red-500/10 rounded-xl transition font-bold">
              <i class="fas fa-sign-out-alt"></i> Logout
-         </a>
+         </button>
      </div>
  </aside>
+ <div id="logout" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[110] p-4">
+     <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl">
+         <div class="flex justify-between items-center mb-6">
+             <h3 class="text-2xl font-black text-slate-800">Déconnexion</h3>
+             <button onclick="closeLogoutModal()" class="text-slate-300 hover:text-slate-600"><i class="fas fa-times"></i></button>
+         </div>
+         <p class="text-slate-500 text-sm mb-8 leading-relaxed">Voulez-vous vraiment vous d&eacute;connecter ?</p>
+         <div class="flex gap-3">
+             <button onclick="closeLogoutModal()" class="flex-1 py-4 font-bold text-slate-400 bg-slate-50 rounded-2xl hover:bg-slate-100 transition">Annuler</button>
+             <button onclick="logout()" class="flex-1 py-4 text-white bg-red-600 rounded-2xl font-black shadow-lg transition transform hover:scale-105 active:scale-95">Confirmer</button>
+         </div>
+     </div>
+ </div>
+ <script>
+     function logout() {
+         window.location.href = 'logout.php';
+     }
+
+     function toggleLogoutModal() {
+         document.getElementById('logout').classList.replace('hidden', 'flex');
+     }
+
+
+     function closeLogoutModal() {
+         document.getElementById('logout').classList.replace('flex', 'hidden');
+     }
+ </script>
