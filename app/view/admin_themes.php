@@ -7,7 +7,12 @@ use app\model\Theme;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 
+session_start();
 
+if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'admin') {
+    header('Location: login.php');
+    exit();
+}
 
 $theme_nb = new Theme();
 $themesList = Theme::getAllTheme();

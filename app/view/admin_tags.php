@@ -5,7 +5,12 @@ namespace app\view;
 use app\model\Tag;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
+session_start();
 
+if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'admin') {
+    header('Location: login.php');
+    exit();
+}
 $tags = Tag::getAllTag();
 ?>
 
@@ -77,7 +82,7 @@ $tags = Tag::getAllTag();
 
             <form action="../controler/TagControler.php" method="POST">
                 <input type="hidden" name="action" value="add">
-                
+
                 <textarea name="nomTag" rows="4" placeholder="Ex: Luxe, Sport, Voyage, Entretien..."
                     class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm mb-6"></textarea>
 
