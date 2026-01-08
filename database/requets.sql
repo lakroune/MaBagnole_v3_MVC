@@ -114,7 +114,10 @@ CREATE Table ReagirAvis (
 CREATE TABLE Themes (
     idTheme INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nomTheme VARCHAR(255) NOT NULL,
+    iconTheme VARCHAR(255) NOT NULL DEFAULT 'image',
+    deleteTheme INT NOT NULL DEFAULT 0,
     descriptionTheme VARCHAR(255) NOT NULL
+    constraint check_deleteTheme check (deleteTheme between 0 and 1)
 );
 
 CREATE TABLE Tags (
