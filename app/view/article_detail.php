@@ -9,6 +9,11 @@ use app\model\Article;
 use app\model\Client;
 use app\model\Tag;
 
+session_start();
+$connect = true;
+if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !== 'client') {
+    $connect =  false;
+}
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: themes_list.php");
     exit();
@@ -52,7 +57,7 @@ try {
                 <i class="fas fa-chevron-left"></i> Retour aux articles
             </a>
             <div class="text-xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
-            <button onclick="toggleFavorite(this)" class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
+            <button  type="button" <?php if (!$connect) : ?> onclick="toggleModal('rentPopup')" <?php else:; ?>  onclick="toggleFavorite(this)" <?php endif; ?> class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
                 <i class="fas fa-heart"></i>
             </button>
         </div>
@@ -144,42 +149,30 @@ try {
             </div>
         </section>
     </main>
+     <div id="rentPopup" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4">
+        <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl text-center relative">
+            <button onclick="toggleModal('rentPopup')" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600"><i class="fas fa-times"></i></button>
+
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h3 class="text-2xl font-black text-slate-800 mb-2">Login Required</h3>
+            <p class="text-slate-500 text-sm mb-8 leading-relaxed">You need to be logged in to book this vehicle and manage your reservations.</p>
+
+            <div class="flex flex-col gap-3">
+                <a href="login.php" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg shadow-blue-100 hover:bg-blue-700 transition">Sign In Now</a>
+                <a href="register.php" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">Create an Account</a>
+            </div>
+        </div>
+    </div>
+
 
     <script>
-        function handleComment() {
-            const text = document.getElementById('commentText').value;
-            if (!text) {
-                // Utiliser le Popup Error
-                openActionModal({
-                    type: 'warning',
-                    title: 'Attention',
-                    message: 'Veuillez écrire un commentaire avant d\'envoyer.',
-                    onConfirm: () => {}
-                });
-                return;
-            }
-            // Utiliser le Popup Success
-            openActionModal({
-                type: 'success',
-                title: 'Merci !',
-                message: 'Votre commentaire a été publié avec succès.',
-                onConfirm: () => {
-                    document.getElementById('commentText').value = "";
-                }
-            });
+       function toggleModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
         }
-
-        function deleteAction() {
-            openActionModal({
-                type: 'danger',
-                title: 'Supprimer ?',
-                message: 'Voulez-vous vraiment retirer ce commentaire ?',
-                onConfirm: () => {
-                    console.log("Commentaire supprimé");
-                }
-            });
-        }
-
         function toggleFavorite(btn) {
             btn.classList.toggle('text-red-500');
             btn.classList.toggle('text-slate-400');
