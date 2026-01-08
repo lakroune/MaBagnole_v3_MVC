@@ -116,13 +116,15 @@ CREATE TABLE Themes (
     nomTheme VARCHAR(255) NOT NULL,
     iconTheme VARCHAR(255) NOT NULL DEFAULT 'image',
     deleteTheme INT NOT NULL DEFAULT 0,
-    descriptionTheme VARCHAR(255) NOT NULL
+    descriptionTheme VARCHAR(255) NOT NULL,
     constraint check_deleteTheme check (deleteTheme between 0 and 1)
 );
 
 CREATE TABLE Tags (
     idTag INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    nomTag VARCHAR(255) NOT NULL
+    nomTag VARCHAR(255) NOT NULL,
+    deleteTag INT NOT NULL DEFAULT 0,
+    constraint check_deleteTag check (deleteTag between 0 and 1)
 );
 
 CREATE Table Articles (
@@ -165,7 +167,7 @@ CREATE table Commentaires (
     dateCommentaire TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     idArticle INT(11) NOT NULL,
     idClient INT(11) NOT NULL,
-    COnstraint check_deleteCommentaire check (deleteCommentaire between 0 and 1),
+    constraint check_deleteCommentaire check (deleteCommentaire between 0 and 1),
     FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur),
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 );
