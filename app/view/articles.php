@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use app\model\Theme;
 use app\model\Article;
+use app\model\Tag;
 use DateTime;
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
@@ -13,6 +14,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
     exit();
 }
 
+$tags = Tag::getAllTag();
 try {
     $idTheme = (int)($_GET['id']);
     $articles = Article::getArticlesByTheme($idTheme);
@@ -48,11 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
             <div class="flex items-center gap-6">
-              
+
             </div>
             <?php include('infoClient.php');  ?>
         </div>
-          
+
     </nav>
 
     <header class="py-12 bg-white border-b border-slate-100 shadow-sm">
@@ -72,11 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="md:col-span-4 relative">
                     <i class="fas fa-tag absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                     <select name="tag" class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 transition text-sm appearance-none cursor-pointer">
-                        <option value="">Tous les Tags</option>
-                        <option value="vitesse">#Vitesse</option>
-                        <option value="ecomobilite">#Ecomobilité</option>
-                        <option value="entretien">#Entretien</option>
-                        <option value="luxe">#Luxe</option>
+                        <option value="">Filtrer par Tag</option>
+                        <?php foreach ($tags as $tag) : ?>
+                            <option value="<?= $tag->getIdTag() ?>">
+                                <?= htmlspecialchars($tag->getNomTag()) ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                     <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none text-xs"></i>
                 </div>
