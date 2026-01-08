@@ -7,7 +7,12 @@ use app\model\Client;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+session_start();
 
+if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'admin') {
+    header('Location: login.php');
+    exit();
+}
 
 $auteur = new Client();
 
