@@ -97,12 +97,16 @@ $tags = Tag::getAllTag();
             <h3 class="text-2xl font-black text-slate-800 mb-2">Supprimer ?</h3>
             <p id="confirmMessage" class="text-slate-500 font-medium mb-8 text-sm italic"></p>
 
-            <div class="flex gap-3">
-                <button onclick="closeConfirmModal()" class="flex-1 py-4 font-bold text-slate-400 bg-slate-50 rounded-2xl">Annuler</button>
-                <button id="btnConfirmDelete" class="flex-1 py-4 bg-red-600 text-white rounded-2xl font-black shadow-lg hover:bg-red-700 transition">
-                    Supprimer
-                </button>
-            </div>
+            <form action="../controler/TagControler.php" method="POST">
+                <input type="hidden" name="idTag" id="tagIdToDelete" value="">
+                <input type="hidden" name="action" value="delete">
+                <div class="flex gap-3 justify-center">
+                    <button type="button" onclick="closeConfirmModal()" class="flex-1 py-4 font-bold text-slate-400 bg-slate-50 rounded-2xl">Annuler</button>
+                    <button id="btnConfirmDelete" type="button" class="flex-1 py-4 bg-red-500 text-white rounded-2xl font-black shadow-lg hover:bg-red-600 transition">
+                        Supprimer
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -124,7 +128,7 @@ $tags = Tag::getAllTag();
             const modal = document.getElementById('confirmModal');
             document.getElementById('confirmMessage').innerText = `Êtes-vous sûr de vouloir supprimer le tag #${name} ?`;
             modal.classList.replace('hidden', 'flex');
-
+            document.getElementById('tagIdToDelete').value = id;
             document.getElementById('btnConfirmDelete').onclick = function() {
                 executeDeletion(id, name);
             };
