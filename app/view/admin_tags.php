@@ -76,6 +76,8 @@ $tags = Tag::getAllTag();
             <p class="text-xs text-slate-400 font-bold uppercase mb-4 tracking-widest">Séparez les tags par des virgules</p>
 
             <form action="../controler/TagControler.php" method="POST">
+                <input type="hidden" name="action" value="add">
+                
                 <textarea name="nomTag" rows="4" placeholder="Ex: Luxe, Sport, Voyage, Entretien..."
                     class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm mb-6"></textarea>
 
@@ -102,7 +104,7 @@ $tags = Tag::getAllTag();
                 <input type="hidden" name="action" value="delete">
                 <div class="flex gap-3 justify-center">
                     <button type="button" onclick="closeConfirmModal()" class="flex-1 py-4 font-bold text-slate-400 bg-slate-50 rounded-2xl">Annuler</button>
-                    <button id="btnConfirmDelete" type="button" class="flex-1 py-4 bg-red-500 text-white rounded-2xl font-black shadow-lg hover:bg-red-600 transition">
+                    <button id="btnConfirmDelete" type="submit" class="flex-1 py-4 bg-red-500 text-white rounded-2xl font-black shadow-lg hover:bg-red-600 transition">
                         Supprimer
                     </button>
                 </div>
@@ -110,7 +112,7 @@ $tags = Tag::getAllTag();
         </div>
     </div>
 
-    <div id="toastContainer" class="fixed bottom-5 right-5 z-[150] flex flex-col gap-3"></div>
+    
 
     <script>
         function openBulkTagsModal() {
@@ -138,39 +140,9 @@ $tags = Tag::getAllTag();
             document.getElementById('confirmModal').classList.replace('flex', 'hidden');
         }
 
-        function executeDeletion(id, name) {
-            const element = document.getElementById('tag-' + id);
-            if (element) {
-                element.style.opacity = '0';
-                setTimeout(() => {
-                    element.remove();
-                    showToast(`Le tag #${name} a été supprimé.`, 'success');
-                }, 300);
-            }
-            closeConfirmModal();
-        }
+        
 
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-
-            const bgColor = type === 'success' ? 'bg-emerald-500' : 'bg-red-500';
-            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
-
-            toast.className = `${bgColor} text-white px-6 py-4 rounded-2xl shadow-xl flex items-center gap-3 animate-toast`;
-            toast.innerHTML = `
-                <i class="fas ${icon}"></i>
-                <span class="font-bold text-sm">${message}</span>
-            `;
-
-            container.appendChild(toast);
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = '0.5s';
-                setTimeout(() => toast.remove(), 500);
-            }, 4000);
-        }
+        
     </script>
 </body>
 

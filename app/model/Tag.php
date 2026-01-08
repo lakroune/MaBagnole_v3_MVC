@@ -80,17 +80,17 @@ class Tag
             return true;
         return false;
     }
-    public function SupprimerTag(): bool
+    public function SupprimerTag(int $idTag): bool
     {
         $db = Connexion::connect()->getConnexion();
-        $sql = "delete from tags where idTag=:idTag";
+        $sql = "update tags set deleteTag=1  where idTag=:idTag";
         try {
             $stmt = $db->prepare($sql);
         } catch (\Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }
-        $stmt->bindParam(":idTag", $this->idTag);
+        $stmt->bindParam(":idTag", $idTag);
         if ($stmt->execute())
             return true;
         return false;
@@ -115,7 +115,7 @@ class Tag
     static function getAllTag()
     {
         $db = Connexion::connect()->getConnexion();
-        $sql = "select * from tags  ";
+        $sql = "select * from tags where deleteTag = 0";
         try {
             $stmt = $db->prepare($sql);
         } catch (\Exception $e) {
