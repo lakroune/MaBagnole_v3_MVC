@@ -171,7 +171,7 @@ class Commentaire
         return [];
     }
 
-    public  function getCommentairesByArticle(int $idArticle): array
+    static  function getCommentairesByArticle(int $idArticle): array
     {
         $db = Connexion::connect()->getConnexion();
         $sql = "SELECT * FROM commentaires WHERE deleteCommentaire=0 and idArticle=:idArticle";

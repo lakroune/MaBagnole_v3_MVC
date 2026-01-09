@@ -7,7 +7,9 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use app\model\Theme;
 use app\model\Article;
 use app\model\Client;
+use app\model\Commentaire;
 use app\model\Tag;
+use Exception;
 
 session_start();
 $connect = true;
@@ -21,7 +23,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 
 try {
     $idArticle = (int)($_GET['id']);
-
+    $listCommentaire = Commentaire::getCommentairesByArticle($idArticle);
     $article = new Article();
     $theme = new Theme();
     $auteur = new Client;
@@ -121,33 +123,35 @@ try {
             </div>
 
             <div class="space-y-6">
-                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 relative group transition hover:border-blue-200">
-                    <div class="flex gap-4">
-                        <img src="https://i.pravatar.cc/100?u=me" class="w-12 h-12 rounded-2xl">
-                        <div class="flex-1">
-                            <div class="flex justify-between items-center mb-2">
-                                <h4 class="font-black text-slate-800 text-sm">Moi <span class="text-[10px] text-blue-500 ml-2 font-bold uppercase">Auteur</span></h4>
-                                <div class="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button onclick="editComment(this)" class="text-[10px] font-black text-blue-600 uppercase hover:underline">Modifier</button>
-                                    <button onclick="deleteAction()" class="text-[10px] font-black text-red-500 uppercase hover:underline">Supprimer</button>
-                                </div>
-                            </div>
-                            <p class="text-slate-500 text-sm leading-relaxed">J'ai adoré écrire cet article ! La 911 Carrera est vraiment une voiture à part.</p>
-                            <p class="text-[10px] text-slate-300 font-bold mt-4">IL Y A 10 MINUTES</p>
-                        </div>
-                    </div>
-                </div>
+                <?php foreach ($listCommentaire as $commentaire) : ?>
+                    <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 relative group transition hover:border-blue-200">
+                        <div class="flex gap-4">
+                            <img src="https://i.pravatar.cc/100?u=me" class="w-12 h-12 rounded-2xl">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center mb-2">
+                                    <h4 class="font-black text-slate-800 text-sm">
+                                        <?php
+                                        try {
+                                            $client = new Client();
+                                            $client = $client->getClientById(2);
 
-                <div class="bg-white/60 p-8 rounded-[2.5rem] border border-slate-100">
-                    <div class="flex gap-4">
-                        <img src="https://i.pravatar.cc/100?u=user3" class="w-12 h-12 rounded-2xl grayscale">
-                        <div class="flex-1">
-                            <h4 class="font-black text-slate-800 text-sm mb-2">Karim S.</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed">C'est vrai, l'équilibre de cette voiture est incroyable. Merci pour l'article !</p>
-                            <p class="text-[10px] text-slate-300 font-bold mt-4">HIER À 14:20</p>
+                                            echo $client->getNomUtilisateur() . ' ' . $client->getPrenomUtilisateur();
+                                        } catch (Exception $e) {
+                                            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+                                        }
+                                        ?> <span class="text-[10px] text-blue-500 ml-2 font-bold uppercase">Auteur</span></h4>
+                                    <div class="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button onclick="editComment(this)" class="text-[10px] font-black text-blue-600 uppercase hover:underline">Modifier</button>
+                                        <button onclick="deleteAction()" class="text-[10px] font-black text-red-500 uppercase hover:underline">Supprimer</button>
+                                    </div>
+                                </div>
+                                <p class="text-slate-500 text-sm leading-relaxed">J'ai adoré écrire cet article ! La 911 Carrera est vraiment une voiture à part.</p>
+                                <p class="text-[10px] text-slate-300 font-bold mt-4">IL Y A 10 MINUTES</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                <?php endforeach; ?>
             </div>
         </section>
     </main>
@@ -179,7 +183,7 @@ try {
         function toggleFavorite(btn) {
             btn.classList.toggle('text-red-500');
             btn.classList.toggle('text-slate-400');
-            
+
         }
     </script>
 

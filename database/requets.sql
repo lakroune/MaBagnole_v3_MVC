@@ -176,3 +176,5 @@ CREATE table Commentaires (
     FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur),
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 );
+
+insert into commentaires (textCommentaire, deleteCommentaire, dateCommentaire, idArticle, idClient) values ("test", 0, now(), 13, 3);

@@ -11,12 +11,10 @@ class Client extends Utilisateur
     private string $telephone;
     private string $ville;
     private string $createdAt;
-    // constructeur Client
     public function __construct()
     {
         parent::__construct();
     }
-    // getters
     public function getStatusClient(): int
     {
         return $this->statusClient;
@@ -39,7 +37,6 @@ class Client extends Utilisateur
     }
 
 
-    // setters
     public function setStatusClient(int $statusClient): bool
     {
         if (  ($statusClient == 0 || $statusClient == 1)) {
@@ -78,13 +75,11 @@ class Client extends Utilisateur
 
 
 
-    // tostring
     public function __toString(): string
     {
         return parent::__toString() . ", Client [statusClient=$this->statusClient, telephone=$this->telephone, ville=$this->ville, createdAt=$this->createdAt]";
     }
 
-    //inscrire
     public function inscrire(): bool
     {
         try {
