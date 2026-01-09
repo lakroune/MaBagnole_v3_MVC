@@ -4,7 +4,9 @@ namespace app\view;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+use app\model\AimerArticle;
 use app\model\Categorie;
+use app\model\Favori;
 use app\model\Vehicule;
 
 session_start();
@@ -165,7 +167,15 @@ $categories = $categorie->getAllCategories();
                                         <input type="hidden" name="page" value="accueil">
                                         <input type="hidden" name="action" value="favorite">
                                         <!-- .favorite-btn ??? mtnsahch  wahynari  -->
-                                        <button type="button" <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else:; ?> onclick="toggleFavorite(this)" <?php endif; ?> class="  favorite-btn absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition shadow-lg">
+                                        <button type="button" <?php if (!($connect)) :  ?>
+                                            onclick="toggleModal('rentPopup')" <?php else:; ?>
+                                            onclick="toggleFavorite(this)" <?php endif; ?> class="
+                                               <?php if (($connect)) echo ' favorite-btn '; ?>
+                                             <?php $vavorie = new Favori();
+                                                if ($vavorie->isFavori($_SESSION['Utilisateur']->getIdUtilisateur(), $vehicule->getIdVehicule()))
+                                                    echo ' is-favorite ';
+                                                ?>
+                                             absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition shadow-lg">
                                             <i class="fas fa-heart"></i>
                                         </button>
                                     </form>
