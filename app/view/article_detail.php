@@ -81,10 +81,12 @@ try {
             <div class="p-10 md:p-16">
                 <div class="flex items-center justify-between mb-10 pb-6 border-b border-slate-50">
                     <div class="flex items-center gap-4">
-                        <?php // strtoupper($auteur->getNomUtilisateur()[0] . "." . $auteur->getPrenomUtilisateur()[0]) ?>
+                        <?php // strtoupper($auteur->getNomUtilisateur()[0] . "." . $auteur->getPrenomUtilisateur()[0]) 
+                        ?>
                         <div>
-                            <p class="text-sm font-black text-slate-800"><?= "" // $auteur->getNomUtilisateur().' '.$auteur->getPrenomUtilisateur() 
-                                                                            ?></p>
+                            <p class="text-sm font-black text-slate-800">
+                                <?= "" // $auteur->getNomUtilisateur().' '.$auteur->getPrenomUtilisateur() 
+                                ?></p>
                             <p class="text-[10px] text-slate-400 font-bold uppercase">Publié le 05 Janvier 2026</p>
                         </div>
                     </div>
@@ -160,8 +162,12 @@ try {
                                         }
                                         ?> <span class="text-[10px] text-blue-500 ml-2 font-bold uppercase">Auteur</span></h4>
                                     <div class="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button onclick="editComment(this)" class="text-[10px] font-black text-blue-600 uppercase hover:underline">Modifier</button>
-                                        <button onclick="deleteAction()" class="text-[10px] font-black text-red-500 uppercase hover:underline">Supprimer</button>
+                                        <button type="button" onclick="toggleModal('deleteCommentModal')" data-id="<?= $commentaire->getIdCommentaire() ?>" data-page="article_detail" data-action="delete" class="text-slate-400 hover:text-red-500 transition">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <button type="button" onclick="toggleModal('editCommentModal')" class="text-slate-400 hover:text-blue-500 transition">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <p class="text-slate-500 text-sm leading-relaxed"><?= $commentaire->getTextCommentaire() ?></p>
@@ -202,6 +208,42 @@ try {
             <div class="flex flex-col gap-3">
                 <a href="login.php" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg shadow-blue-100 hover:bg-blue-700 transition">Sign In Now</a>
                 <a href="register.php" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">Create an Account</a>
+            </div>
+        </div>
+    </div>
+    <!-- model popup suppression commentaire -->
+    <div id="deleteCommentModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4">
+        <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl text-center relative">
+            <button onclick="toggleModal('deleteCommentModal')" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600"><i class="fas fa-times"></i></button>
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h3 class="text-2xl font-black text-slate-800 mb-2">Delete Comment</h3>
+            <p class="text-slate-500 text-sm mb-8 leading-relaxed">Are you sure you want to delete this comment?</p>
+
+            <div class="flex flex-col gap-3">
+                <button onclick="toggleModal('deleteCommentModal')" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">Cancel</button>
+                <a href="#" class="w-full bg-red-500 text-white py-4 rounded-2xl font-black shadow-lg shadow-red-100 hover:bg-red-600 transition">Delete</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- model popup modification    -->
+
+    <div id="editCommentModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4">
+        <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl text-center relative">
+            <button onclick="toggleModal('editCommentModal')" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600"><i class="fas fa-times"></i></button>
+
+            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h3 class="text-2xl font-black text-slate-800 mb-2">Edit Comment</h3>
+            <p class="text-slate-500 text-sm mb-8 leading-relaxed">Are you sure you want to edit this comment?</p>
+            <textarea name="contenuCommentaire" rows="6" class="w-full p-4 bg-slate-50 border rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+
+            <div class="cols-2  gap-3">
+                <button onclick="toggleModal('editCommentModal')" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">Cancel</button>
+                <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition">Edit</button>
             </div>
         </div>
     </div>
