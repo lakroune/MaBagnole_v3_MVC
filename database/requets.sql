@@ -60,6 +60,9 @@ CREATE table Vehicules (
     FOREIGN KEY (idCategorie) REFERENCES Categories (idCategorie)
 );
 
+ 
+
+
 CREATE table Reservations (
     idReservation int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     dateReservation DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -269,7 +272,11 @@ DECLARE existe INT DEFAULT 0;
 END
 /
 /
-
+CREATE OR REPLACE PROCEDURE getDateDisponibiliteVehicule
+(IN idv int)
+BEGIN
+    SELECT dateFinReservation FROM Reservations WHERE idVehicule = idv ORDER BY dateFinReservation DESC LIMIT 1;
+END//
 CREATE or REPLACE PROCEDURE supprimerTheme(in idTheme int)
 BEGIN
 update themes set deleteTheme=1 where idTheme=idTheme;

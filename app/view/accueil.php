@@ -94,7 +94,7 @@ $categories = $categorie->getAllCategories();
                 <a href="my_reservations.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">My Bookings</a>
                 <a href="favorites.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favorites</a>
             <?php endif; ?>
-            <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">blog </a>
+            <a href="themes.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">blog </a>
         </div>
         <?php include('infoClient.php'); ?>
     </nav>

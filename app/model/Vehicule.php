@@ -173,12 +173,10 @@ class Vehicule
 
 
 
-    //tostring
     public function __toString(): string
     {
         return "Vehicule [idVehicule=$this->idVehicule, marqueVehicule=$this->marqueVehicule, modeleVehicule=$this->modeleVehicule, anneeVehicule=$this->anneeVehicule,statusVehicule=$this->statusVehicule, imageVehicule=$this->imageVehicule, typeBoiteVehicule=$this->typeBoiteVehicule, typeCarburantVehicule=$this->typeCarburantVehicule, couleurVehicule=$this->couleurVehicule, prixVehicule=$this->prixVehicule, idCategorie=$this->idCategorie]";
     }
-    //ajouter Vehicule
     public function ajouterVehicule(): bool
     {
         try {
@@ -203,7 +201,6 @@ class Vehicule
             return false;
         }
     }
-    //modifier Vehicule
     public function modifierVehicule(): bool
     {
         try {
@@ -229,7 +226,6 @@ class Vehicule
             return false;
         }
     }
-    //supprimer Vehicule 
     public function supprimerVehicule(int $idVehicule): bool
     {
         if ($idVehicule <= 0)
@@ -248,7 +244,6 @@ class Vehicule
             return false;
         }
     }
-    //get vehicule by id
     public function getVehiculeById(int $idVehicule): ?Vehicule
     {
         try {
@@ -267,7 +262,6 @@ class Vehicule
             return null;
         }
     }
-    //return all vehicules
     public function getAllVehicules(): array
     {
         try {
@@ -322,7 +316,7 @@ class Vehicule
             return [];
         }
     }
- 
+
 
     // counter vehicules
     public static function counterVehicules(): int
@@ -353,6 +347,19 @@ class Vehicule
             return 0;
         }
     }
-    //getVehiculesByMarque
-    public function getVehiculesByMarque() {}
+    public function getDateDisponibiliteVehicules(int $idv): array
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "SELECT dateFinReservation FROM Reservations WHERE idVehicule = :idv ORDER BY dateFinReservation DESC LIMIT 1";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idv",$idv);
+            $stmt->execute();
+            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+            return $result["dateFinReservation"];
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+            return [];
+        }
+    }
 }

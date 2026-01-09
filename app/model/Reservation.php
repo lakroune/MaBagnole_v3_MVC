@@ -124,12 +124,10 @@ class Reservation
     {
         return "idReservation:$this->idReservation, dateReservation :$this->dateReservation, dateDebutReservation:$this->dateDebutReservation, dateFinReservation:$this->dateFinReservation, lieuChange:$this->lieuChange, idVehicule:$this->idVehicule, statusReservation:$this->statusReservation, idClient:$this->idClient";
     }
-    // ajouter Reservation
     public function ajouterReservation(): bool
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            // $sql = "insert into reservations (dateDebutReservation, dateFinReservation, lieuChange, idVehicule, idClient) values (:dateDebutReservation, :dateFinReservation, :lieuChange, :idVehicule, :idClient)";
             $sql = "CALL AjouterReservation(:idClient, :idVehicule, :dateDebutReservation, :dateFinReservation, :lieuChange)";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":dateDebutReservation", $this->dateDebutReservation);
@@ -146,12 +144,10 @@ class Reservation
             return false;
         }
     }
-    // confirmer Reservation
     public function confirmerReservation(int $idReservation): bool
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            // $sql = "update reservations set statusReservation='confirmer' where idReservation=:idReservation";
             $sql = "CALL confirmerReservation(:idReservation)";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idReservation", $idReservation);
@@ -164,7 +160,6 @@ class Reservation
             return false;
         }
     }
-    // annuler Reservation
     public function annulerReservation(int $idReservation): bool
     {
         try {
@@ -181,7 +176,6 @@ class Reservation
             return false;
         }
     }
-    //get Reservation
     public function getReservation(int $idReservation): ?Reservation
     {
 
@@ -200,8 +194,7 @@ class Reservation
         } else {
             return null;
         }
-    }
-    //vrifeir  si client a une Reservation confirmer et terminer  et non fais deja avis 
+    } 
     public function getReservationByClientVehicule(int $idClient, int $idVehicule): int
     {
         try {
@@ -225,7 +218,6 @@ class Reservation
         }
     }
 
-    //getAll Reservations
     public  function getAllReservations(): array
     {
         try {
@@ -244,7 +236,6 @@ class Reservation
             return [];
         }
     }
-    //conter Reservations
     public static function counterReservations(): int
     {
         try {
@@ -370,4 +361,22 @@ class Reservation
             return 0;
         }
     }
+    // public function getNBEtoiles( int $idVehicule): int {
+    //     try {
+    //         $db = Connexion::connect()->getConnexion();
+    //         $sql = "select v.nbEtoiles from vehicules v where v.idVehicule=:idVehicule";
+    //         $stmt = $db->prepare($sql);
+    //         $stmt->bindParam(":idVehicule", $idVehicule, \PDO::PARAM_INT);
+    //         if ($stmt->execute()) {
+    //             $reservation = $stmt->fetch(\PDO::FETCH_OBJ);
+    //             return $reservation->nbEtoiles ?? 0;
+    //         } else {
+    //             return 0;
+    //         }
+          
+    //     }catch (\Exception $e) {
+    //         error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+    //         return 0;
+    //     }
+    // }
 }

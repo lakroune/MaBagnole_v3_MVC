@@ -75,7 +75,8 @@ try {
                  <?php if (($connect)) echo ' favorite-btn ';
                     $aimeArticle = new AimerArticle();
                     if ($aimeArticle->isAimerArticle($_SESSION['Utilisateur']->getIdUtilisateur(), $article->getIdArticle()))
-                        echo ' text-red-500  '; else echo ' text-slate-400 ' ;
+                        echo ' text-red-500  ';
+                    else echo ' text-slate-400 ';
                     ?>
                 w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center  hover:text-red-500 transition">
                     <i class="fas fa-heart"></i>
@@ -195,18 +196,21 @@ try {
                                         <?php
                                         try {
 
-                                            if ($client->getIdUtilisateur() === $commentaire->getIdClient())
+                                            if ($client->getIdUtilisateur() === $_SESSION['Utilisateur']->getIdUtilisateur())
                                                 echo "Vous";
                                             else
                                                 echo $client->getNomUtilisateur() . ' ' . $client->getPrenomUtilisateur();
                                         } catch (Exception $e) {
                                             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
                                         }
-                                        ?> <span class="text-[10px] text-blue-500 ml-2 font-bold uppercase"> <?php
-                                                                                                                if ($article->getIdAuteur() === $commentaire->getIdClient())
-                                                                                                                    echo "Auteur";
+                                        ?> <span class="text-[10px] text-blue-500 ml-2 font-bold uppercase">
+                                            <?php
+                                            if ($article->getIdAuteur() === $commentaire->getIdClient())
+                                                echo "Auteur";
 
-                                                                                                                ?></span></h4>
+                                            ?>
+                                        </span>
+                                    </h4>
                                     <div class="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <?php if ($connect && $commentaire->getIdClient() === $client->getIdUtilisateur()) : ?>
                                             <button type="button" onclick="toggleModal('deleteCommentModal')" data-id="<?= $commentaire->getIdCommentaire() ?>" data-page="article_detail" data-action="delete" class="text-slate-400 hover:text-red-500 transition">
@@ -296,7 +300,7 @@ try {
             </div>
         </div>
     </div>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/main.js"></script>
 
     <script>
