@@ -81,7 +81,7 @@ try {
             <div class="p-10 md:p-16">
                 <div class="flex items-center justify-between mb-10 pb-6 border-b border-slate-50">
                     <div class="flex items-center gap-4">
-                        <img src="https://i.pravatar.cc/100?u=author" class="w-12 h-12 rounded-2xl border-2 border-white shadow-sm">
+                        <?php // strtoupper($auteur->getNomUtilisateur()[0] . "." . $auteur->getPrenomUtilisateur()[0]) ?>
                         <div>
                             <p class="text-sm font-black text-slate-800"><?= "" // $auteur->getNomUtilisateur().' '.$auteur->getPrenomUtilisateur() 
                                                                             ?></p>
@@ -129,16 +129,27 @@ try {
 
             <div class="space-y-6">
                 <?php foreach ($listCommentaire as $commentaire) : ?>
+                    <?php
+                    try {
+                        $client = new Client();
+                        $client = $client->getClientById($commentaire->getIdClient());
+                    } catch (Exception $e) {
+                        error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+                    }
+                    ?>
                     <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 relative group transition hover:border-blue-200">
                         <div class="flex gap-4">
-                            <img src="https://i.pravatar.cc/100?u=me" class="w-12 h-12 rounded-2xl">
+                            <!-- cercle  entient 1er litre de nom-->
+                            <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center">
+                                <div class="w-10 h-10 rounded-full bg-blue-600 border-2 border-blue-100 flex items-center justify-center text-white font-bold shadow-sm">
+                                    <?= strtoupper($client->getNomUtilisateur()[0] . "." . $client->getPrenomUtilisateur()[0]) ?>
+                                </div>
+                            </div>
                             <div class="flex-1">
                                 <div class="flex justify-between items-center mb-2">
                                     <h4 class="font-black text-slate-800 text-sm">
                                         <?php
                                         try {
-                                            $client = new Client();
-                                            $client = $client->getClientById($commentaire->getIdClient());
 
                                             if ($client->getIdUtilisateur() == $commentaire->getIdClient())
                                                 echo "Vous";
