@@ -183,7 +183,7 @@ class Article
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "SELECT * FROM articles WHERE idArticle = :idArticle";
+            $sql = "SELECT * FROM articles WHERE deleteArticle = 0 AND idArticle = :idArticle";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idArticle", $idArticle);
             $stmt->execute();
@@ -198,7 +198,7 @@ class Article
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "DELETE FROM articles WHERE idArticle = :idArticle";
+            $sql = "update articles set deleteArticle = 1 WHERE idArticle = :idArticle";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idArticle", $idArticle);
             return $stmt->execute();
