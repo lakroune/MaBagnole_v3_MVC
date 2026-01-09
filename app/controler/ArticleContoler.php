@@ -16,13 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['action']) || empty($
 }
 
 $article = new Article();
+session_start();
 if ($_POST['action'] === 'add') {
     if (!empty($_POST['titreArticle']) && !empty($_POST['contenuArticle']) && !empty($_POST['idTheme'])) {
-        $article->setTitreArticle("dddd");
-        $article->setContenuArticle("dddd");
-        $article->setIdTheme(1);
-        $article->setMedia("dddd");
-        $article->setIdAuteur(1);
+        $article->setTitreArticle($_POST['titreArticle']);
+        $article->setContenuArticle($_POST['contenuArticle']);
+        $article->setIdTheme((int)$_POST['idTheme']);
+        $article->setMedia("https://www.w3schools.com/howto/img_avatar.png");
+        $article->setIdAuteur((int) $_SESSION['Utilisateur']->getIdUtilisateur());
         $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
 
 
@@ -45,8 +46,7 @@ if ($_POST['action'] === 'add') {
         header("Location: ../view/admin_articles.php?status=error");
         exit();
     }
-}
-elseif ($_POST['action'] === 'approve' && isset($_POST['idArticle'])) {
+} elseif ($_POST['action'] === 'approve' && isset($_POST['idArticle'])) {
     if ($article->validerArticle((int)$_POST['idArticle'])) {
         header("Location: ../view/admin_articles.php?status=success");
         exit();

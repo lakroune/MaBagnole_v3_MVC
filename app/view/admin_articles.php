@@ -110,10 +110,10 @@ $articlesList = Article::getAllArticlesNonApprouve();
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
-                                    <button onclick="confirmAction('approve', 1, 'L\'impact des moteurs hybrides...')" class="bg-green-500 text-white px-6 py-3 rounded-xl font-black text-xs hover:bg-green-600 transition shadow-lg shadow-green-100 flex items-center gap-2">
+                                    <button onclick="confirmAction('approve', <?php echo $article->getIdArticle() ?>, '<?php echo $article->getTitreArticle() ?>')" class="bg-green-500 text-white px-6 py-3 rounded-xl font-black text-xs hover:bg-green-600 transition shadow-lg shadow-green-100 flex items-center gap-2">
                                         <i class="fas fa-check"></i> Approuver
                                     </button>
-                                    <button onclick="confirmAction('delete', 1, 'L\'impact des moteurs hybrides...')" class="w-12 h-12 bg-slate-50 text-slate-400 rounded-xl hover:bg-red-500 hover:text-white transition flex items-center justify-center shadow-sm">
+                                    <button onclick="confirmAction('delete', <?php echo $article->getIdArticle() ?>, '<?php echo $article->getTitreArticle() ?>')" class="w-12 h-12 bg-slate-50 text-slate-400 rounded-xl hover:bg-red-500 hover:text-white transition flex items-center justify-center shadow-sm">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </div>
