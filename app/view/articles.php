@@ -15,7 +15,7 @@ if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !==
     $connect =  false;
 }
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    header("Location: themes_list.php");
+    header("Location: themes.php");
     exit();
 }
 
