@@ -232,7 +232,7 @@ try {
                                     } elseif ($interval->i > 0) {
                                         echo $interval->i . ' minutes';
                                     } else {
-                                        echo "À l\'instant";
+                                        echo "À l'instant";
                                     }
                                     ?></p>
                             </div>

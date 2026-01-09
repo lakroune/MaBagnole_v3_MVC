@@ -15,7 +15,7 @@
         <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
         <div class="flex gap-6 items-center">
 
-            <a href="blog_main.php" class="text-sm font-bold text-slate-600 hover:text-blue-600">Thèmes</a>
+            <a href="./themes.php" class="text-sm font-bold text-slate-600 hover:text-blue-600"> Explorer la Blog</a>
 
             <a href="#stats" class="text-sm font-bold text-slate-600 hover:text-blue-600">Pourquoi nous?</a>
             <a href="login.php" class="text-sm font-bold text-slate-800">Connexion</a>

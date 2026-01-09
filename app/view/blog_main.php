@@ -1,17 +1,17 @@
-<?php
+<!-- <?php
 
-namespace app\view;
+// namespace app\view;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+// require_once __DIR__ . '/../../vendor/autoload.php';
 
-use app\model\Article;
-use app\model\Theme;
-use app\model\Client;
-use DateTime;
+// use app\model\Article;
+// use app\model\Theme;
+// use app\model\Client;
+// use DateTime;
 
-$themesList = Theme::getAllTheme();
-$articlesList = Article::getAllArticles();
-$client = new Client();
+// $themesList = Theme::getAllTheme();
+// $articlesList = Article::getAllArticles();
+// $client = new Client();
 
 ?>
 
@@ -63,14 +63,14 @@ $client = new Client();
         </h2>
 
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-16">
-            <?php foreach ($themesList as $theme) :  ?>
+            <?php //foreach ($themesList as $theme) :  ?>
                 <a href="./articles_list.php?id=<?= $theme->getIdTheme() ?>" class="theme-card bg-white p-6 rounded-[2rem] border border-slate-100 text-center hover:border-blue-500 transition-all shadow-sm group">
                     <div class="theme-icon w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3 transition-transform">
                         <i class="fas fa-road text-xl"></i>
                     </div>
                     <p class="font-black text-slate-800 text-sm group-hover:text-blue-600 transition">Voyages</p>
                 </a>
-            <?php endforeach; ?>
+            <!-- <?php //endforeach; ?> -->
         </div>
 
         <div class="flex justify-between items-end mb-8">
@@ -96,18 +96,18 @@ $client = new Client();
                             <span class="text-slate-300">•</span>
                             <span class="text-[10px] font-bold text-slate-400">
                                 <?php
-                                $toDay = new DateTime();
-                                $articleDate = new DateTime($article->getDatePublicationArticle());
-                                $interval = $toDay->diff($articleDate);
-                                if ($interval->d > 0) {
-                                    echo $interval->d . ' jours';
-                                } elseif ($interval->h > 0) {
-                                    echo $interval->h . ' heures';
-                                } elseif ($interval->i > 0) {
-                                    echo $interval->i . ' minutes';
-                                } else {
-                                    echo "À l\'instant";
-                                }
+                                // $toDay = new DateTime();
+                                // $articleDate = new DateTime($article->getDatePublicationArticle());
+                                // $interval = $toDay->diff($articleDate);
+                                // if ($interval->d > 0) {
+                                //     echo $interval->d . ' jours';
+                                // } elseif ($interval->h > 0) {
+                                //     echo $interval->h . ' heures';
+                                // } elseif ($interval->i > 0) {
+                                //     echo $interval->i . ' minutes';
+                                // } else {
+                                //     echo "À l\'instant";
+                                // }
 
                                 ?></span>
                         </div>
@@ -141,4 +141,4 @@ $client = new Client();
     </script>
 </body>
 
-</html>
+</html> -->

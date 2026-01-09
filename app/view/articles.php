@@ -23,18 +23,25 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $tags = Tag::getAllTag();
 try {
     $idTheme = (int)($_GET['id']);
-    $articles = Article::getArticlesByTheme($idTheme);
+    $articles = [];
     $theme = new Theme();
     $theme = $theme->getThemeById($idTheme);
 } catch (\Exception $e) {
     header("Location: themes_list.php");
     exit();
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $search = $_POST['search'] ?? '';
-    $tag = $_POST['tag'] ?? '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ((isset($_POST['search']) && !empty($_POST['search'])) || (isset($_POST['tag']) && !empty($_POST['tag'])))) {
+    $search = $_POST['search'];
+    $tag = $_POST['tag'];
     $art = new Article();
-    $articles = $art->rechercherArticlesParTitre($search, $idTheme);
+    if (!empty($tag) && $tag !== '') {
+        $articles = $art->feltrerArticlesParTag($tag, $idTheme);
+    } elseif (!empty($search) && $search !== '') {
+        $articles = $art->rechercherArticlesParTitre($search, $idTheme);
+    }
+} else {
+    $articles = Article::getArticlesByTheme($idTheme);
 }
 
 ?>
@@ -103,7 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
             <div class="flex items-center gap-6">
-
+                <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition"> Browse cars </a>
+                <?php if ($connect): ?>
+                    <a href="article_favorier" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favoris</a>
+                <?php endif; ?>
             </div>
             <?php include('infoClient.php');  ?>
         </div>
@@ -129,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <select name="tag" class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 transition text-sm appearance-none cursor-pointer">
                         <option value="">Filtrer par Tag</option>
                         <?php foreach ($tags as $tag) : ?>
-                            <option value="<?= $tag->getIdTag() ?>">
+                            <option <?php if (isset($_GET['tag']) && $_GET["tag"] == $tag->getIdTag()) echo 'selected'; ?> value="<?= $tag->getIdTag() ?>">
                                 <?= htmlspecialchars($tag->getNomTag()) ?>
                             </option>
                         <?php endforeach; ?>
@@ -158,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="h-48 overflow-hidden relative">
                         <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-full h-full object-cover">
                         <form>
-                            <input type="hidden" name="idClient" value="<?= $_SESSION['Utilisateur']->getIdUtilisateur() ?>" >
+                            <input type="hidden" name="idClient" value="<?= $_SESSION['Utilisateur']->getIdUtilisateur() ?>">
                             <input type="hidden" name="idArticle" value="<?= $article->getIdArticle() ?>">
                             <button type="button" <?php if (!($connect)) :  ?>
                                 onclick="toggleModal('rentPopup')" <?php else:; ?>

@@ -34,7 +34,10 @@ $tags = Tag::getAllTag();
     <nav class="flex justify-between items-center px-8 py-5 bg-white border-b border-slate-100 sticky top-0 z-50">
         <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
         <div class="flex items-center gap-6">
-
+            <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Explorer les vehicules </a>
+            <?php if ($connect): ?>
+                <a href="article_favorier" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favoris</a>
+            <?php endif; ?>
         </div>
         <div class="flex gap-4 w-full md:w-auto">
             <button type="button" <?php if ($connect): ?> onclick="toggleModal('addArticleModal')" <?php else: ?> onclick="toggleModal('rentPopup')" <?php endif; ?> class="bg-slate-900 text-white px-6 py-4 rounded-2xl font-black hover:bg-blue-600 transition flex items-center gap-2 shadow-lg">
@@ -89,8 +92,11 @@ $tags = Tag::getAllTag();
         </div>
     </main>
 
-    <footer class="text-center py-10 border-t border-slate-100 mt-10">
-        <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">© 2026 MaBagnole Blog System</p>
+    <footer class="bg-slate-900 text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <span class="text-3xl font-black text-blue-500">MaBagnole</span>
+            <p class="text-slate-500 text-sm mt-8">© 2025 MaBagnole Management. All rights reserved.</p>
+        </div>
     </footer>
     <div id="addArticleModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4">
         <div class="bg-white w-full max-w-2xl rounded-[2.5rem] p-10 shadow-2xl max-h-[90vh] overflow-y-auto">
@@ -109,7 +115,7 @@ $tags = Tag::getAllTag();
                     <div>
                         <label class="text-[10px] font-black uppercase text-slate-400 tracking-widest block mb-2">Thème</label>
                         <select name="idTheme" class="w-full p-4 bg-slate-50 border rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none">
-                           <?php foreach ($themes as $theme) : ?>
+                            <?php foreach ($themes as $theme) : ?>
                                 <option value="<?= $theme->getIdTheme() ?>"><?= $theme->getNomTheme() ?></option>
                             <?php endforeach; ?>
                         </select>

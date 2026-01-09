@@ -62,7 +62,7 @@ $categories = $categorie->getAllCategories();
             transform: translateY(-10px);
         }
 
-      
+
         .dataTables_wrapper .dataTables_paginate .paginate_button.current {
             background: #2563eb !important;
             color: white !important;
@@ -92,6 +92,7 @@ $categories = $categorie->getAllCategories();
                 <a href="my_reservations.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">My Bookings</a>
                 <a href="favorites.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favorites</a>
             <?php endif; ?>
+            <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">blog </a>
         </div>
         <?php include('infoClient.php'); ?>
     </nav>
@@ -230,7 +231,6 @@ $categories = $categorie->getAllCategories();
     </div>
 
     <script>
-       
         $(document).ready(function() {
 
             $('.favorite-btn').on('click', function(e) {
@@ -281,7 +281,7 @@ $categories = $categorie->getAllCategories();
             var table = $('#vehicleTable').DataTable({
                 "dom": 'tip', //   search bar
                 "pageLength": 6,
-                "ordering": false, 
+                "ordering": false,
                 "language": {
                     "paginate": {
                         "previous": "<i class='fas fa-arrow-left'></i>",
