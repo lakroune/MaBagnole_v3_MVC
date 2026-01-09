@@ -108,6 +108,8 @@ CREATE table Avis (
     idReservation int(11) NOT NULL,
     statusAvis INT NOT NULL DEFAULT 1,
     idClient int(11) NOT NULL,
+    deleteAvis INT NOT NULL DEFAULT 0,
+    constraint check_deleteAvis check (deleteAvis between 0 and 1),
     constraint check_noteAvis check (noteAvis between 1 and 5),
     constraint check_statusAvis check (statusAvis between 0 and 1),
     FOREIGN KEY (idReservation) REFERENCES Reservations (idReservation),
@@ -207,7 +209,53 @@ CREATE table Commentaires (
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 );
 
-DELIMITER / /
+DELIMITER //
+
+CREATE or REPLACE PROCEDURE AjouterReservation(
+    IN idClient INT,
+    IN idVehicule INT,
+    IN dateDebut DATETIME,
+    IN dateFin DATETIME,
+    IN lieuChange VARCHAR(255)
+)
+BEGIN
+    IF dateDebut >= dateFin THEN
+       SELECT "date de début plus grande que la date de fin";
+    ELSEIF (SELECT statusVehicule FROM Vehicules WHERE idVehicule = idVehicule LIMIT 1) = 0 THEN
+        SELECT "vehicule indisponible";
+    ELSE
+        INSERT INTO Reservations (
+            dateDebutReservation, 
+            dateFinReservation, 
+            lieuChange, 
+            idVehicule, 
+            idClient
+        ) 
+        VALUES (
+            dateDebut, 
+            dateFin, 
+            lieuChange, 
+            idVehicule, 
+            idClient
+        );
+        UPDATE Vehicules
+        SET statusVehicule = 0
+        WHERE idVehicule = idVehicule;
+    END IF;
+END//
+
+
+CREATE OR REPLACE Procedure confirmerReservation(
+    IN reservationId INT
+)
+BEGIN
+    UPDATE Reservations
+    SET statusReservation = 'confirmer'
+    WHERE idReservation = reservationId;
+    UPDATE vehicules
+    SET statusVehicule = 0
+    WHERE idVehicule = (SELECT idVehicule FROM Reservations WHERE idReservation = reservationId);
+END;
 
 CREATE or REPLACE PROCEDURE aimerArticle   (in idClientl int(11), in idArticlel int(11))
 BEGIN
@@ -218,21 +266,26 @@ DECLARE existe INT DEFAULT 0;
     ELSE
         INSERT INTO AimerArticle (idClient, idArticle) VALUES (idClientl, idArticlel);
     END IF;
-END//
+END
+/
+/
 
 CREATE or REPLACE PROCEDURE supprimerTheme(in idTheme int)
 BEGIN
 update themes set deleteTheme=1 where idTheme=idTheme;
 UPDATE articles SET deleteArticle = 1 WHERE idTheme = idTheme;
 UPDATE commentaires SET deleteCommentaire = 1 WHERE idTheme = idTheme;
-END//
+END
+/
+/
 
 CREATE or replace PROCEDURE supprimerTag(in idTag int)
 BEGIN
 update tags set deleteTag =1 where idTag=idTag;
 UPDATE articlesTags SET deleteArticlesTags = 1 WHERE idTag = idTag;
-END//
-
+END
+/
+/
 
 DELIMITER;
 

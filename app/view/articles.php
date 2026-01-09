@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ((isset($_POST['search']) && !empty
             <div class="flex items-center gap-6">
                 <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition"> Browse cars </a>
                 <?php if ($connect): ?>
-                    <a href="article_favorier" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favoris</a>
+                    <a href="articles_favorier.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favoris</a>
                 <?php endif; ?>
             </div>
             <?php include('infoClient.php');  ?>
