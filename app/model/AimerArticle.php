@@ -53,7 +53,7 @@ class AimerArticle
     public function aimerArticle(): bool
     {
         $db = Connexion::connect()->getConnexion();
-        $sql = "INSERT INTO aimerarticle (idClient, idArticle) VALUES (:idClient, :idArticle)";
+        $sql = "call aimerArticle   (:idClient, :idArticle)";
         try {
             $stmt = $db->prepare($sql);
         } catch (Exception $e) {
@@ -66,38 +66,38 @@ class AimerArticle
             return true;
         return false;
     }
-    public function annulerAimerArticle(): bool
-    {
-        $db = Connexion::connect()->getConnexion();
-        $sql = "DELETE FROM aimerarticle WHERE idClient=:idClient and idArticle=:idArticle";
-        try {
-            $stmt = $db->prepare($sql);
-        } catch (Exception $e) {
-            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
-            return false;
-        }
-        $stmt->bindParam(":idClient", $this->idClient);
-        $stmt->bindParam(":idArticle", $this->idArticle);
-        if ($stmt->execute())
-            return true;
-        return false;
-    }
+    // public function annulerAimerArticle(): bool
+    // {
+    //     $db = Connexion::connect()->getConnexion();
+    //     $sql = "DELETE FROM aimerarticle WHERE idClient=:idClient and idArticle=:idArticle";
+    //     try {
+    //         $stmt = $db->prepare($sql);
+    //     } catch (Exception $e) {
+    //         error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+    //         return false;
+    //     }
+    //     $stmt->bindParam(":idClient", $this->idClient);
+    //     $stmt->bindParam(":idArticle", $this->idArticle);
+    //     if ($stmt->execute())
+    //         return true;
+    //     return false;
+    // }
 
-    public function isAimerArticle(int $idClient, int $idArticle): bool
-    {
-        $db = Connexion::connect()->getConnexion();
-        $sql = "SELECT * FROM aimerarticle WHERE idClient=:idClient and idArticle=:idArticle";
-        try {
-            $stmt = $db->prepare($sql);
-        } catch (\Exception $e) {
-            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
-            return false;
-        }
-        $stmt->bindParam(":idClient", $idClient);
-        $stmt->bindParam(":idArticle", $idArticle);
-        $stmt->execute();
-        if ($stmt->rowCount() > 0)
-            return true;
-        return false;
-    }
+    // public function isAimerArticle(int $idClient, int $idArticle): bool
+    // {
+    //     $db = Connexion::connect()->getConnexion();
+    //     $sql = "SELECT * FROM aimerarticle WHERE idClient=:idClient and idArticle=:idArticle";
+    //     try {
+    //         $stmt = $db->prepare($sql);
+    //     } catch (\Exception $e) {
+    //         error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+    //         return false;
+    //     }
+    //     $stmt->bindParam(":idClient", $idClient);
+    //     $stmt->bindParam(":idArticle", $idArticle);
+    //     $stmt->execute();
+    //     if ($stmt->rowCount() > 0)
+    //         return true;
+    //     return false;
+    // }
 }

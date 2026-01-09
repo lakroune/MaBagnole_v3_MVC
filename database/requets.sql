@@ -17,7 +17,9 @@ CREATE Table Utilisateurs (
     deleteUtilisateur INT NOT NULL DEFAULT 0,
     statusClient INT NOT NULL DEFAULT 1,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    constraint check_deleteUtilisateur check (deleteUtilisateur between 0 and 1),
+    constraint check_deleteUtilisateur check (
+        deleteUtilisateur between 0 and 1
+    ),
     Constraint check_statusClient check (statusClient between 0 and 1)
 );
 
@@ -26,7 +28,9 @@ CREATe Table Categories (
     titreCategorie varchar(255) NOT NULL,
     descriptionCategorie varchar(255) NOT NULL,
     deleteCategorie INT NOT NULL DEFAULT 0,
-    constraint check_deleteCategorie check (deleteCategorie between 0 and 1)
+    constraint check_deleteCategorie check (
+        deleteCategorie between 0 and 1
+    )
 );
 
 CREATE table Vehicules (
@@ -47,7 +51,9 @@ CREATE table Vehicules (
     prixVehicule DECIMAL(10, 2) NOT NULL,
     idCategorie int(11) NOT NULL,
     deleteVehicule INT NOT NULL DEFAULT 0,
-    constraint check_deleteVehicule check (deleteVehicule between 0 and 1),
+    constraint check_deleteVehicule check (
+        deleteVehicule between 0 and 1
+    ),
     Constraint check_statusVehicule check (
         statusVehicule between 0 and 1
     ),
@@ -68,7 +74,9 @@ CREATE table Reservations (
         'annuler'
     ) DEFAULT 'en cours',
     idClient int(11) NOT NULL,
-    constraint check_deleteReservation check (deleteReservation between 0 and 1),
+    constraint check_deleteReservation check (
+        deleteReservation between 0 and 1
+    ),
     FOREIGN KEY (idVehicule) REFERENCES Vehicules (idVehicule),
     FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur)
 );
@@ -123,7 +131,9 @@ CREATE Table ReagirAvis (
     PRIMARY KEY (idAvis, idClient),
     FOREIGN KEY (idAvis) REFERENCES Avis (idAvis),
     FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur),
-    constraint check_statusReagirAvis check (statusReagirAvis between 0 and 1)
+    constraint check_statusReagirAvis check (
+        statusReagirAvis between 0 and 1
+    )
 );
 
 -- DROP TABLE IF EXISTS Commentaires;
@@ -171,7 +181,6 @@ CREATE Table ArticlesTags (
     FOREIGN KEY (idTag) REFERENCES Tags (idTag)
 );
 
-
 CREATE Table AimerArticle (
     idArticle INT(11) NOT NULL,
     idClient INT(11) NOT NULL,
@@ -187,9 +196,30 @@ CREATE table Commentaires (
     dateCommentaire TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     idArticle INT(11) NOT NULL,
     idClient INT(11) NOT NULL,
-    constraint check_deleteCommentaire check (deleteCommentaire between 0 and 1),
+    constraint check_deleteCommentaire check (
+        deleteCommentaire between 0 and 1
+    ),
     FOREIGN KEY (idClient) REFERENCES Utilisateurs (idUtilisateur),
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 );
 
-insert into commentaires (textCommentaire, deleteCommentaire, dateCommentaire, idArticle, idClient) values ("test", 0, now(), 13, 3);
+DELIMITER //
+
+CREATE or REPLACE PROCEDURE aimerArticle   (in idClient int(11), in idArticle int(11))
+BEGIN
+DECLARE existe INT DEFAULT 0;
+    SELECT COUNT(*) INTO existe FROM AimerArticle WHERE idClient = idClient AND idArticle = idArticle;
+    IF (existe > 0) THEN
+        DELETE FROM AimerArticle WHERE idClient = idClient AND idArticle = idArticle;
+    ELSE
+        INSERT INTO AimerArticle (idClient, idArticle) VALUES (idClient, idArticle);
+    END IF;
+END//
+
+
+CREATE or REPLACE PROCEDURE supprimerTheme(in idTheme int)
+BEGIN
+update 
+
+END//
+DELIMITER;
