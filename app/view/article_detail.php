@@ -9,6 +9,7 @@ use app\model\Article;
 use app\model\Client;
 use app\model\Commentaire;
 use app\model\Tag;
+use DateTime;
 use Exception;
 
 session_start();
@@ -114,7 +115,7 @@ try {
                         <input type="hidden" name="page" value="article_detail">
                         <input type="hidden" name="action" value="add">
                         <div class="flex-1">
-                            <textarea id="commentText"  name="contenuCommentaire" placeholder="Partagez votre avis sur cet article..."
+                            <textarea id="commentText" name="contenuCommentaire" placeholder="Partagez votre avis sur cet article..."
                                 class="w-full p-5 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm min-h-[120px] transition"></textarea>
                             <div class="flex justify-end mt-4">
                                 <button onclick="handleComment()" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-600 transition shadow-lg">
@@ -137,9 +138,12 @@ try {
                                         <?php
                                         try {
                                             $client = new Client();
-                                            $client = $client->getClientById(2);
+                                            $client = $client->getClientById($commentaire->getIdClient());
 
-                                            echo $client->getNomUtilisateur() . ' ' . $client->getPrenomUtilisateur();
+                                            if ($client->getIdUtilisateur() == $commentaire->getIdClient())
+                                                echo "Vous";
+                                            else
+                                                echo $client->getNomUtilisateur() . ' ' . $client->getPrenomUtilisateur();
                                         } catch (Exception $e) {
                                             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
                                         }
@@ -149,8 +153,23 @@ try {
                                         <button onclick="deleteAction()" class="text-[10px] font-black text-red-500 uppercase hover:underline">Supprimer</button>
                                     </div>
                                 </div>
-                                <p class="text-slate-500 text-sm leading-relaxed">J'ai adoré écrire cet article ! La 911 Carrera est vraiment une voiture à part.</p>
-                                <p class="text-[10px] text-slate-300 font-bold mt-4">IL Y A 10 MINUTES</p>
+                                <p class="text-slate-500 text-sm leading-relaxed"><?= $commentaire->getTextCommentaire() ?></p>
+                                <p class="text-[10px] text-slate-300 font-bold mt-4">
+                                    <?php
+
+                                    $toDay = new DateTime();
+                                    $commentaireDate = new DateTime($commentaire->getDateCommentaire());
+                                    $interval = $toDay->diff($commentaireDate);
+                                    if ($interval->d > 0) {
+                                        echo $interval->d . ' jours';
+                                    } elseif ($interval->h > 0) {
+                                        echo $interval->h . ' heures';
+                                    } elseif ($interval->i > 0) {
+                                        echo $interval->i . ' minutes';
+                                    } else {
+                                        echo "À l\'instant";
+                                    }
+                                    ?></p>
                             </div>
                         </div>
                     </div>
