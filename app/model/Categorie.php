@@ -102,7 +102,7 @@ class Categorie
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "delete from categories where idCategorie=:idCategorie";
+            $sql = " call supprimerCategorie(:idCategorie)";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idCategorie", $idCategorie);
             if ($stmt->execute())
@@ -118,7 +118,7 @@ class Categorie
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select * from categories where idCategorie=:idCategorie";
+            $sql = "select * from categories where deleteCategorie=0 and idCategorie=:idCategorie";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idCategorie", $idCategorie);
             if ($stmt->execute()) {
@@ -137,7 +137,7 @@ class Categorie
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select * from categories";
+            $sql = "select * from categories where deleteCategorie=0";
             $stmt = $db->prepare($sql);
             if ($stmt->execute()) {
                 $categories = $stmt->fetchAll(\PDO::FETCH_CLASS, Categorie::class);
@@ -154,7 +154,7 @@ class Categorie
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select count(*) as nombre from categories";
+            $sql = "select count(*) as nombre from categories where deleteCategorie=0";
             $stmt = $db->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetch(\PDO::FETCH_ASSOC);

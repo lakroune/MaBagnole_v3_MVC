@@ -1,0 +1,49 @@
+26-01-10 04:59:05 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`mabagnole`.`vehicules`, CONSTRAINT `vehicules_ibfk_1` FOREIGN KEY (`idCategorie`) REFERENCES `categories` (`idCategorie`)) in C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php:108
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php(108): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(146): app\model\Categorie->supprimerCategorie('2')
+#2 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(25): app\controler\AdminControler->gererCategories()
+#3 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(202): app\controler\AdminControler->index()
+#4 {main}
+26-01-10 04:59:12 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`mabagnole`.`vehicules`, CONSTRAINT `vehicules_ibfk_1` FOREIGN KEY (`idCategorie`) REFERENCES `categories` (`idCategorie`)) in C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php:108
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php(108): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(146): app\model\Categorie->supprimerCategorie('3')
+#2 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(25): app\controler\AdminControler->gererCategories()
+#3 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(202): app\controler\AdminControler->index()
+#4 {main}
+26-01-10 05:18:13 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`mabagnole`.`vehicules`, CONSTRAINT `vehicules_ibfk_1` FOREIGN KEY (`idCategorie`) REFERENCES `categories` (`idCategorie`)) in C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php:108
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php(108): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(146): app\model\Categorie->supprimerCategorie('5')
+#2 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(25): app\controler\AdminControler->gererCategories()
+#3 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(202): app\controler\AdminControler->index()
+#4 {main}
+26-01-10 05:18:18 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`mabagnole`.`vehicules`, CONSTRAINT `vehicules_ibfk_1` FOREIGN KEY (`idCategorie`) REFERENCES `categories` (`idCategorie`)) in C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php:108
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php(108): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(146): app\model\Categorie->supprimerCategorie('5')
+#2 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(25): app\controler\AdminControler->gererCategories()
+#3 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(202): app\controler\AdminControler->index()
+#4 {main}
+26-01-10 05:18:23 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`mabagnole`.`vehicules`, CONSTRAINT `vehicules_ibfk_1` FOREIGN KEY (`idCategorie`) REFERENCES `categories` (`idCategorie`)) in C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php:108
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php(108): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(146): app\model\Categorie->supprimerCategorie('5')
+#2 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(25): app\controler\AdminControler->gererCategories()
+#3 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(202): app\controler\AdminControler->index()
+#4 {main}
+26-01-10 05:21:30 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`mabagnole`.`vehicules`, CONSTRAINT `vehicules_ibfk_1` FOREIGN KEY (`idCategorie`) REFERENCES `categories` (`idCategorie`)) in C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php:108
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php(108): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(146): app\model\Categorie->supprimerCategorie('5')
+#2 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(25): app\controler\AdminControler->gererCategories()
+#3 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(202): app\controler\AdminControler->index()
+#4 {main}
+26-01-10 05:22:55 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`mabagnole`.`vehicules`, CONSTRAINT `vehicules_ibfk_1` FOREIGN KEY (`idCategorie`) REFERENCES `categories` (`idCategorie`)) in C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php:108
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v2\app\model\Categorie.php(108): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(146): app\model\Categorie->supprimerCategorie('5')
+#2 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(25): app\controler\AdminControler->gererCategories()
+#3 C:\xampp\htdocs\MaBagnole_v2\app\controler\AdminControler.php(202): app\controler\AdminControler->index()
+#4 {main}

@@ -60,9 +60,6 @@ CREATE table Vehicules (
     FOREIGN KEY (idCategorie) REFERENCES Categories (idCategorie)
 );
 
- 
-
-
 CREATE table Reservations (
     idReservation int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     dateReservation DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -212,7 +209,43 @@ CREATE table Commentaires (
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 );
 
-DELIMITER //
+DELIMITER /
+/
+
+CREATE Or REPLACE PROCEDURE reservation
+(in idR int)
+BEGIN
+UPDATE reservations set `deleteReservation` = 1 WHERE idReservation = idR;
+UPDATE avis set `deleteAvis` = 1 WHERE `idReservation` = idR;
+END
+/
+/
+
+CREATE Or REPLACE PROCEDURE supprimerVehicule
+(in idVcl int)
+BEGIN
+DECLARE idr int;
+UPDATE vehicules set `deleteVehicule` = 1 WHERE idVehicule = idVcl;
+REPEAT
+    SET idr = (SELECT   `idReservation` from reservations where `idVehicule` = idVcl and `deleteReservation`= 0 limit 1);
+  call  reservation(idr);
+  UNTIL idr is null
+END REPEAT;
+END
+/
+/
+
+CREATE Or REPLACE PROCEDURE supprimerCategorie
+(in idCtr int)
+BEGIN
+DECLARE idV int;
+UPDATE categories set `deleteCategorie` = 1 WHERE idCategorie = idCtr;
+REPEAT
+    SET idV = (SELECT   `idVehicule` from vehicules where `idCategorie` = idCtr and `deleteVehicule`= 0 limit 1);
+  call  supprimerVehicule(idV);
+  UNTIL idV is null
+END REPEAT;
+END
 
 CREATE or REPLACE PROCEDURE AjouterReservation(
     IN idClient INT,
@@ -245,8 +278,9 @@ BEGIN
         SET statusVehicule = 0
         WHERE idVehicule = idVehicule;
     END IF;
-END//
-
+END
+/
+/
 
 CREATE OR REPLACE Procedure confirmerReservation(
     IN reservationId INT
@@ -272,11 +306,15 @@ DECLARE existe INT DEFAULT 0;
 END
 /
 /
+
 CREATE OR REPLACE PROCEDURE getDateDisponibiliteVehicule
 (IN idv int)
 BEGIN
     SELECT dateFinReservation FROM Reservations WHERE idVehicule = idv ORDER BY dateFinReservation DESC LIMIT 1;
-END//
+END
+/
+/
+
 CREATE or REPLACE PROCEDURE supprimerTheme(in idTheme int)
 BEGIN
 update themes set deleteTheme=1 where idTheme=idTheme;
@@ -295,5 +333,3 @@ END
 /
 
 DELIMITER;
-
-SELECT * FROM aimerarticle

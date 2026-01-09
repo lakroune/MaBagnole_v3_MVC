@@ -180,7 +180,7 @@ class Reservation
     {
 
         $db = Connexion::connect()->getConnexion();
-        $sql = "select * from reservations where idReservation=:idReservation";
+        $sql = "select * from reservations where deleteReservation=0 and idReservation=:idReservation";
         $stmt = $db->prepare($sql);
         try {
             $stmt->bindParam(":idReservation", $idReservation);
@@ -199,7 +199,7 @@ class Reservation
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select  * from reservations where idClient=:idClient and statusReservation='confirmer' and idVehicule=:idVehicule and dateFinReservation<now()";
+            $sql = "select  * from reservations where deleteReservation=0 and idClient=:idClient and statusReservation='confirmer' and idVehicule=:idVehicule and dateFinReservation<now()";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idClient", $idClient);
             $stmt->bindParam(":idVehicule", $idVehicule);
@@ -222,7 +222,7 @@ class Reservation
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select r.* from reservations r inner join vehicules v on r.idVehicule=v.idVehicule inner join utilisateurs u on r.idClient=u.idUtilisateur";
+            $sql = "select r.* from reservations r inner join vehicules v on r.idVehicule=v.idVehicule inner join utilisateurs u on r.idClient=u.idUtilisateur where r.deleteReservation=0";
             $stmt = $db->prepare($sql);
             if ($stmt->execute()) {
                 $reservations = $stmt->fetchAll(\PDO::FETCH_CLASS, Reservation::class);
@@ -240,7 +240,7 @@ class Reservation
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select count(*) as total from reservations";
+            $sql = "select count(*) as total from reservations ";
             $stmt = $db->prepare($sql);
             if ($stmt->execute()) {
                 $reservation = $stmt->fetch(\PDO::FETCH_OBJ);
@@ -296,7 +296,7 @@ class Reservation
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select count(*) as total from reservations where statusReservation='annuler'";
+            $sql = "select count(*) as total from reservations where statusReservation='annuler' and dateFinReservation < now() and deleteReservation=0";
             $stmt = $db->prepare($sql);
             if ($stmt->execute()) {
                 $reservation = $stmt->fetch(\PDO::FETCH_OBJ);
@@ -313,7 +313,7 @@ class Reservation
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select count(*) as total from reservations where statusReservation='confirmer'";
+            $sql = "select count(*) as total from reservations where statusReservation='confirmer' and deleteReservation=0";
             $stmt = $db->prepare($sql);
             if ($stmt->execute()) {
                 $reservation = $stmt->fetch(\PDO::FETCH_OBJ);
@@ -330,7 +330,7 @@ class Reservation
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select count(*) as total from reservations where statusReservation='en cours'";
+            $sql = "select count(*) as total from reservations where statusReservation='en cours' and deleteReservation=0";
             $stmt = $db->prepare($sql);
             if ($stmt->execute()) {
                 $reservation = $stmt->fetch(\PDO::FETCH_OBJ);

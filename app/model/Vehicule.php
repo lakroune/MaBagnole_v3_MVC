@@ -232,7 +232,7 @@ class Vehicule
             return false;
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "delete from vehicules where idVehicule=:idVehicule";
+            $sql = "call supprimerVehicule(:idVehicule)";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idVehicule", $idVehicule, \PDO::PARAM_INT);
             if ($stmt->execute())
@@ -248,7 +248,7 @@ class Vehicule
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select * from vehicules where idVehicule=:idVehicule";
+            $sql = "select * from vehicules where deleteVehicule=0 and  idVehicule=:idVehicule";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idVehicule", $idVehicule);
             if ($stmt->execute()) {
@@ -266,7 +266,7 @@ class Vehicule
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select * from vehicules";
+            $sql = "select * from vehicules where deleteVehicule =0 ";
             $stmt = $db->prepare($sql);
             if ($stmt->execute()) {
                 $vehicules = $stmt->fetchAll(\PDO::FETCH_CLASS, Vehicule::class);
@@ -284,7 +284,7 @@ class Vehicule
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select * from vehicules where idCategorie=:idCategorie";
+            $sql = "select * from vehicules where deleteVehicule =0 and idCategorie=:idCategorie";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idCategorie", $idCategorie);
             if ($stmt->execute()) {
@@ -303,7 +303,7 @@ class Vehicule
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select * from vehicules where idVehicule in (select idVehicule from favoris where idClient=:idClient)";
+            $sql = "select * from vehicules where deleteVehicule=0 and idVehicule in (select idVehicule from favoris where idClient=:idClient)";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idClient", $idClient);
             if ($stmt->execute()) {
@@ -323,7 +323,7 @@ class Vehicule
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select count(*) as total from vehicules";
+            $sql = "select count(*) as total from vehicules where deleteVehicule=0 ";
             $stmt = $db->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetch(\PDO::FETCH_OBJ);
@@ -337,7 +337,7 @@ class Vehicule
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select count(*) as total from vehicules where idVehicule not in (select idVehicule from reservations where statusReservation='confirmer' and dateFinReservation >= now())";
+            $sql = "select count(*) as total from vehicules where deleteVehicule=0 and idVehicule not in (select idVehicule from reservations where statusReservation='confirmer' and dateFinReservation >= now())";
             $stmt = $db->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetch(\PDO::FETCH_OBJ);
@@ -353,7 +353,7 @@ class Vehicule
             $db = Connexion::connect()->getConnexion();
             $sql = "SELECT dateFinReservation FROM Reservations WHERE idVehicule = :idv ORDER BY dateFinReservation DESC LIMIT 1";
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(":idv",$idv);
+            $stmt->bindParam(":idv", $idv);
             $stmt->execute();
             $result = $stmt->fetch(\PDO::FETCH_ASSOC);
             return $result["dateFinReservation"];
