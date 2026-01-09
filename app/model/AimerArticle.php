@@ -83,21 +83,21 @@ class AimerArticle
     //     return false;
     // }
 
-    // public function isAimerArticle(int $idClient, int $idArticle): bool
-    // {
-    //     $db = Connexion::connect()->getConnexion();
-    //     $sql = "SELECT * FROM aimerarticle WHERE idClient=:idClient and idArticle=:idArticle";
-    //     try {
-    //         $stmt = $db->prepare($sql);
-    //     } catch (\Exception $e) {
-    //         error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
-    //         return false;
-    //     }
-    //     $stmt->bindParam(":idClient", $idClient);
-    //     $stmt->bindParam(":idArticle", $idArticle);
-    //     $stmt->execute();
-    //     if ($stmt->rowCount() > 0)
-    //         return true;
-    //     return false;
-    // }
+    public function isAimerArticle(int $idClient, int $idArticle): bool
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "SELECT * FROM aimerarticle WHERE idClient=:idClient and idArticle=:idArticle";
+        try {
+            $stmt = $db->prepare($sql);
+        } catch (Exception $e) {
+            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+            return false;
+        }
+        $stmt->bindParam(":idClient", $idClient);
+        $stmt->bindParam(":idArticle", $idArticle);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0)
+            return true;
+        return false;
+    }
 }

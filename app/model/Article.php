@@ -170,7 +170,19 @@ class Article
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "SELECT * FROM articles WHERE deleteArticle = 0 ORDER BY datePublicationArticle DESC";
+            $sql = "SELECT * FROM articles WHERE deleteArticle = 0  ORDER BY datePublicationArticle DESC";
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            return  $stmt->fetchAll(\PDO::FETCH_CLASS, Article::class);
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
+    static function getAllArticlesNonApprouve(): array
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "SELECT * FROM articles WHERE deleteArticle = 0 and statutArticle = 0  ORDER BY datePublicationArticle DESC";
             $stmt = $db->prepare($sql);
             $stmt->execute();
             return  $stmt->fetchAll(\PDO::FETCH_CLASS, Article::class);
@@ -194,11 +206,23 @@ class Article
             return null;
         }
     }
-    public function supprimerArticle($idArticle): bool
+    public function supprimerArticle(int $idArticle): bool
     {
         try {
             $db = Connexion::connect()->getConnexion();
             $sql = "update articles set deleteArticle = 1 WHERE idArticle = :idArticle";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idArticle", $idArticle);
+            return $stmt->execute();
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+    public function validerArticle(int $idArticle): bool
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "update articles set statutArticle = 1 WHERE idArticle = :idArticle";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idArticle", $idArticle);
             return $stmt->execute();

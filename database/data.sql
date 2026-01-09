@@ -231,8 +231,6 @@ INSERT into articlesTags (idArticle, idTag) VALUES
 
 (2,2);
 
-
-
 --insert into table 8 defirent articles  pour theme 1
 INSERT INTO articles (titreArticle, contenuArticle, statutArticle, datePublicationArticle, idTheme, idAuteur) VALUES
 ('Guide complet pour l''entretien de votre voiture', 'Apprenez à entretenir votre véhicule avec nos conseils experts.', 1, '2024-05-01 10:00:00', 1, 1),

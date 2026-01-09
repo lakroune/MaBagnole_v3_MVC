@@ -176,9 +176,13 @@ CREATE Table Articles (
 CREATE Table ArticlesTags (
     idArticle INT(11) NOT NULL,
     idTag INT(11) NOT NULL,
+    deleteArticlesTags INT NOT NULL DEFAULT 0,
     PRIMARY KEY (idArticle, idTag),
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle),
-    FOREIGN KEY (idTag) REFERENCES Tags (idTag)
+    FOREIGN KEY (idTag) REFERENCES Tags (idTag),
+    constraint check_deleteArticlesTags check (
+        deleteArticlesTags between 0 and 1
+    )
 );
 
 CREATE Table AimerArticle (
@@ -203,7 +207,7 @@ CREATE table Commentaires (
     FOREIGN KEY (idArticle) REFERENCES Articles (idArticle)
 );
 
-DELIMITER //
+DELIMITER / /
 
 CREATE or REPLACE PROCEDURE aimerArticle   (in idClient int(11), in idArticle int(11))
 BEGIN
@@ -216,10 +220,20 @@ DECLARE existe INT DEFAULT 0;
     END IF;
 END//
 
-
 CREATE or REPLACE PROCEDURE supprimerTheme(in idTheme int)
 BEGIN
-update 
-
+update themes set deleteTheme=1 where idTheme=idTheme;
+UPDATE articles SET deleteArticle = 1 WHERE idTheme = idTheme;
+UPDATE commentaires SET deleteCommentaire = 1 WHERE idTheme = idTheme;
 END//
+
+CREATE or replace PROCEDURE supprimerTag(in idTag int)
+BEGIN
+update tags set deleteTag =1 where idTag=idTag;
+UPDATE articlesTags SET deleteArticlesTags = 1 WHERE idTag = idTag;
+END//
+
+
 DELIMITER;
+
+SELECT * FROM aimerarticle

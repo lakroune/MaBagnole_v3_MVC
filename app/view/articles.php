@@ -4,6 +4,7 @@ namespace app\view;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+use app\model\AimerArticle;
 use app\model\Theme;
 use app\model\Article;
 use app\model\Tag;
@@ -47,7 +48,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>MaBagnole | Liste des Articles</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
+     <style>
+        .font-outline-2 {
+            -webkit-text-stroke: 1px #3b82f6;
+            color: transparent;
+        }
+
+        .is-favorite {
+            color: #ef4444 !important;
+            background-color: white !important;
+        }
+
+        @keyframes heartBeat {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.3);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+        }
+
+      
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background: #2563eb !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 0.75rem;
+        }
+
+        table.dataTable.no-footer {
+            border-bottom: none !important;
+        }
+
+        .dataTables_info {
+            color: #64748b !important;
+            font-size: 0.875rem;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body class="bg-slate-50 min-h-screen">
@@ -112,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-full h-full object-cover">
                         <form>
                             <input type="hidden" name="idArticle" value="<?= $article->getIdArticle() ?>">
-                            <button type="button" <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else:; ?>    <?php endif; ?> class="absolute   <?php if (($connect)) echo 'favorite-btn'; ?> top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
+                            <button type="button" <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else:; ?> onclick="toggleFavorite(this)"   <?php endif; ?> class="absolute   <?php if (($connect)) echo 'favorite-btn'; $aimeArticle= new AimerArticle(); if ($aimeArticle->isAimerArticle($_SESSION['Utilisateur']->getIdUtilisateur(), $article->getIdArticle())) echo 'hidden'; ?> top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
                                 <i class="fas fa-heart"></i>
                             </button>
                         </form>
@@ -169,6 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/main.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -203,6 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             modal.classList.toggle('hidden');
             modal.classList.toggle('flex');
         }
+
     </script>
 
 
