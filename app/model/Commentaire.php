@@ -94,7 +94,7 @@ class Commentaire
     public function ajouterCommentaire(): bool
     {
         $db = Connexion::connect()->getConnexion();
-        $sql = "INSERT INTO commentaires (idClient, idArticle, textCommentaire, dateCommentaire) VALUES (:idClient, :idArticle, :textCommentaire, :dateCommentaire)";
+        $sql = "INSERT INTO commentaires (idClient, idArticle, textCommentaire) VALUES (:idClient, :idArticle, :textCommentaire)";
         try {
             $stmt = $db->prepare($sql);
         } catch (\Exception $e) {
@@ -104,7 +104,6 @@ class Commentaire
         $stmt->bindParam(":idClient", $this->idClient);
         $stmt->bindParam(":idArticle", $this->idArticle);
         $stmt->bindParam(":textCommentaire", $this->textCommentaire);
-        $stmt->bindParam(":dateCommentaire", $this->dateCommentaire);
         if ($stmt->execute())
             return true;
         return false;

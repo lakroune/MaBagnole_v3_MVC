@@ -17,7 +17,7 @@ if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !==
     $connect =  false;
 }
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    header("Location: themes_list.php");
+    header("Location: themes.php");
     exit();
 }
 
@@ -33,7 +33,8 @@ try {
     $theme = $theme->getThemeById($article->getIdTheme());
     $auteur = $auteur->getClientById($article->getIdAuteur());
 } catch (\Exception $e) {
-    header("Location: themes_list.php");
+    // header("Location: themes_list.php");
+    echo $e->getMessage();
     exit();
 }
 
@@ -108,10 +109,12 @@ try {
 
             <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 mb-12">
                 <div class="flex gap-4">
-                    <form action="../controler/CommentairesControler.php" class="flex-1">
+                    <form action="../controler/CommentairesControler.php" method="POST" class="flex-1">
                         <input type="hidden" name="idArticle" value="<?= $article->getIdArticle() ?>">
+                        <input type="hidden" name="page" value="article_detail">
+                        <input type="hidden" name="action" value="add">
                         <div class="flex-1">
-                            <textarea id="commentText" placeholder="Partagez votre avis sur cet article..."
+                            <textarea id="commentText"  name="contenuCommentaire" placeholder="Partagez votre avis sur cet article..."
                                 class="w-full p-5 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm min-h-[120px] transition"></textarea>
                             <div class="flex justify-end mt-4">
                                 <button onclick="handleComment()" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-600 transition shadow-lg">
