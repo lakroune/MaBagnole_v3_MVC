@@ -20,3 +20,4 @@ try {
     error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
     echo json_encode(['success' => false, 'message' => 'Aimer non ajouter']);
 }
+  echo json_encode(['success' => true, 'message' => 'Aimer ajouter']);

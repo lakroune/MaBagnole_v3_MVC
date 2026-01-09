@@ -57,7 +57,7 @@ try {
                 <i class="fas fa-chevron-left"></i> Retour aux articles
             </a>
             <div class="text-xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
-            <button  type="button" <?php if (!$connect) : ?> onclick="toggleModal('rentPopup')" <?php else:; ?>  onclick="toggleFavorite(this)" <?php endif; ?> class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
+            <button type="button" <?php if (!$connect) : ?> onclick="toggleModal('rentPopup')" <?php else:; ?> onclick="toggleFavorite(this)" <?php endif; ?> class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
                 <i class="fas fa-heart"></i>
             </button>
         </div>
@@ -79,13 +79,14 @@ try {
                     <div class="flex items-center gap-4">
                         <img src="https://i.pravatar.cc/100?u=author" class="w-12 h-12 rounded-2xl border-2 border-white shadow-sm">
                         <div>
-                            <p class="text-sm font-black text-slate-800"><?= ""// $auteur->getNomUtilisateur().' '.$auteur->getPrenomUtilisateur() ?></p>
+                            <p class="text-sm font-black text-slate-800"><?= "" // $auteur->getNomUtilisateur().' '.$auteur->getPrenomUtilisateur() 
+                                                                            ?></p>
                             <p class="text-[10px] text-slate-400 font-bold uppercase">Publié le 05 Janvier 2026</p>
                         </div>
                     </div>
                     <div class="flex gap-2">
                         <?php foreach ($tagsList as $tag) : ?>
-                        <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">#Luxe</span>
+                            <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-lg">#Luxe</span>
                         <?php endforeach; ?>
                         <!-- <span class="text-[10px] font-bold text-slate-400 bg-slate-50 px-3 py-1 rounded-lg">#Performance</span> -->
                     </div>
@@ -105,16 +106,17 @@ try {
 
             <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 mb-12">
                 <div class="flex gap-4">
-                    <img src="https://i.pravatar.cc/100?u=me" class="w-12 h-12 rounded-2xl">
-                    <div class="flex-1">
-                        <textarea id="commentText" placeholder="Partagez votre avis sur cet article..."
-                            class="w-full p-5 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm min-h-[120px] transition"></textarea>
-                        <div class="flex justify-end mt-4">
-                            <button onclick="handleComment()" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-600 transition shadow-lg">
-                                Envoyer
-                            </button>
+                    <form action="" class="flex-1">
+                        <div class="flex-1">
+                            <textarea id="commentText" placeholder="Partagez votre avis sur cet article..."
+                                class="w-full p-5 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm min-h-[120px] transition"></textarea>
+                            <div class="flex justify-end mt-4">
+                                <button onclick="handleComment()" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-600 transition shadow-lg">
+                                    Envoyer
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
 
@@ -149,7 +151,7 @@ try {
             </div>
         </section>
     </main>
-     <div id="rentPopup" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4">
+    <div id="rentPopup" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4">
         <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl text-center relative">
             <button onclick="toggleModal('rentPopup')" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600"><i class="fas fa-times"></i></button>
 
@@ -168,15 +170,16 @@ try {
 
 
     <script>
-       function toggleModal(id) {
+        function toggleModal(id) {
             const modal = document.getElementById(id);
             modal.classList.toggle('hidden');
             modal.classList.toggle('flex');
         }
+
         function toggleFavorite(btn) {
             btn.classList.toggle('text-red-500');
             btn.classList.toggle('text-slate-400');
-            // Logic AJAX ici
+            
         }
     </script>
 

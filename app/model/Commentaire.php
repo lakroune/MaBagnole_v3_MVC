@@ -3,7 +3,8 @@
 namespace app\model;
 
 use app\model\Connexion;
-
+use Dom\Comment;
+use PDO;
 
 class Commentaire
 {
@@ -127,7 +128,7 @@ class Commentaire
     public function supprimerCommentaire(): bool
     {
         $db = Connexion::connect()->getConnexion();
-        $sql = "delete from commentaires where idCommentaire=:idCommentaire";
+        $sql = "update commentaires set deleteCommentaire=1 where idCommentaire=:idCommentaire";
         try {
             $stmt = $db->prepare($sql);
         } catch (\Exception $e) {
@@ -138,5 +139,51 @@ class Commentaire
         if ($stmt->execute())
             return true;
         return false;
+    }
+    public  function getIdCommentaireById(int $idCommentaire): ?object
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "SELECT * FROM commentaires WHERE deleteCommentaire=0 and idCommentaire=:idCommentaire";
+        try {
+            $stmt = $db->prepare($sql);
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+            return null;
+        }
+        $stmt->bindParam(":idCommentaire", $idCommentaire);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0)
+            return $stmt->fetchObject(Commentaire::class);
+        return null;
+    }
+    public function getAllCommentaires(): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "SELECT * FROM commentaires WHERE deleteCommentaire=0";
+        try {
+            $stmt = $db->prepare($sql);
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " function getAllCommentaires :error ." . $e . PHP_EOL, 3, "error.log");
+            return [];
+        }
+        if ($stmt->execute())
+            return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
+        return [];
+    }
+
+    public  function getCommentairesByArticle(int $idArticle): array
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "SELECT * FROM commentaires WHERE deleteCommentaire=0 and idArticle=:idArticle";
+        try {
+            $stmt = $db->prepare($sql);
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " function getCommentairesByArticle :error ." . $e . PHP_EOL, 3, "error.log");
+            return [];
+        }
+        $stmt->bindParam(":idArticle", $idArticle);
+        if ($stmt->execute())
+            return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
+        return [];
     }
 }

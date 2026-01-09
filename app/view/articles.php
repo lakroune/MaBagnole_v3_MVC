@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-full h-full object-cover">
                         <form>
                             <input type="hidden" name="idArticle" value="<?= $article->getIdArticle() ?>">
-                            <button type="button" <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else:; ?> onclick="toggleFavorite(this)" <?php endif; ?> class="absolute   <?php if (($connect)) :  ?> favorite-btn <?php endif; ?> top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
+                            <button type="button" <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else:; ?>    <?php endif; ?> class="absolute   <?php if (($connect)) echo 'favorite-btn'; ?> top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
                                 <i class="fas fa-heart"></i>
                             </button>
                         </form>
