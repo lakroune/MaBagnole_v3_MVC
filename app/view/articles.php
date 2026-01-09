@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>MaBagnole | Liste des Articles</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-     <style>
+    <style>
         .font-outline-2 {
             -webkit-text-stroke: 1px #3b82f6;
             color: transparent;
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transform: translateY(-10px);
         }
 
-      
+
         .dataTables_wrapper .dataTables_paginate .paginate_button.current {
             background: #2563eb !important;
             color: white !important;
@@ -158,8 +158,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="h-48 overflow-hidden relative">
                         <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-full h-full object-cover">
                         <form>
+                            <input type="hidden" name="idClient" value="<?= $_SESSION['Utilisateur']->getIdUtilisateur() ?>" >
                             <input type="hidden" name="idArticle" value="<?= $article->getIdArticle() ?>">
-                            <button type="button" <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else:; ?> onclick="toggleFavorite(this)"   <?php endif; ?> class="absolute   <?php if (($connect)) echo 'favorite-btn'; $aimeArticle= new AimerArticle(); if ($aimeArticle->isAimerArticle($_SESSION['Utilisateur']->getIdUtilisateur(), $article->getIdArticle())) echo 'hidden'; ?> top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
+                            <button type="button" <?php if (!($connect)) :  ?>
+                                onclick="toggleModal('rentPopup')" <?php else:; ?>
+                                onclick="toggleFavorite(this)" <?php endif; ?>
+                                class="absolute   
+                                <?php if (($connect)) echo ' favorite-btn ';
+                                $aimeArticle = new AimerArticle();
+                                if ($aimeArticle->isAimerArticle($_SESSION['Utilisateur']->getIdUtilisateur(), $article->getIdArticle()))
+                                    echo ' is-favorite ';
+                                ?>
+                                    top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
                                 <i class="fas fa-heart"></i>
                             </button>
                         </form>
@@ -181,14 +191,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 } elseif ($interval->i > 0) {
                                     echo $interval->i . ' minutes';
                                 } else {
-                                    echo "À l\'instant";
+                                    echo "À l'instant";
                                 }
 
                                 ?>
                             </span>
                         </div>
                         <h3 class="text-lg font-black text-slate-800 mb-3 group-hover:text-blue-600 transition leading-tight"><?= $article->getTitreArticle() ?></h3>
-                        <p class="text-sm text-slate-500 line-clamp-2 mb-6"><?= $article->getContenuArticle() ?>.</p>
+                        <p class="text-sm text-slate-500 line-clamp-2 mb-6"><?= htmlspecialchars($article->getContenuArticle()) ?>.</p>
 
                         <a href="article_detail.php?id=<?= $article->getIdArticle() ?>" class="inline-flex items-center text-xs font-black text-slate-900 group-hover:text-blue-600 transition">
                             Lire l'article <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
@@ -251,7 +261,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             modal.classList.toggle('hidden');
             modal.classList.toggle('flex');
         }
-
     </script>
 
 

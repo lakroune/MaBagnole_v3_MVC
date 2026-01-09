@@ -209,14 +209,14 @@ CREATE table Commentaires (
 
 DELIMITER / /
 
-CREATE or REPLACE PROCEDURE aimerArticle   (in idClient int(11), in idArticle int(11))
+CREATE or REPLACE PROCEDURE aimerArticle   (in idClientl int(11), in idArticlel int(11))
 BEGIN
 DECLARE existe INT DEFAULT 0;
-    SELECT COUNT(*) INTO existe FROM AimerArticle WHERE idClient = idClient AND idArticle = idArticle;
+    SELECT COUNT(*) INTO existe FROM AimerArticle WHERE idClient = idClientl AND idArticle = idArticlel;
     IF (existe > 0) THEN
-        DELETE FROM AimerArticle WHERE idClient = idClient AND idArticle = idArticle;
+        DELETE FROM AimerArticle WHERE idClient = idClientl AND idArticle = idArticlel;
     ELSE
-        INSERT INTO AimerArticle (idClient, idArticle) VALUES (idClient, idArticle);
+        INSERT INTO AimerArticle (idClient, idArticle) VALUES (idClientl, idArticlel);
     END IF;
 END//
 
