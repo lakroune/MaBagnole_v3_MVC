@@ -159,6 +159,18 @@ $categories = $categorie->getAllCategories();
                                             echo $categorieFeilter->getTitreCategorie();
                                             ?>
                                         </span>
+
+                                       
+                                            <?php
+                                            if ($vehicule->getStatusVehicule() == 1) {
+                                                // color badge green
+                                                echo "<span class='bg-green-500 text-white px-3 py-1 rounded-full text-[10px] font-bold'>Disponible</span>  ";
+                                            } else {
+                                                // color badge red
+                                                echo "<span class='bg-red-500 text-white px-3 py-1 rounded-full text-[10px] font-bold'>Indisponible</span>  ";
+                                            }
+                                            ?>
+
                                     </div>
 
 
