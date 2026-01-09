@@ -57,7 +57,7 @@ try {
 
     <nav class="bg-white border-b border-slate-100 px-8 py-4 sticky top-0 z-50">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <a href="articles_list.php" class="text-sm font-bold text-slate-400 hover:text-blue-600 transition flex items-center gap-2">
+            <a href="articles.php" class="text-sm font-bold text-slate-400 hover:text-blue-600 transition flex items-center gap-2">
                 <i class="fas fa-chevron-left"></i> Retour aux articles
             </a>
             <div class="text-xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
@@ -181,12 +181,14 @@ try {
                                         
                                         ?></span></h4>
                                     <div class="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <?php if ($connect && $commentaire->getIdClient() === $client->getIdUtilisateur()) : ?>
                                         <button type="button" onclick="toggleModal('deleteCommentModal')" data-id="<?= $commentaire->getIdCommentaire() ?>" data-page="article_detail" data-action="delete" class="text-slate-400 hover:text-red-500 transition">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                         <button type="button" onclick="toggleModal('editCommentModal')" class="text-slate-400 hover:text-blue-500 transition">
                                             <i class="fas fa-edit"></i>
                                         </button>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 <p class="text-slate-500 text-sm leading-relaxed"><?= $commentaire->getTextCommentaire() ?></p>
