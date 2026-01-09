@@ -109,9 +109,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group">
                     <div class="h-48 overflow-hidden relative">
                         <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-full h-full object-cover">
-                        <button type="button" <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else:; ?> onclick="toggleFavorite(this)" <?php endif; ?> class="absolute top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
-                            <i class="fas fa-heart"></i>
-                        </button>
+                        <form>
+                            <input type="hidden" name="idArticle" value="<?= $article->getIdArticle() ?>">
+                            <button type="button" <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else:; ?> onclick="toggleFavorite(this)" <?php endif; ?> class="absolute   <?php if (($connect)) :  ?> favorite-btn <?php endif; ?> top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </form>
                     </div>
                     <div class="p-6">
                         <div class="flex items-center gap-2 mb-3">
@@ -148,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </main>
 
- <div id="rentPopup" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4">
+    <div id="rentPopup" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4">
         <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl text-center relative">
             <button onclick="toggleModal('rentPopup')" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600"><i class="fas fa-times"></i></button>
 
@@ -164,15 +167,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+
+            $('.favorite-btn').on('click', function(e) {
+                e.preventDefault();
+
+                const $btn = $(this);
+                const $form = $btn.closest('form');
+                const formData = $form.serialize();
+                $.ajax({
+                    url: '../controler/AimerArticleControler.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            console.log('success');
+                        } else {
+                            console.log('failed');
+                        }
+                    },
+                    error: function() {
+                        console.log('error');
+                    }
+                });
+            });
+        });
+
         function toggleModal(id) {
             const modal = document.getElementById(id);
             modal.classList.toggle('hidden');
             modal.classList.toggle('flex');
         }
     </script>
+
+
 </body>
 
 </html>
