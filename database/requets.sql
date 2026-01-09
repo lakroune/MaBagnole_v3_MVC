@@ -249,7 +249,7 @@ END
 
 CREATE or REPLACE PROCEDURE AjouterReservation(
     IN idClient INT,
-    IN idVehicule INT,
+    IN idVeh INT,
     IN dateDebut DATETIME,
     IN dateFin DATETIME,
     IN lieuChange VARCHAR(255)
@@ -257,7 +257,7 @@ CREATE or REPLACE PROCEDURE AjouterReservation(
 BEGIN
     IF dateDebut >= dateFin THEN
        SELECT "date de début plus grande que la date de fin";
-    ELSEIF (SELECT statusVehicule FROM Vehicules WHERE idVehicule = idVehicule LIMIT 1) = 0 THEN
+    ELSEIF (SELECT statusVehicule FROM Vehicules WHERE idVehicule = idVeh LIMIT 1) = 0 THEN
         SELECT "vehicule indisponible";
     ELSE
         INSERT INTO Reservations (
@@ -271,12 +271,12 @@ BEGIN
             dateDebut, 
             dateFin, 
             lieuChange, 
-            idVehicule, 
+            idVeh, 
             idClient
         );
         UPDATE Vehicules
         SET statusVehicule = 0
-        WHERE idVehicule = idVehicule;
+        WHERE idVehicule = idVeh;
     END IF;
 END
 /
@@ -333,3 +333,6 @@ END
 /
 
 DELIMITER;
+
+UPDATE vehicules set `statusVehicule` =1;
+SELECT * FROM vehicules

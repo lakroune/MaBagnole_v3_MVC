@@ -36,7 +36,7 @@ $tags = Tag::getAllTag();
         <div class="flex items-center gap-6">
             <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Explorer les vehicules </a>
             <?php if ($connect): ?>
-                <a href="article_favorier" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favoris</a>
+                <a href="./client_favorites.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favoris</a>
             <?php endif; ?>
         </div>
         <div class="flex gap-4 w-full md:w-auto">

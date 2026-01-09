@@ -290,4 +290,20 @@ class Article
             return [];
         }
     }
+    public function getArticlesFavorisByClient(int $idClient): array {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "select * from articles where deleteArticle=0 and idArticle in (select idArticle from aimerarticle where idClient=:idClient)";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idClient", $idClient);
+            if ($stmt->execute()) {
+                $articles = $stmt->fetchAll(\PDO::FETCH_CLASS, Article::class);
+                return $articles;
+            }
+            return [];
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+            return [];
+        }
+    }
 }

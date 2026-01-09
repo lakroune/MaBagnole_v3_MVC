@@ -82,7 +82,7 @@ if ($connect) {
                                 <p class="font-bold text-slate-800">Indisponible</p>
                                 <p class="text-sm text-slate-500">This vehicle is currently unavailable</p>
                                 <!-- mais ilay deisponible le date -->
-                                <p class="text-sm text-slate-500">Available on: <span class="font-bold text-slate-800"> <?php echo $vehicle->getDateDisponibiliteVehicule() ?> </span></p>
+                                <p class="text-sm text-slate-500">Available on: <span class="font-bold text-slate-800"> <?php echo $vehicle->getDateDisponibiliteVehicule($idVehicule) ?> </span></p>
                             </div>
                         </div>
                     </div>

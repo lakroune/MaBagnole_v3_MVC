@@ -17,6 +17,10 @@ session_start();
 $connect = true;
 if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !== 'client') {
     $connect =  false;
+    $iduser = 0;
+}
+else{
+    $iduser = $_SESSION['Utilisateur']->getIdUtilisateur();
 }
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: themes.php");
@@ -65,7 +69,7 @@ try {
             <form>
                 <input type="hidden" name="idArticle" value="<?php echo $article->getIdArticle(); ?>">
                 <input type="hidden" name="action" value="like">
-                <input type="hidden" name="idClient" value="<?php echo $_SESSION['Utilisateur']->getIdUtilisateur(); ?>">
+                <input type="hidden" name="idClient" value="<?php echo $iduser; ?>">
                 <button type="button"
                     <?php if (!$connect) : ?>
                     onclick="toggleModal('rentPopup')"
@@ -74,7 +78,7 @@ try {
                     class=" 
                  <?php if (($connect)) echo ' favorite-btn ';
                     $aimeArticle = new AimerArticle();
-                    if ($aimeArticle->isAimerArticle($_SESSION['Utilisateur']->getIdUtilisateur(), $article->getIdArticle()))
+                    if ($aimeArticle->isAimerArticle($iduser, $article->getIdArticle()))
                         echo ' text-red-500  ';
                     else echo ' text-slate-400 ';
                     ?>
@@ -196,7 +200,7 @@ try {
                                         <?php
                                         try {
 
-                                            if ($client->getIdUtilisateur() === $_SESSION['Utilisateur']->getIdUtilisateur())
+                                            if ($client->getIdUtilisateur() === $iduser)
                                                 echo "Vous";
                                             else
                                                 echo $client->getNomUtilisateur() . ' ' . $client->getPrenomUtilisateur();

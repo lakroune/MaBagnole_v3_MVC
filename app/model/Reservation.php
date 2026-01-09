@@ -30,6 +30,9 @@ class Reservation
     {
         return $this->dateDebutReservation;
     }
+
+
+
     public function getDateFinReservation(): string
     {
         return $this->dateFinReservation;
@@ -194,7 +197,7 @@ class Reservation
         } else {
             return null;
         }
-    } 
+    }
     public function getReservationByClientVehicule(int $idClient, int $idVehicule): int
     {
         try {
@@ -215,6 +218,25 @@ class Reservation
         } catch (\Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return 0;
+        }
+    }
+    public function getResrvationByIdClient(int $idClient): array
+    {
+        try {
+            $db = Connexion::connect()->getConnexion();
+            $sql = "select * from reservations where deleteReservation=0 and idClient=:idClient";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(":idClient", $idClient);
+            if ($stmt->execute()) {
+                $reservations = $stmt->fetchAll(\PDO::FETCH_CLASS, Reservation::class);
+                return $reservations;
+            } else {
+                throw new \Exception("Reservation introuvable");
+                return [];
+            }
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
+            return [];
         }
     }
 
@@ -373,7 +395,7 @@ class Reservation
     //         } else {
     //             return 0;
     //         }
-          
+
     //     }catch (\Exception $e) {
     //         error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
     //         return 0;

@@ -12,8 +12,13 @@ use DateTime;
 
 session_start();
 $connect = true;
+$iduser =0;
 if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !== 'client') {
     $connect =  false;
+ 
+}
+else{
+    $iduser = $_SESSION['Utilisateur']->getIdUtilisateur();
 }
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: themes.php");
@@ -112,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ((isset($_POST['search']) && !empty
             <div class="flex items-center gap-6">
                 <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition"> Browse cars </a>
                 <?php if ($connect): ?>
-                    <a href="articles_favorier.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favoris</a>
+                    <a href="client_favorites.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favoris</a>
                 <?php endif; ?>
             </div>
             <?php include('infoClient.php');  ?>
@@ -168,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ((isset($_POST['search']) && !empty
                     <div class="h-48 overflow-hidden relative">
                         <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-full h-full object-cover">
                         <form>
-                            <input type="hidden" name="idClient" value="<?= $_SESSION['Utilisateur']->getIdUtilisateur() ?>">
+                            <input type="hidden" name="idClient" value="<?php  echo $iduser ?>">
                             <input type="hidden" name="idArticle" value="<?= $article->getIdArticle() ?>">
                             <button type="button" <?php if (!($connect)) :  ?>
                                 onclick="toggleModal('rentPopup')" <?php else:; ?>
@@ -176,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ((isset($_POST['search']) && !empty
                                 class="absolute   
                                 <?php if (($connect)) echo ' favorite-btn ';
                                 $aimeArticle = new AimerArticle();
-                                if ($aimeArticle->isAimerArticle($_SESSION['Utilisateur']->getIdUtilisateur(), $article->getIdArticle()))
+                                if ($aimeArticle->isAimerArticle($iduser, $article->getIdArticle()))
                                     echo ' is-favorite ';
                                 ?>
                                     top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">

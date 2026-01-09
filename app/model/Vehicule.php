@@ -347,7 +347,7 @@ class Vehicule
             return 0;
         }
     }
-    public function getDateDisponibiliteVehicules(int $idv): array
+    public function getDateDisponibiliteVehicule(int $idv): string
     {
         try {
             $db = Connexion::connect()->getConnexion();
@@ -359,7 +359,7 @@ class Vehicule
             return $result["dateFinReservation"];
         } catch (\Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
-            return [];
+            return "";
         }
     }
 }

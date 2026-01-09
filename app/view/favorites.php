@@ -49,6 +49,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
             <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Browse Cars</a>
             <a href="my_reservations.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">My Bookings</a>
             <a href="favorites.php" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Favorites</a>
+             <a href="themes.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">blog </a>
         </div>
         <?php include('infoClient.php'); ?>
     </nav>
