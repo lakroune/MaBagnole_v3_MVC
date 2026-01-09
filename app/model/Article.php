@@ -238,7 +238,7 @@ class Article
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "SELECT * FROM articles WHERE idTheme= :idTheme and titreArticle LIKE :searchTerm";
+            $sql = "SELECT * FROM articles WHERE idTheme= :idTheme and statutArticle = 1 and and deleteArticle = 0 and titreArticle LIKE :searchTerm";
             $stmt = $db->prepare($sql);
             $likeTerm = "%" . $searchTerm . "%";
             $stmt->bindParam(":searchTerm", $likeTerm);
