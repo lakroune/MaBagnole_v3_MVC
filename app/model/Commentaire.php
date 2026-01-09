@@ -17,7 +17,6 @@ class Commentaire
     public function __construct() {}
 
 
-    // geter 
     public function getIdCommentaire(): int
     {
         return $this->idCommentaire;
@@ -44,7 +43,6 @@ class Commentaire
     }
 
 
-    ///seter
     public function setIdCommentaire(int $idCommentaire): void
     {
         if ($idCommentaire < 1)
@@ -85,7 +83,6 @@ class Commentaire
             $this->dateCommentaire = $dateCommentaire;
     }
 
-    // to string 
     public function __toString(): string
     {
         return "idCommentaire : $this->idCommentaire idClient : $this->idClient idArticle : $this->idArticle textCommentaire : $this->textCommentaire dateCommentaire : $this->dateCommentaire";
@@ -184,5 +181,21 @@ class Commentaire
         if ($stmt->execute())
             return $stmt->fetchAll(PDO::FETCH_CLASS, Commentaire::class);
         return [];
+    }
+
+    static  function getNbCommentairesByArticle(int $idArticle): int
+    {
+        $db = Connexion::connect()->getConnexion();
+        $sql = "SELECT count(*) as count FROM commentaires WHERE deleteCommentaire=0 and idArticle=:idArticle";
+        try {
+            $stmt = $db->prepare($sql);
+        } catch (\Exception $e) {
+            error_log(date('y-m-d h:i:s') . " function getCommentairesByArticle :error ." . $e . PHP_EOL, 3, "error.log");
+            return 0;
+        }
+        $stmt->bindParam(":idArticle", $idArticle);
+        if ($stmt->execute())
+            return $stmt->fetch(PDO::FETCH_ASSOC)["count"];
+        return 0;
     }
 }

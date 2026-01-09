@@ -107,27 +107,42 @@ try {
 
         <section class="mt-16">
             <h3 class="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3">
-                <i class="far fa-comments text-blue-600"></i> Discussions (3)
+                <i class="far fa-comments text-blue-600"></i> Discussions (<?= Commentaire::getNbCommentairesByArticle($idArticle) ?>)
             </h3>
+            <?php if ($connect) : ?>
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 mb-12">
+                    <div class="flex gap-4">
+                        <form action="../controler/CommentairesControler.php" method="POST" class="flex-1">
+                            <input type="hidden" name="idArticle" value="<?= $article->getIdArticle() ?>">
+                            <input type="hidden" name="page" value="article_detail">
+                            <input type="hidden" name="action" value="add">
+                            <div class="flex-1">
+                                <textarea id="commentText" name="contenuCommentaire" placeholder="Partagez votre avis sur cet article..."
+                                    class="w-full p-5 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm min-h-[120px] transition"></textarea>
+                                <div class="flex justify-end mt-4">
+                                    <button onclick="handleComment()" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-600 transition shadow-lg">
+                                        Envoyer
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            <?php else : ?>
 
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 mb-12">
-                <div class="flex gap-4">
-                    <form action="../controler/CommentairesControler.php" method="POST" class="flex-1">
-                        <input type="hidden" name="idArticle" value="<?= $article->getIdArticle() ?>">
-                        <input type="hidden" name="page" value="article_detail">
-                        <input type="hidden" name="action" value="add">
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 mb-12">
+                    <div class="flex gap-4">
                         <div class="flex-1">
-                            <textarea id="commentText" name="contenuCommentaire" placeholder="Partagez votre avis sur cet article..."
-                                class="w-full p-5 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm min-h-[120px] transition"></textarea>
+                            <p class="text-sm text-slate-400 mb-4">Vous devez vous connecter pour pouvoir commenter</p>
                             <div class="flex justify-end mt-4">
-                                <button onclick="handleComment()" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-600 transition shadow-lg">
-                                    Envoyer
-                                </button>
+                                <a href="login.php" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-600 transition shadow-lg">
+                                    Se Connecter
+                                </a>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
 
             <div class="space-y-6">
                 <?php foreach ($listCommentaire as $commentaire) : ?>
@@ -153,14 +168,18 @@ try {
                                         <?php
                                         try {
 
-                                            if ($client->getIdUtilisateur() == $commentaire->getIdClient())
+                                            if ($client->getIdUtilisateur() === $commentaire->getIdClient())
                                                 echo "Vous";
                                             else
                                                 echo $client->getNomUtilisateur() . ' ' . $client->getPrenomUtilisateur();
                                         } catch (Exception $e) {
                                             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
                                         }
-                                        ?> <span class="text-[10px] text-blue-500 ml-2 font-bold uppercase">Auteur</span></h4>
+                                        ?> <span class="text-[10px] text-blue-500 ml-2 font-bold uppercase"> <?php 
+                                        if ($article->getIdAuteur() === $commentaire->getIdClient())
+                                            echo "Auteur";
+                                        
+                                        ?></span></h4>
                                     <div class="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <button type="button" onclick="toggleModal('deleteCommentModal')" data-id="<?= $commentaire->getIdCommentaire() ?>" data-page="article_detail" data-action="delete" class="text-slate-400 hover:text-red-500 transition">
                                             <i class="fas fa-trash"></i>
@@ -221,10 +240,11 @@ try {
             <h3 class="text-2xl font-black text-slate-800 mb-2">Delete Comment</h3>
             <p class="text-slate-500 text-sm mb-8 leading-relaxed">Are you sure you want to delete this comment?</p>
 
-            <div class="flex flex-col gap-3">
-                <button onclick="toggleModal('deleteCommentModal')" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">Cancel</button>
-                <a href="#" class="w-full bg-red-500 text-white py-4 rounded-2xl font-black shadow-lg shadow-red-100 hover:bg-red-600 transition">Delete</a>
-            </div>
+            <form action="../controler/CommentairesControler.php" method="POST" class="flex flex-col gap-3">
+                <input type="hidden" name="idCommentaire" id="delete_comment_id" required>
+                <input type="hidden" name="action" value="delete">
+                <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-2xl font-black shadow-lg shadow-red-100 hover:bg-red-700 transition">Delete Comment</button>
+            </form>
         </div>
     </div>
 

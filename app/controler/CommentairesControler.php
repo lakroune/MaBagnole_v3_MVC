@@ -29,8 +29,8 @@ if ($_POST['action'] === 'add' && isset($_POST['contenuCommentaire'], $_POST['id
 
 if ($_POST['action'] === 'delete' && isset($_POST['idCommentaire'])) {
     $commentaire = new Commentaire();
-    $commentaire->setIdCommentaire((int)$_POST['idCommentaire']);
-    if ($commentaire->supprimerCommentaire()) {
+
+    if ($commentaire->supprimerCommentaire((int)$_POST['idCommentaire'])) {
         header("Location: ../view/article_detail.php?id=" . $_POST['idArticle'] . "&commentaire=success");
         exit();
     } else {
