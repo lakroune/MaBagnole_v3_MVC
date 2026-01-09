@@ -4,6 +4,7 @@ namespace app\view;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+use app\model\AimerArticle;
 use app\model\Theme;
 use app\model\Article;
 use app\model\Client;
@@ -61,9 +62,25 @@ try {
                 <i class="fas fa-chevron-left"></i> Retour aux articles
             </a>
             <div class="text-xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
-            <button type="button" <?php if (!$connect) : ?> onclick="toggleModal('rentPopup')" <?php else:; ?> onclick="toggleFavorite(this)" <?php endif; ?> class="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition">
-                <i class="fas fa-heart"></i>
-            </button>
+            <form>
+                <input type="hidden" name="idArticle" value="<?php echo $article->getIdArticle(); ?>">
+                <input type="hidden" name="action" value="like">
+                <input type="hidden" name="idClient" value="<?php echo $_SESSION['Utilisateur']->getIdUtilisateur(); ?>">
+                <button type="button"
+                    <?php if (!$connect) : ?>
+                    onclick="toggleModal('rentPopup')"
+                    <?php else:; ?> onclick="toggleFavorite(this)"
+                    <?php endif; ?>
+                    class=" 
+                 <?php if (($connect)) echo ' favorite-btn ';
+                    $aimeArticle = new AimerArticle();
+                    if ($aimeArticle->isAimerArticle($_SESSION['Utilisateur']->getIdUtilisateur(), $article->getIdArticle()))
+                        echo ' text-red-500  '; else echo ' text-slate-400 ' ;
+                    ?>
+                w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center  hover:text-red-500 transition">
+                    <i class="fas fa-heart"></i>
+                </button>
+            </form>
         </div>
     </nav>
 
@@ -73,7 +90,7 @@ try {
                 <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div class="absolute bottom-10 left-10">
-                    <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Thème :<?= htmlspecialchars( $theme->getNomTheme()) ?> </span>
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Thème :<?= htmlspecialchars($theme->getNomTheme()) ?> </span>
                     <h1 class="text-4xl font-black text-white leading-tight"><?= htmlspecialchars($article->getTitreArticle()) ?></h1>
                 </div>
             </div>
@@ -109,7 +126,7 @@ try {
                 </div>
 
                 <div class="prose prose-slate max-w-none text-slate-600 text-lg leading-relaxed">
-                    <p class="mb-6 font-bold text-slate-800"><?=htmlspecialchars( $article->getContenuArticle() )?></p>
+                    <p class="mb-6 font-bold text-slate-800"><?= htmlspecialchars($article->getContenuArticle()) ?></p>
                     <!-- <p class="mb-6">Depuis son introduction en 1963, elle a su conserver son ADN tout en intégrant les technologies les plus modernes. Louer une 911 chez <strong>MaBagnole</strong>, c'est toucher du doigt une légende mécanique...</p> -->
                 </div>
             </div>
@@ -279,8 +296,43 @@ try {
             </div>
         </div>
     </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/main.js"></script>
 
+    <script>
+        $(document).ready(function() {
 
+            $('.favorite-btn').on('click', function(e) {
+                e.preventDefault();
+
+                const $btn = $(this);
+                const $form = $btn.closest('form');
+                const formData = $form.serialize();
+                $.ajax({
+                    url: '../controler/AimerArticleControler.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            console.log('success');
+                        } else {
+                            console.log('failed');
+                        }
+                    },
+                    error: function() {
+                        console.log('error');
+                    }
+                });
+            });
+        });
+
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+        }
+    </script>
     <script>
         function toggleModal(id) {
             const modal = document.getElementById(id);
