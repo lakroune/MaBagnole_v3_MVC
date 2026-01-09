@@ -42,12 +42,10 @@ class Favori
         }
     }
 
-    // tostring
     public function __toString()
     {
         return "idClient: " . $this->idClient . ", idVehicule: " . $this->idVehicule;
     }
-    // ajouter Favori
     public function ajouterFavori(): bool
     {
         try {
@@ -65,7 +63,6 @@ class Favori
             return false;
         }
     }
-    // annuler Favori
     public function annulerFavori(): bool
     {
         try {
