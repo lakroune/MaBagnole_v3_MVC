@@ -73,21 +73,31 @@ try {
                 <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div class="absolute bottom-10 left-10">
-                    <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Thème :<?= $theme->getNomTheme() ?> </span>
-                    <h1 class="text-4xl font-black text-white leading-tight"><?= $article->getTitreArticle() ?></h1>
+                    <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 inline-block">Thème :<?= htmlspecialchars( $theme->getNomTheme()) ?> </span>
+                    <h1 class="text-4xl font-black text-white leading-tight"><?= htmlspecialchars($article->getTitreArticle()) ?></h1>
                 </div>
             </div>
 
             <div class="p-10 md:p-16">
                 <div class="flex items-center justify-between mb-10 pb-6 border-b border-slate-50">
                     <div class="flex items-center gap-4">
-                        <?php // strtoupper($auteur->getNomUtilisateur()[0] . "." . $auteur->getPrenomUtilisateur()[0]) 
-                        ?>
+                        <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-blue-600 border-2 border-blue-100 flex items-center justify-center text-white font-bold shadow-sm">
+
+                                <?php echo strtoupper($auteur->getNomUtilisateur()[0] . "." . $auteur->getPrenomUtilisateur()[0])
+                                ?>
+                            </div>
+                        </div>
                         <div>
                             <p class="text-sm font-black text-slate-800">
-                                <?= "" // $auteur->getNomUtilisateur().' '.$auteur->getPrenomUtilisateur() 
+                                <?= $auteur->getNomUtilisateur() . ' ' . $auteur->getPrenomUtilisateur()
                                 ?></p>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase">Publié le 05 Janvier 2026</p>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Publié le
+                                <?php
+                                $date = new DateTime($article->getDatePublicationArticle());
+                                echo $date->format('d/m/Y');
+                                ?>
+                            </p>
                         </div>
                     </div>
                     <div class="flex gap-2">
@@ -99,7 +109,7 @@ try {
                 </div>
 
                 <div class="prose prose-slate max-w-none text-slate-600 text-lg leading-relaxed">
-                    <p class="mb-6 font-bold text-slate-800"><?= $article->getContenuArticle() ?></p>
+                    <p class="mb-6 font-bold text-slate-800"><?=htmlspecialchars( $article->getContenuArticle() )?></p>
                     <!-- <p class="mb-6">Depuis son introduction en 1963, elle a su conserver son ADN tout en intégrant les technologies les plus modernes. Louer une 911 chez <strong>MaBagnole</strong>, c'est toucher du doigt une légende mécanique...</p> -->
                 </div>
             </div>
@@ -156,7 +166,7 @@ try {
                     ?>
                     <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 relative group transition hover:border-blue-200">
                         <div class="flex gap-4">
-                            <!-- cercle  entient 1er litre de nom-->
+
                             <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center">
                                 <div class="w-10 h-10 rounded-full bg-blue-600 border-2 border-blue-100 flex items-center justify-center text-white font-bold shadow-sm">
                                     <?= strtoupper($client->getNomUtilisateur()[0] . "." . $client->getPrenomUtilisateur()[0]) ?>
@@ -175,19 +185,19 @@ try {
                                         } catch (Exception $e) {
                                             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
                                         }
-                                        ?> <span class="text-[10px] text-blue-500 ml-2 font-bold uppercase"> <?php 
-                                        if ($article->getIdAuteur() === $commentaire->getIdClient())
-                                            echo "Auteur";
-                                        
-                                        ?></span></h4>
+                                        ?> <span class="text-[10px] text-blue-500 ml-2 font-bold uppercase"> <?php
+                                                                                                                if ($article->getIdAuteur() === $commentaire->getIdClient())
+                                                                                                                    echo "Auteur";
+
+                                                                                                                ?></span></h4>
                                     <div class="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <?php if ($connect && $commentaire->getIdClient() === $client->getIdUtilisateur()) : ?>
-                                        <button type="button" onclick="toggleModal('deleteCommentModal')" data-id="<?= $commentaire->getIdCommentaire() ?>" data-page="article_detail" data-action="delete" class="text-slate-400 hover:text-red-500 transition">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <button type="button" onclick="toggleModal('editCommentModal')" class="text-slate-400 hover:text-blue-500 transition">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                            <button type="button" onclick="toggleModal('deleteCommentModal')" data-id="<?= $commentaire->getIdCommentaire() ?>" data-page="article_detail" data-action="delete" class="text-slate-400 hover:text-red-500 transition">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            <button type="button" onclick="toggleModal('editCommentModal')" class="text-slate-400 hover:text-blue-500 transition">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
                                         <?php endif; ?>
                                     </div>
                                 </div>
