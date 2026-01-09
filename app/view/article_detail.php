@@ -108,7 +108,8 @@ try {
 
             <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 mb-12">
                 <div class="flex gap-4">
-                    <form action="" class="flex-1">
+                    <form action="../controler/CommentairesControler.php" class="flex-1">
+                        <input type="hidden" name="idArticle" value="<?= $article->getIdArticle() ?>">
                         <div class="flex-1">
                             <textarea id="commentText" placeholder="Partagez votre avis sur cet article..."
                                 class="w-full p-5 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm min-h-[120px] transition"></textarea>
