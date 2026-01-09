@@ -211,7 +211,7 @@ class Article
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "SELECT COUNT(*) as nbArticles FROM articles WHERE idTheme = :idTheme";
+            $sql = "SELECT COUNT(*) as nbArticles FROM articles WHERE deleteArticle = 0 and statutArticle = 1 and  idTheme = :idTheme";
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idTheme", $idTheme);
             $stmt->execute();
