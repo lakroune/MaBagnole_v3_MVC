@@ -39,7 +39,7 @@
             <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl"></div>
 
             <div class="relative z-10">
-                <a href="index.php"> <span class="text-2xl font-black text-blue-500">Ma<span class="text-white">Bagnole</span></span></a>
+                <a href="index"> <span class="text-2xl font-black text-blue-500">Ma<span class="text-white">Bagnole</span></span></a>
             </div>
 
             <div class="relative z-10">
@@ -61,7 +61,7 @@
                 <p class="text-slate-400 font-medium">Please enter your details.</p>
             </div>
 
-            <form action="../controler/UtilisateurControler.php" method="POST" class="space-y-6">
+            <form action="UtilisateurControler" method="POST" class="space-y-6">
                 <input type="hidden" name="page" value="login">
                 <div>
                     <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Email Address</label>
@@ -100,7 +100,7 @@
             <div class="mt-12 text-center">
                 <p class="text-sm text-slate-400 font-medium">
                     Don't have an account?
-                    <a href="register.php" class="text-blue-600 font-black hover:underline">Create Account</a>
+                    <a href="register" class="text-blue-600 font-black hover:underline">Create Account</a>
                 </p>
             </div>
         </div>

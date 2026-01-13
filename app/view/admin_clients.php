@@ -130,7 +130,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
                 Are you sure you want to change the status of <span id="modalClientName" class="font-bold text-slate-700"></span>?
             </p>
 
-            <form action="../controler/AdminControler.php" method="POST" class="flex gap-3">
+            <form action="AdminControler" method="POST" class="flex gap-3">
                 <input type="hidden" name="idClient" id="modalUserId">
                 <input type="hidden" name="statusClient" id="modalActionType">
                 <input type="hidden" name="page" value="admin_clients">

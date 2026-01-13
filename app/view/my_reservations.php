@@ -52,10 +52,9 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
     <nav class="flex justify-between items-center px-8 py-4 bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
         <div class="hidden md:flex gap-8 items-center">
-            <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Browse Cars</a>
-            <a href="my_reservations.php" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1">My Bookings</a>
-            <a href="favorites.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favorites</a>
-             <a href="themes.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">blog </a>
+            <a href="accueil" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Browse Cars</a>
+            <a href="my_reservations" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1">My Bookings</a>
+            <a href="favorites" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favorites</a>
         </div>
         <?php include('infoClient.php'); ?>
     </nav>
@@ -68,22 +67,22 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
 
         <div class="space-y-6">
             <?php foreach ($arrayReservations as $reservation):
-                $vehic= new Vehicule();
-                $vehicule= $vehic->getVehiculeById($reservation->getIdVehicule());
-                ?>
+                $vehic = new Vehicule();
+                $vehicule = $vehic->getVehiculeById($reservation->getIdVehicule());
+            ?>
 
                 <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 items-center">
                     <div class="w-full md:w-48 h-32 rounded-2xl overflow-hidden shrink-0">
-                        <img src="<?php echo $vehicule->getImageVehicule();?>" alt="Car" class="w-full h-full object-cover">
+                        <img src="<?php echo $vehicule->getImageVehicule(); ?>" alt="Car" class="w-full h-full object-cover">
                     </div>
 
                     <div class="flex-1 space-y-2 text-center md:text-left">
                         <div class="flex flex-col md:flex-row md:items-center gap-3">
-                            <h3 class="text-xl font-bold text-slate-800"><?php echo $vehicule->getMarqueVehicule()." ". $vehicule->getModeleVehicule(); ?></h3>
+                            <h3 class="text-xl font-bold text-slate-800"><?php echo $vehicule->getMarqueVehicule() . " " . $vehicule->getModeleVehicule(); ?></h3>
                             <span class="status-pill status-en-cours w-fit mx-auto md:mx-0"><?= $reservation->getStatusReservation() ?></span>
                         </div>
                         <div class="flex flex-wrap justify-center md:justify-start gap-4 text-sm text-slate-500 font-medium">
-                            <span><i class="far fa-calendar-alt text-blue-500 mr-1"></i><?=(new DateTime( $reservation->getdatedebutReservation()))->format("d M Y")." - ".(new DateTime( $reservation->getdatefinReservation()))->format("d M Y");  ?></span>
+                            <span><i class="far fa-calendar-alt text-blue-500 mr-1"></i><?= (new DateTime($reservation->getdatedebutReservation()))->format("d M Y") . " - " . (new DateTime($reservation->getdatefinReservation()))->format("d M Y");  ?></span>
                             <span><i class="fas fa-map-marker-alt text-blue-500 mr-1"></i> <?= $reservation->getLieuChange() ?></span>
                         </div>
                         <p class="text-xs text-slate-400 font-bold uppercase tracking-widest"> </p>
@@ -91,13 +90,13 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
 
                     <div class="w-full md:w-auto text-center md:text-right border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-8">
                         <p class="text-[10px] font-black text-slate-400 uppercase">Total Amount</p>
-                        <p class="text-2xl font-black text-blue-600"><?php 
-                        $dateDebut = new DateTime($reservation->getdatedebutReservation());
-                        $datefin = new DateTime($reservation->getdatefinReservation());
-                        $deff= $datefin->diff($dateDebut);
-                        echo $deff->days * $vehicule->getPrixVehicule();
-                        
-                        ?> MAD</p>
+                        <p class="text-2xl font-black text-blue-600"><?php
+                                                                        $dateDebut = new DateTime($reservation->getdatedebutReservation());
+                                                                        $datefin = new DateTime($reservation->getdatefinReservation());
+                                                                        $deff = $datefin->diff($dateDebut);
+                                                                        echo $deff->days * $vehicule->getPrixVehicule();
+
+                                                                        ?> MAD</p>
                         <!-- <button onclick="confirmCancellation(101)" class="mt-3 text-xs font-bold text-red-500 hover:text-red-700 transition">
                             <i class="fas fa-times-circle mr-1"></i> Cancel Booking
                         </button> -->

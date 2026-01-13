@@ -100,7 +100,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
     <div id="addVehicleModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="bg-white w-full max-w-2xl rounded-3xl p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
             <h3 class="text-2xl font-bold text-slate-800 mb-6">New Vehicle</h3>
-            <form action="../controler/AdminControler.php" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form action="AdminControler" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input type="hidden" name="page" value="admin_fleet">
                 <input type="hidden" name="action" value="add">
                 <div><label class="text-xs font-bold uppercase text-slate-400">Marque</label><input type="text" name="marqueVehicule" required class="w-full p-3 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500"></div>
@@ -132,7 +132,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
     <div id="editVehicleModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="bg-white w-full max-w-2xl rounded-3xl p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
             <h3 class="text-2xl font-bold text-slate-800 mb-6">Update Vehicle</h3>
-            <form action="../controler/AdminControler.php" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form action="AdminControler" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input type="hidden" name="idVehicule" id="edit_id">
                 <input type="hidden" name="page" value="admin_fleet">
                 <input type="hidden" name="action" value="update">
@@ -178,7 +178,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
             <div class="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl"><i class="fas fa-trash-alt"></i></div>
             <h3 class="text-xl font-bold text-slate-800 mb-2">Are you sure?</h3>
             <p class="text-slate-400 text-sm mb-6">This action cannot be undone.</p>
-            <form action="../controler/AdminControler.php" method="POST" class="flex gap-3">
+            <form action="AdminControler" method="POST" class="flex gap-3">
                 <input type="hidden" name="idVehicule" id="delete_id" required>
                 <input type="hidden" name="page" value="admin_fleet">
                 <input type="hidden" name="action" value="delete">
@@ -193,7 +193,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
                 <h3 class="text-2xl font-bold text-slate-800">Mass Vehicle Import</h3>
                 <button onclick="toggleModal('bulkAddModal')" class="text-slate-400 hover:text-slate-600"><i class="fas fa-times"></i></button>
             </div>
-            <form action="../controler/AdminControler.php" method="POST">
+            <form action="AdminControler" method="POST">
                 <input type="hidden" name="page" value="admin_fleet">
                 <input type="hidden" name="action" value="import">
                 <p class="text-sm text-slate-500 mb-4 font-medium">Paste multiple vehicles below. Format: <span class="bg-slate-100 p-1 rounded text-blue-600 font-mono text-xs">Marque, Model, Year, color , transmission, type of fuel, price,id category, image </span> (One per line)</p>

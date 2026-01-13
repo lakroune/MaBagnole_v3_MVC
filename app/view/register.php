@@ -52,7 +52,7 @@
             <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
 
             <div class="relative z-10">
-                <a href="index.php"> <span class="text-2xl font-black text-white">Ma<span class="text-slate-900">Bagnole</span></span>
+                <a href="index"> <span class="text-2xl font-black text-white">Ma<span class="text-slate-900">Bagnole</span></span>
                 </a>
             </div>
 
@@ -78,7 +78,7 @@
                 <p class="text-slate-400 font-medium text-sm">Fill in your information to get started.</p>
             </div>
 
-            <form action="../controler/ClientControler.php" method="POST" class="space-y-5">
+            <form action="../ClientControler" method="POST" class="space-y-5">
 
                 <input type="hidden" name="page" value="register">
 
@@ -148,7 +148,7 @@
             <div class="mt-8 text-center border-t border-slate-50 pt-6">
                 <p class="text-sm text-slate-400 font-medium">
                     Already a member?
-                    <a href="login.php" class="text-blue-600 font-black hover:underline">Sign In</a>
+                    <a href="login" class="text-blue-600 font-black hover:underline">Sign In</a>
                 </p>
             </div>
         </div>
@@ -172,7 +172,7 @@
                 <button onclick="closeError()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-slate-800 transition">
                     Try Again
                 </button>
-                <a href="login.php" class="text-sm font-bold text-blue-600 hover:underline">Go to Login</a>
+                <a href="login" class="text-sm font-bold text-blue-600 hover:underline">Go to Login</a>
             </div>
         </div>
     </div>
@@ -189,7 +189,7 @@
             </p>
 
             <div class="flex flex-col gap-3">
-                <a href="login.php" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg shadow-blue-100 hover:bg-blue-700 transition">
+                <a href="login" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg shadow-blue-100 hover:bg-blue-700 transition">
                     Sign In Now <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>

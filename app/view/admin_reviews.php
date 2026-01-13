@@ -120,7 +120,7 @@ $allReviews = $avis->getAllAvis();
             </div>
             <h3 id="actionTitle" class="text-2xl font-black text-slate-800 mb-2 tracking-tight">Confirmation</h3>
             <p id="actionMessage" class="text-slate-500 text-sm mb-8 leading-relaxed">Are you sure about this action?</p>
-            <form action="../controler/AdminControler.php" method="POST">
+            <form action="AdminControler" method="POST">
                 <input type="hidden" name="idAvis" id="actionId" required>
                 <input type="hidden" name="page" value="admin_reviews">
                 <input type="hidden" name="action" id="action" required>

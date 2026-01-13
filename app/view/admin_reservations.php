@@ -120,7 +120,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
     <div id="statusModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-8 shadow-2xl">
             <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">Update Status</h3>
-            <form action="../controler/AdminControler.php" method="POST" class="space-y-4">
+            <form action="AdminControler" method="POST" class="space-y-4">
                 <input type="hidden" name="idReservation" id="status_id">
                 <input type="hidden" name="page" value="admin_reservations">
                 <select name="action" id="status_select" class="w-full p-4 bg-slate-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 font-bold">

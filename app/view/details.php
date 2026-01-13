@@ -175,7 +175,7 @@ if ($connect) {
                     <?php if ($connect and $isReserver and !$dejaCommente) : ?>
                         <div class="mt-12 pt-8 border-t border-slate-100">
                             <h4 class="font-bold text-lg text-slate-800 mb-4">Leave an Evaluation</h4>
-                            <form action="../controler/ClientControler.php" method="POST" id="form-ajout-avis">
+                            <form action="ClientControler" method="POST" id="form-ajout-avis">
                                 <div class="flex gap-2 mb-4" id="star-selector">
                                     <i class="fas fa-star cursor-pointer text-slate-200 text-xl hover:text-yellow-400" data-value="1"></i>
                                     <i class="fas fa-star cursor-pointer text-slate-200 text-xl hover:text-yellow-400" data-value="2"></i>
@@ -211,7 +211,7 @@ if ($connect) {
                         <span class="text-slate-400 font-medium">MAD/ total</span>
                     </div>
 
-                    <form action="../controler/ClientControler.php" method="POST" class="space-y-4">
+                    <form action="ClientControler" method="POST" class="space-y-4">
                         <input type="hidden" name="idVehicule" value="<?php echo $vehicle->getIdVehicule(); ?>">
                         <input type="hidden" id="dureeReservation" name="dureeReservation" value="1">
                         <input type="hidden" name="page" value="details">
@@ -326,7 +326,7 @@ if ($connect) {
                 Are you sure you want to delete this feedback? This action cannot be undone and the review will be permanently removed.
             </p>
 
-            <form action="../controler/ClientControler.php" method="POST">
+            <form action="ClientControler" method="POST">
                 <input type="hidden" name="page" value="details">
                 <input type="hidden" name="action" value="deleteReview">
                 <input type="hidden" name="idAvis" id="delete_avis_id">
@@ -359,7 +359,7 @@ if ($connect) {
                 <p class="text-slate-500 text-sm">Update your feedback about this vehicle.</p>
             </div>
 
-            <form action="../controler/ClientControler.php" method="POST">
+            <form action="ClientControler" method="POST">
                 <input type="hidden" name="page" value="details">
                 <input type="hidden" name="action" value="updateReview">
                 <input type="hidden" name="idAvis" id="edit_avis_id">

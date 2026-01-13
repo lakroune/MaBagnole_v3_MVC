@@ -15,11 +15,10 @@
         <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
         <div class="flex gap-6 items-center">
 
-            <a href="./themes.php" class="text-sm font-bold text-slate-600 hover:text-blue-600"> Explorer la Blog</a>
 
             <a href="#stats" class="text-sm font-bold text-slate-600 hover:text-blue-600">Pourquoi nous?</a>
-            <a href="login.php" class="text-sm font-bold text-slate-800">Connexion</a>
-            <a href="register.php" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">S'inscrire</a>
+            <a href="login" class="text-sm font-bold text-slate-800">Connexion</a>
+            <a href="register" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">S'inscrire</a>
         </div>
     </nav>
 
@@ -29,7 +28,7 @@
             <h1 class="text-6xl font-black leading-tight">Roulez avec <br><span class="text-blue-600">Style et Confort</span></h1>
             <p class="text-slate-500 text-lg leading-relaxed max-w-md">Découvrez notre flotte exclusive de véhicules pour vos voyages d'affaires ou vos escapades en famille.</p>
             <div class="flex gap-4">
-                <a href="./accueil.php" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-blue-600 transition flex items-center gap-2">
+                <a href="./accueil" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-blue-600 transition flex items-center gap-2">
                     Explorer la flotte <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -64,7 +63,7 @@
             </p>
 
             <div class="pt-4">
-                <a href="themes.php" class="inline-flex items-center gap-3 bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-slate-900 transition-all shadow-xl shadow-blue-200 group">
+                <a href="themes/11" class="inline-flex items-center gap-3 bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-slate-900 transition-all shadow-xl shadow-blue-200 group">
                     Accéder au Blog
                     <i class="fas fa-chevron-right group-hover:translate-x-1 transition"></i>
                 </a>
