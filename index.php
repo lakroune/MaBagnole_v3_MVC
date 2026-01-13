@@ -83,6 +83,9 @@ switch ($route[2]) {
     case 'RegisterControler':
         require_once('app/controler/RegisterControler.php');
         break;
+    case 'ReservationContoler':
+        require_once('app/controler/ReservationContoler.php');
+        break;
     default:
         require_once('app/view/404.php');
         break;

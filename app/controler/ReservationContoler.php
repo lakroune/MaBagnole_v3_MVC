@@ -25,9 +25,9 @@ class ReservationContoler
         switch ($action) {
             case "rent":
                 if ($this->ajouterReservation())
-                    header("Location: accueil/id");
+                    header("Location: accueil/" . $_POST['idVehicule'] . "/success");
                 else
-                    header("Location: accueil/failed");
+                    header("Location: accueil/" . $_POST['idVehicule'] . "/failed");
                 break;
         }
     }
@@ -38,8 +38,6 @@ class ReservationContoler
 
     public function ajouterReservation()
     {
-
-
         $this->reservation->setIdClient((int) $_SESSION['Utilisateur']->getIdUtilisateur());
         $this->reservation->setDateDebutReservation($_POST["dateDebutReservation"]);
         $this->reservation->setDateFinReservation($_POST["dateFinReservation"]);

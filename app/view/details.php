@@ -211,7 +211,7 @@ if ($connect) {
                         <span class="text-slate-400 font-medium">MAD/ total</span>
                     </div>
 
-                    <form action="ClientControler" method="POST" class="space-y-4">
+                    <form action="../ReservationContoler" method="POST" class="space-y-4">
                         <input type="hidden" name="idVehicule" value="<?php echo $vehicle->getIdVehicule(); ?>">
                         <input type="hidden" id="dureeReservation" name="dureeReservation" value="1">
                         <input type="hidden" name="page" value="details">
