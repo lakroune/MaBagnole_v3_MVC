@@ -22,7 +22,18 @@ switch ($route[2]) {
     case 'login':
         require_once('app/view/login.php');
         break;
-
+    case 'login/failed':
+        require_once('app/view/login_failed.php');
+        break;
+    case 'logout':
+        require_once('app/view/logout.php');
+        break;
+    case 'infoClient':
+        require_once('app/view/infoClient.php');
+        break;
+    case 'reservations':
+        require_once('app/view/my_reservations.php');
+        break;
     case 'register':
         require_once('app/view/register.php');
         break;
@@ -67,7 +78,7 @@ switch ($route[2]) {
         require_once('app/controler/AuthontificationControler.php');
         break;
     case 'RegisterControler':
-        require_once ('app/controler/RegisterControler.php');
+        require_once('app/controler/RegisterControler.php');
         break;
     default:
         require_once('app/view/404.php');
