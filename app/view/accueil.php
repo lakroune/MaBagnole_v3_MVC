@@ -215,7 +215,7 @@ $categories = $categorie->getAllCategories();
 
                                     <div class="mt-auto pt-6 flex gap-3">
                                         <a href="accueil/<?= $vehicule->getIdVehicule() ?>" class="flex-1 text-center py-3.5 px-4 rounded-xl font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">Details</a>
-                                        <button <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else: ?> onclick="window.location.href='./details?id=<?= $vehicule->getIdVehicule() ?> '" <?php endif; ?> class="flex-[1.5] text-center py-3.5 px-4 rounded-xl font-bold bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-100">Book Now</button>
+                                        <button <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else: ?> onclick="window.location.href='accueil/<?= $vehicule->getIdVehicule() ?> '" <?php endif; ?> class="flex-[1.5] text-center py-3.5 px-4 rounded-xl font-bold bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-100">Book Now</button>
                                     </div>
                                 </div>
                             </div>

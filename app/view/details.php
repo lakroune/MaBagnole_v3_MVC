@@ -55,8 +55,8 @@ if ($connect) {
 
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="accueil" class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></a>
-            <a href="accueil" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">
+            <a href="../" class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></a>
+            <a href="../accueil" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">
                 <i class="fas fa-arrow-left mr-2"></i> Back to Fleet
             </a>
         </div>

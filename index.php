@@ -34,6 +34,9 @@ switch ($route[2]) {
     case 'reservations':
         require_once('app/view/my_reservations.php');
         break;
+    case 'favorites':
+        require_once('app/view/favorites.php');
+        break;
     case 'register':
         require_once('app/view/register.php');
         break;
