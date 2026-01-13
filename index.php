@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/vendor/autoload.php';
 
 $uri = $_SERVER['REQUEST_URI'];
 $route = explode("/", $uri);
@@ -64,6 +65,9 @@ switch ($route[2]) {
         break;
     case 'AuthontificationControler':
         require_once('app/controler/AuthontificationControler.php');
+        break;
+    case 'RegisterControler':
+        require_once ('app/controler/RegisterControler.php');
         break;
     default:
         require_once('app/view/404.php');

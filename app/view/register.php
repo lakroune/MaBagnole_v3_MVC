@@ -78,7 +78,7 @@
                 <p class="text-slate-400 font-medium text-sm">Fill in your information to get started.</p>
             </div>
 
-            <form action="ClientControler" method="POST" class="space-y-5">
+            <form action="RegisterControler" method="POST" class="space-y-5">
 
                 <input type="hidden" name="page" value="register">
 

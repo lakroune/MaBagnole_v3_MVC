@@ -1,0 +1,9 @@
+26-01-13 10:22:00 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'syvipery@gmail.com' for key 'email' in C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php:98
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php(98): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v3_MVC\app\controler\RegisterControler.php(47): app\model\Client->inscrire()
+#2 C:\xampp\htdocs\MaBagnole_v3_MVC\app\controler\RegisterControler.php(23): app\controler\RegisterControler->inscrire()
+#3 C:\xampp\htdocs\MaBagnole_v3_MVC\app\controler\RegisterControler.php(14): app\controler\RegisterControler->index()
+#4 C:\xampp\htdocs\MaBagnole_v3_MVC\app\controler\RegisterControler.php(55): app\controler\RegisterControler->__construct()
+#5 C:\xampp\htdocs\MaBagnole_v3_MVC\index.php(70): require_once('C:\\xampp\\htdocs...')
+#6 {main}
