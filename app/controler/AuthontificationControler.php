@@ -7,30 +7,32 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use app\model\Utilisateur;
 
 
-class UtilisateurControler
+class AuthontificationControler
 {
+    private Utilisateur $utilisateur;
 
     public function __construct()
     {
+        $this->utilisateur = new Utilisateur();
         $this->index();
     }
 
     public function  index()
     {
-        $page = $_POST["page"] ??"";
+        $page = $_POST["page"] ?? "";
         switch ($page) {
             case "login":
                 $isLogined = $this->seConnecter();
                 if ($isLogined == "client") {
-                    header("Location: ../view/accueil.php?login=success");
+                    header("Location: accueil");
                 } else if ($isLogined == "admin") {
-                    header("Location: ../view/admin_dashboard.php?login=success");
+                    header("Location: admin_dashboard");
                 } else {
-                    header("Location: ../view/login.php?login=failed");
+                    header("Location: login/failed");
                 }
                 break;
             default:
-                header("Location: ../view/index.php");
+                header("Location: login");
                 break;
         }
     }
@@ -49,4 +51,4 @@ class UtilisateurControler
     }
 }
 
-$utilisateurControler = new UtilisateurControler();
+$utilisateurControler = new AuthontificationControler();

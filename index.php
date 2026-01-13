@@ -53,6 +53,18 @@ switch ($route[2]) {
     case 'ClientControler':
         require_once('app/controler/ClientControler.php');
         break;
+    case 'VehiculeControler':
+        require_once('app/controler/VehiculeControler.php');
+        break;
+    case 'ReservationControler':
+        require_once('app/controler/ReservationControler.php');
+        break;
+    case 'AvisControler':
+        require_once('app/controler/AvisControler.php');
+        break;
+    case 'AuthontificationControler':
+        require_once('app/controler/AuthontificationControler.php');
+        break;
     default:
         require_once('app/view/404.php');
         break;

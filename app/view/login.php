@@ -61,7 +61,7 @@
                 <p class="text-slate-400 font-medium">Please enter your details.</p>
             </div>
 
-            <form action="UtilisateurControler" method="POST" class="space-y-6">
+            <form action="AuthontificationControler" method="POST" class="space-y-6">
                 <input type="hidden" name="page" value="login">
                 <div>
                     <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Email Address</label>
