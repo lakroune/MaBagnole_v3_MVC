@@ -11,9 +11,13 @@ switch ($route[2]) {
         break;
 
     case 'accueil':
-        require_once('app/view/accueil.php');
+        if (isset($route[3]) && !empty($route[3])) {
+            $id = $route[3];
+            require_once('app/view/details.php');
+        } else {
+            require_once('app/view/accueil.php');
+        }
         break;
-
     case 'login':
         require_once('app/view/login.php');
         break;

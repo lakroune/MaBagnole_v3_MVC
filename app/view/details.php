@@ -14,11 +14,11 @@ if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !==
     $connect =  false;
 }
 $v = new Vehicule();
-if (!isset($_GET['id'])) {
+if (empty($id)) {
     header('Location: accueil.php');
     exit();
 }
-$idVehicule = (int) $_GET['id'];
+$idVehicule = (int)$id;
 $vehicle = $v->getVehiculeById($idVehicule);
 
 $avis = new Avis();
@@ -72,21 +72,21 @@ if ($connect) {
 
                 </div>
                 <?php if (!$vehicle->getStatusVehicule()) : ?>
-                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 mb-8">
-                    <div class="flex items-center justify-between p-6">
-                        <div class="flex items-center gap-4">
-                            <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
-                                <i class="fas fa-lock"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold text-slate-800">Indisponible</p>
-                                <p class="text-sm text-slate-500">This vehicle is currently unavailable</p>
-                                <!-- mais ilay deisponible le date -->
-                                <p class="text-sm text-slate-500">Available on: <span class="font-bold text-slate-800"> <?php echo $vehicle->getDateDisponibiliteVehicule($idVehicule) ?> </span></p>
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 mb-8">
+                        <div class="flex items-center justify-between p-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-800">Indisponible</p>
+                                    <p class="text-sm text-slate-500">This vehicle is currently unavailable</p>
+                                    <!-- mais ilay deisponible le date -->
+                                    <p class="text-sm text-slate-500">Available on: <span class="font-bold text-slate-800"> <?php echo $vehicle->getDateDisponibiliteVehicule($idVehicule) ?> </span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <?php endif; ?>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
                     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">

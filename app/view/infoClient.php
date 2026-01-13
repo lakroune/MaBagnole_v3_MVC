@@ -7,8 +7,8 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
 
 
     <div class="flex items-center gap-4">
-        <a href="login.php" class="text-sm font-bold text-slate-600">Sign In</a>
-        <a href="register.php" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-blue-100">Register</a>
+        <a href="login" class="text-sm font-bold text-slate-600">Sign In</a>
+        <a href="register" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-blue-100">Register</a>
     </div>
 
 <?php else : ?>
