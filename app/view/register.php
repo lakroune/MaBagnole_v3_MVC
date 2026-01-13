@@ -52,7 +52,7 @@
             <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
 
             <div class="relative z-10">
-                <a href="index"> <span class="text-2xl font-black text-white">Ma<span class="text-slate-900">Bagnole</span></span>
+                <a href="./"> <span class="text-2xl font-black text-white">Ma<span class="text-slate-900">Bagnole</span></span>
                 </a>
             </div>
 
@@ -78,7 +78,7 @@
                 <p class="text-slate-400 font-medium text-sm">Fill in your information to get started.</p>
             </div>
 
-            <form action="../ClientControler" method="POST" class="space-y-5">
+            <form action="ClientControler" method="POST" class="space-y-5">
 
                 <input type="hidden" name="page" value="register">
 

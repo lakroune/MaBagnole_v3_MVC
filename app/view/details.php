@@ -15,7 +15,7 @@ if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !==
 }
 $v = new Vehicule();
 if (empty($id)) {
-    header('Location: accueil.php');
+    header('Location: accueil');
     exit();
 }
 $idVehicule = (int)$id;
@@ -55,8 +55,8 @@ if ($connect) {
 
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="accueil.php" class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></a>
-            <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">
+            <a href="accueil" class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></a>
+            <a href="accueil" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">
                 <i class="fas fa-arrow-left mr-2"></i> Back to Fleet
             </a>
         </div>
@@ -298,7 +298,7 @@ if ($connect) {
                         <?php if (!$connect): ?>
                             <div class="bg-red-100 border border-red-100 text-red-400 px-4 py-3 rounded relative mt-6" role="alert">
                                 <span class="block sm:inline">You must be logged in to make a reservation.
-                                    <a href="login.php" class="absolute top-2 right-2 text-red-900">Sign In</a>
+                                    <a href="../login" class="absolute top-2 right-2 text-red-900">Sign In</a>
                                 </span>
 
                             </div>
@@ -406,7 +406,7 @@ if ($connect) {
             <div class="flex flex-col gap-3">
                 <button onclick="closeError()" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">try again</button>
 
-                <a href="accueil.php" class="text-sm font-bold text-blue-600 hover:underline">
+                <a href="accueil" class="text-sm font-bold text-blue-600 hover:underline">
                     <i class="fas fa-arrow-left mr-2"></i>back to fleet</a>
             </div>
         </div>
@@ -425,7 +425,7 @@ if ($connect) {
 
             <div class="flex flex-col gap-3">
 
-                <a href="accueil.php" class=" feedback w-full bg-slate-900 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-slate-800 transition">
+                <a href="accueil" class=" feedback w-full bg-slate-900 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-slate-800 transition">
                     <i class="fas fa-arrow-left mr-2"></i> Back to Fleet
                 </a>
             </div>
