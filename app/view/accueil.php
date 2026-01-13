@@ -2,9 +2,7 @@
 
 namespace app\view;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
 
-use app\model\AimerArticle;
 use app\model\Categorie;
 use app\model\Favori;
 use app\model\Vehicule;
@@ -91,7 +89,7 @@ $categories = $categorie->getAllCategories();
         <div class="hidden md:flex gap-8 items-center">
             <?php if ($connect) : ?>
                 <a href="accueil" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Browse Cars</a>
-                <a href="my_reservations" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">My Bookings</a>
+                <a href="reservations" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">My Bookings</a>
                 <a href="favorites" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favorites</a>
             <?php endif; ?>
         </div>

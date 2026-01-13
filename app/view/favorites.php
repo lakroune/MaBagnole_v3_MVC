@@ -2,7 +2,6 @@
 
 namespace app\view;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
 
 use app\model\Vehicule;
 
@@ -47,7 +46,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
         <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
         <div class="hidden md:flex gap-8 items-center">
             <a href="accueil.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Browse Cars</a>
-            <a href="my_reservations.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">My Bookings</a>
+            <a href="reservations.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">My Bookings</a>
             <a href="favorites.php" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Favorites</a>
              <a href="themes.php" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">blog </a>
         </div>
