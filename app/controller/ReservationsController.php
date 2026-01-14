@@ -52,12 +52,29 @@ class ReservationsController
             exit;
         }
     }
+    public function approve()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $path = $this->reservation->confirmerReservation($_POST['idReservation']) ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/dashboard/reservations/$path");
+            exit;
+        }
+    }
+    public function annuler()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $path = $this->reservation->annulerReservation($_POST['idReservation']) ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/dashboard/reservations/$path");
+            exit;
+        }
+    }
     private function remplerObject($object, $data)
     {
         foreach ($data as $key => $value) {
             $method = 'set' . ucfirst($key);
             if (method_exists($object, $method)) {
                 $object->$method($value);
+                echo "<br>" . $method;
             }
         }
     }
