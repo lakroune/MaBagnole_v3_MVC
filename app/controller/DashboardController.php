@@ -82,6 +82,7 @@ class DashboardController
             exit();
         }
         $vehicules = $this->vehicule->getAllVehicules();
+        $categories = $this->categorie->getAllCategories();
         require_once __DIR__ . '/../view/admin_fleet.php';
     }
     public function categories()
