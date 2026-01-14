@@ -13,6 +13,16 @@ class VehiculeController
         $this->vehicule = new Vehicule();
     }
 
+    public function index()
+    {
+        $vehicules = $this->vehicule->getAllVehicules();
+        require_once __DIR__ . '/../view/accueil.php';
+    }
+    public function detail($idVehicule)
+    {
+        $vehicule = $this->vehicule->getVehiculeById($idVehicule);
+        require_once __DIR__ . '/../view/details.php';
+    }
     public function add()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
