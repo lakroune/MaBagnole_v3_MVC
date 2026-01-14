@@ -78,7 +78,7 @@
                 <p class="text-slate-400 font-medium text-sm">Fill in your information to get started.</p>
             </div>
 
-            <form action="RegisterControler" method="POST" class="space-y-5">
+            <form action="register/register" method="POST" class="space-y-5">
 
                 <input type="hidden" name="page" value="register">
 
@@ -133,7 +133,7 @@
                     <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Password</label>
                     <div class="relative">
                         <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-xs"></i>
-                        <input type="password" name="paword" required
+                        <input type="password" name="password" required
                             placeholder="••••••••"
                             class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition text-sm">
                     </div>
@@ -148,7 +148,7 @@
             <div class="mt-8 text-center border-t border-slate-50 pt-6">
                 <p class="text-sm text-slate-400 font-medium">
                     Already a member?
-                    <a href="login" class="text-blue-600 font-black hover:underline">Sign In</a>
+                    <a href="<?= PATH_ROOT ?>/login" class="text-blue-600 font-black hover:underline">Sign In</a>
                 </p>
             </div>
         </div>
@@ -172,7 +172,7 @@
                 <button onclick="closeError()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-slate-800 transition">
                     Try Again
                 </button>
-                <a href="login" class="text-sm font-bold text-blue-600 hover:underline">Go to Login</a>
+                <a href="<?= PATH_ROOT ?>/login" class="text-sm font-bold text-blue-600 hover:underline">Go to Login</a>
             </div>
         </div>
     </div>
@@ -189,7 +189,7 @@
             </p>
 
             <div class="flex flex-col gap-3">
-                <a href="login" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg shadow-blue-100 hover:bg-blue-700 transition">
+                <a href="<?= PATH_ROOT ?>/login" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg shadow-blue-100 hover:bg-blue-700 transition">
                     Sign In Now <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
@@ -206,27 +206,17 @@
         function closeError() {
             document.getElementById('errorModal').classList.add('hidden');
         }
-
-        // Auto-trigger based on URL Parameters
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-
-            // Handle Success
-            if (urlParams.has('register') && urlParams.get('register') === "success") {
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            const lastPart = parts[parts.length - 1];
+            if (lastPart === 'success') {
                 showModal('successModal');
             }
-
-            // Handle Errors
-            if (urlParams.has('register')) {
-                const errorType = urlParams.get('register');
-                const errorText = document.getElementById('errorMessage');
-
-                if (errorType === "failed") {
-                    errorText.innerText = "Please fill all fields correctly and try again .";
-                }
-
+            if (lastPart === 'failed') {
                 showModal('errorModal');
             }
+
         };
     </script>
 </body>

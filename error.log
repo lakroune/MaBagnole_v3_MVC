@@ -1,0 +1,48 @@
+26-01-14 05:16:16 Connexion :error .PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php:99
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php(99): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v3_MVC\app\controller\RegisterController.php(26): app\model\Client->inscrire()
+#2 [internal function]: app\controller\RegisterController->register()
+#3 C:\xampp\htdocs\MaBagnole_v3_MVC\core\Router.php(30): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\MaBagnole_v3_MVC\index.php(15): core\Router->run()
+#5 {main}
+26-01-14 05:16:31 Connexion :error .PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php:99
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php(99): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v3_MVC\app\controller\RegisterController.php(26): app\model\Client->inscrire()
+#2 [internal function]: app\controller\RegisterController->register()
+#3 C:\xampp\htdocs\MaBagnole_v3_MVC\core\Router.php(30): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\MaBagnole_v3_MVC\index.php(15): core\Router->run()
+#5 {main}
+26-01-14 05:18:10 Connexion :error .PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php:99
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php(99): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v3_MVC\app\controller\RegisterController.php(26): app\model\Client->inscrire()
+#2 [internal function]: app\controller\RegisterController->register()
+#3 C:\xampp\htdocs\MaBagnole_v3_MVC\core\Router.php(30): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\MaBagnole_v3_MVC\index.php(15): core\Router->run()
+#5 {main}
+26-01-14 05:18:46 Connexion :error .PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php:99
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php(99): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v3_MVC\app\controller\RegisterController.php(26): app\model\Client->inscrire()
+#2 [internal function]: app\controller\RegisterController->register()
+#3 C:\xampp\htdocs\MaBagnole_v3_MVC\core\Router.php(30): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\MaBagnole_v3_MVC\index.php(15): core\Router->run()
+#5 {main}
+26-01-14 05:27:30 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'jorafilef@gmail.com' for key 'email' in C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php:100
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php(100): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v3_MVC\app\controller\RegisterController.php(33): app\model\Client->inscrire()
+#2 [internal function]: app\controller\RegisterController->register('register')
+#3 C:\xampp\htdocs\MaBagnole_v3_MVC\core\Router.php(30): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\MaBagnole_v3_MVC\index.php(15): core\Router->run()
+#5 {main}
+26-01-14 05:35:40 Connexion :error .PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'xeqahutotu@gmail.com' for key 'email' in C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php:100
+Stack trace:
+#0 C:\xampp\htdocs\MaBagnole_v3_MVC\app\model\Client.php(100): PDOStatement->execute()
+#1 C:\xampp\htdocs\MaBagnole_v3_MVC\app\controller\RegisterController.php(33): app\model\Client->inscrire()
+#2 [internal function]: app\controller\RegisterController->register()
+#3 C:\xampp\htdocs\MaBagnole_v3_MVC\core\Router.php(30): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\MaBagnole_v3_MVC\index.php(15): core\Router->run()
+#5 {main}

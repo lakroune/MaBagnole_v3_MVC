@@ -17,15 +17,24 @@ class RegisterController
     {
         require_once __DIR__ . '/../view/register.php';
     }
-
+    public function success()
+    {
+        require_once __DIR__ . '/../view/register.php';
+    }
+    public function failed()
+    {
+        require_once __DIR__ . '/../view/register.php';
+    }
 
     public function register()
     {
 
         $this->remplerObject($this->client, $_POST);
         $path =  $this->client->inscrire() ? "success" : "failed";
-        header("Location: register/$path");
+        header("Location: " . PATH_ROOT . "/register/$path");
     }
+
+
     private function remplerObject($object, $data)
     {
         foreach ($data as $key => $value) {

@@ -96,7 +96,7 @@ class Client extends Utilisateur
             $stmt->bindParam(":ville", $this->ville);
             $stmt->bindParam(":email", $this->email);
             $stmt->bindParam(":password", $passwordHash);
-            $stmt->bindParam(":role", $this->role);
+            $stmt->bindValue(":role", "client", PDO::PARAM_STR);
             if ($stmt->execute())
                 return true;
             else
