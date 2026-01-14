@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controler;
+namespace app\controller;
 
 use app\model\Client;
 

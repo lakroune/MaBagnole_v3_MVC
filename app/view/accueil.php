@@ -72,9 +72,9 @@ use app\controller\HomeController;
         <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
         <div class="hidden md:flex gap-8 items-center">
             <?php if ($connect) : ?>
-                <a href="accueil" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Browse Cars</a>
-                <a href="reservations" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">My Bookings</a>
-                <a href="favorites" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favorites</a>
+                <a href="<?= PATH_ROOT ?>/accueil" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Browse Cars</a>
+                <a href="<?= PATH_ROOT ?>/reservations" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">My Bookings</a>
+                <a href="<?= PATH_ROOT ?>/favorites" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favorites</a>
             <?php endif; ?>
         </div>
         <?php include('infoClient.php'); ?>
@@ -202,8 +202,8 @@ use app\controller\HomeController;
                                     </div>
 
                                     <div class="mt-auto pt-6 flex gap-3">
-                                        <a href="home/show/<?= $vehicule->getIdVehicule() ?>" class="flex-1 text-center py-3.5 px-4 rounded-xl font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">Details</a>
-                                        <button <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else: ?> onclick="window.location.href='accueil/<?= $vehicule->getIdVehicule() ?> '" <?php endif; ?> class="flex-[1.5] text-center py-3.5 px-4 rounded-xl font-bold bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-100">Book Now</button>
+                                        <a href="<?= PATH_ROOT ?>/home/show/<?= $vehicule->getIdVehicule() ?>" class="flex-1 text-center py-3.5 px-4 rounded-xl font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">Details</a>
+                                        <button <?php if (!($connect)) :  ?> onclick="toggleModal('rentPopup')" <?php else: ?> onclick="window.location.href='<?= PATH_ROOT ?>/home/show/<?= $vehicule->getIdVehicule() ?> '" <?php endif; ?> class="flex-[1.5] text-center py-3.5 px-4 rounded-xl font-bold bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-100">Book Now</button>
                                     </div>
                                 </div>
                             </div>
@@ -231,8 +231,8 @@ use app\controller\HomeController;
             <p class="text-slate-500 text-sm mb-8 leading-relaxed">You need to be logged in to book this vehicle and manage your reservations.</p>
 
             <div class="flex flex-col gap-3">
-                <a href="login" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg shadow-blue-100 hover:bg-blue-700 transition">Sign In Now</a>
-                <a href="register" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">Create an Account</a>
+                <a href="<?= PATH_ROOT ?>/login" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black shadow-lg shadow-blue-100 hover:bg-blue-700 transition">Sign In Now</a>
+                <a href="<?= PATH_ROOT ?>/register" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">Create an Account</a>
             </div>
         </div>
     </div>
