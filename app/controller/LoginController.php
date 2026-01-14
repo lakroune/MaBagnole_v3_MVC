@@ -28,7 +28,7 @@ class LoginController
         if ($path == "client") {
             header("Location: " . PATH_ROOT . "/");
         } else if ($path == "admin") {
-            header("Location: " . PATH_ROOT . "/admin_dashboard");
+            header("Location: " . PATH_ROOT . "/dashboard");
         } else
             header("Location: " . PATH_ROOT . "/login/failed");
         exit();

@@ -1,44 +1,4 @@
-<?php
-
-namespace app\view;
-
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-use app\model\Client;
-use app\model\Vehicule;
-use app\model\Categorie;
-use app\model\Reservation;
-
-
-session_start();
-
-if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'admin') {
-    header('Location: login.php');
-    exit();
-} else {
-    $client = new Client();
-    $reservation = new Reservation();
-    $vehicule = new Vehicule();
-    $categorie = new Categorie();
-    
-
-    $statistiques = [
-        'totalClients' => $client->counterClients(),
-        'totalVehicules' => $vehicule->counterVehicules(),
-        'totalCategories' => $categorie->counterCategorie(),
-        'totalReservations' => $reservation->counterReservations(),
-        'ClientsNouveaux' => $client->getNbClientsCreateToDay(),
-        'RerservationsCreatesToday' => $reservation->getNbReservationToDay(),
-        'RerservationsActive' => $reservation->getNbReservationActive(),
-        'RerservationsConfirmer' => $reservation->getNbReservationConfirmer(),
-        'RerservationsEnCours' => $reservation->getNbReservationEnCours(),
-        'RerservationsAnnuler' => $reservation->getNbReservationAnnuler(),
-        'RevenueReservation' => $reservation->getRevenueReservation(),
-        'VehiculesDisponibles' => $vehicule->getNbVehiculeDisponible()
-    ];
-}
-
-?>
+ 
 
 <!DOCTYPE html>
 <html lang="en">
