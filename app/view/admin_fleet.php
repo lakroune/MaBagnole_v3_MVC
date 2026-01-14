@@ -1,29 +1,4 @@
-<?php
 
-namespace app\view;
-
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-use app\model\Vehicule;
-use app\model\Categorie;
-
-
-
-session_start();
-
-if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'admin') {
-    header('Location: login.php');
-    exit();
-} else {
-
-    $vehicule = new Vehicule();
-    $vehicules = $vehicule->getAllVehicules();
-
-    $categorie = new Categorie();
-    $categories = $categorie->getAllCategories();
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 

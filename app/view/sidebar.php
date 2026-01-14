@@ -6,31 +6,31 @@
          </div>
 
          <nav class="space-y-1">
-             <a href="admin_dashboard" class="flex items-center gap-3 text-blue-500 font-bold bg-blue-500/10 p-3 rounded-xl">
+             <a href="dashboard" class="flex items-center gap-3 text-blue-500 font-bold bg-blue-500/10 p-3 rounded-xl">
                  <i class="fas fa-chart-line"></i> Dashboard
              </a>
-             <a href="admin_fleet" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="vehicules" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-car"></i> Fleet
              </a>
-             <a href="admin_reservations" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="reservations" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-calendar-check"></i> Reservations
              </a>
-             <a href="admin_categories" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="categories" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-tags"></i> Categories
              </a>
-             <a href="admin_reviews" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="reviews" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-star"></i> Manage Reviews
              </a>
-             <a href="admin_clients" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="clients" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-users"></i> Clients
              </a>
-             <a href="admin_articles" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="articles" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-newspaper"></i> Articles
              </a>
-             <a href="admin_themes" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="themes" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-th-large"></i> Themes
              </a>
-             <a href="admin_tags" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="tags" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-tags"></i> Tags
              </a>
          </nav>
