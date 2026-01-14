@@ -39,7 +39,7 @@
             <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl"></div>
 
             <div class="relative z-10">
-                <a href="./"> <span class="text-2xl font-black text-blue-500">Ma<span class="text-white">Bagnole</span></span></a>
+                <a href="<?= PATH_ROOT ?>"> <span class="text-2xl font-black text-blue-500">Ma<span class="text-white">Bagnole</span></span></a>
             </div>
 
             <div class="relative z-10">
@@ -61,7 +61,7 @@
                 <p class="text-slate-400 font-medium">Please enter your details.</p>
             </div>
 
-            <form action="AuthontificationControler" method="POST" class="space-y-6">
+            <form action="login/login" method="POST" class="space-y-6">
                 <input type="hidden" name="page" value="login">
                 <div>
                     <label class="block text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Email Address</label>
@@ -88,7 +88,7 @@
                         <input type="checkbox" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300">
                         <span class="text-xs font-bold text-slate-500">Remember me</span>
                     </label>
-                    <a href="#" class="text-xs font-bold text-blue-600 hover:underline">Forgot Password?</a>
+                    <a href="" class="text-xs font-bold text-blue-600 hover:underline">Forgot Password?</a>
                 </div>
 
                 <button type="submit"
@@ -100,7 +100,7 @@
             <div class="mt-12 text-center">
                 <p class="text-sm text-slate-400 font-medium">
                     Don't have an account?
-                    <a href="register" class="text-blue-600 font-black hover:underline">Create Account</a>
+                    <a href="<?= PATH_ROOT ?>/register" class="text-blue-600 font-black hover:underline">Sign Up</a> or <a href="<?= PATH_ROOT ?>/register register" class="text-blue-600 font-black hover:underline">Create Account</a>
                 </p>
             </div>
         </div>
@@ -138,10 +138,11 @@
             document.getElementById('loginErrorModal').classList.add('hidden');
         }
 
-        // Auto-check for error parameter in URL
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('login')) {
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            const lastPart = parts[parts.length - 1];
+            if (lastPart === 'failed') {
                 showLoginError();
             }
         };

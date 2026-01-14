@@ -17,14 +17,11 @@ class RegisterController
     {
         require_once __DIR__ . '/../view/register.php';
     }
-    public function success()
+    public function default()
     {
         require_once __DIR__ . '/../view/register.php';
     }
-    public function failed()
-    {
-        require_once __DIR__ . '/../view/register.php';
-    }
+
 
     public function register()
     {

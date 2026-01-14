@@ -120,7 +120,6 @@ class Utilisateur
             $stmt->execute();
             $user = $stmt->fetchObject(Utilisateur::class);
             if ($user && password_verify($this->password, $user->getPassword())) {
-                session_start();
                 $_SESSION['Utilisateur'] = $user;
                 return $user->getRole();
             } else {

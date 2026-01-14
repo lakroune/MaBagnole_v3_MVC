@@ -29,12 +29,10 @@ class Router
                 echo " method exist";
                 call_user_func_array([$controller, $methodName], $params);
             } else {
-                // $this->error404();
-                echo " method not exist";
+                call_user_func_array([$controller, "default"], $params);
             }
         } else {
-            // $this->error404();
-            echo " class not exist";
+            $this->error404();
         }
     }
 
