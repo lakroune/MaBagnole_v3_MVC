@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="./css/style.css">
-    
+
 </head>
 
 <body class="bg-slate-50 min-h-screen flex">
@@ -75,7 +74,7 @@
     <div id="addVehicleModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="bg-white w-full max-w-2xl rounded-3xl p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
             <h3 class="text-2xl font-bold text-slate-800 mb-6">New Vehicle</h3>
-            <form action="AdminControler" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form action="<?= PATH_ROOT ?>/vehicules/add" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input type="hidden" name="page" value="admin_fleet">
                 <input type="hidden" name="action" value="add">
                 <div><label class="text-xs font-bold uppercase text-slate-400">Marque</label><input type="text" name="marqueVehicule" required class="w-full p-3 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500"></div>
@@ -107,7 +106,7 @@
     <div id="editVehicleModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="bg-white w-full max-w-2xl rounded-3xl p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
             <h3 class="text-2xl font-bold text-slate-800 mb-6">Update Vehicle</h3>
-            <form action="AdminControler" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form action="<?= PATH_ROOT ?>/vehicules/edit" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input type="hidden" name="idVehicule" id="edit_id">
                 <input type="hidden" name="page" value="admin_fleet">
                 <input type="hidden" name="action" value="update">
@@ -153,7 +152,7 @@
             <div class="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl"><i class="fas fa-trash-alt"></i></div>
             <h3 class="text-xl font-bold text-slate-800 mb-2">Are you sure?</h3>
             <p class="text-slate-400 text-sm mb-6">This action cannot be undone.</p>
-            <form action="AdminControler" method="POST" class="flex gap-3">
+            <form action="<?= PATH_ROOT ?>/vehicules/delete" method="POST" class="flex gap-3">
                 <input type="hidden" name="idVehicule" id="delete_id" required>
                 <input type="hidden" name="page" value="admin_fleet">
                 <input type="hidden" name="action" value="delete">
@@ -168,7 +167,7 @@
                 <h3 class="text-2xl font-bold text-slate-800">Mass Vehicle Import</h3>
                 <button onclick="toggleModal('bulkAddModal')" class="text-slate-400 hover:text-slate-600"><i class="fas fa-times"></i></button>
             </div>
-            <form action="AdminControler" method="POST">
+            <form action="<?= PATH_ROOT ?>/vehicules/import" method="POST">
                 <input type="hidden" name="page" value="admin_fleet">
                 <input type="hidden" name="action" value="import">
                 <p class="text-sm text-slate-500 mb-4 font-medium">Paste multiple vehicles below. Format: <span class="bg-slate-100 p-1 rounded text-blue-600 font-mono text-xs">Marque, Model, Year, color , transmission, type of fuel, price,id category, image </span> (One per line)</p>
@@ -200,7 +199,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="js/main.js"></script>>
+    <script src="<?= PATH_ROOT ?>/app/view/js/main.js"></script>>
     <script>
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -211,7 +210,7 @@
                 showStatusModal('success', 'Operation Successful', 'The fleet has been deleted successfully.');
             } else if (urlParams.has('update') && urlParams.get('update') === "success") {
                 showStatusModal('success', 'Operation Successful', 'The fleet has been updated successfully.');
-            }  else if (urlParams.has('import') && urlParams.get('import') === "success") {
+            } else if (urlParams.has('import') && urlParams.get('import') === "success") {
                 showStatusModal('success', 'Operation Successful', 'The fleet has been imported successfully.');
             } else if (urlParams.has('add') || urlParams.has('delete') || urlParams.has('update') || urlParams.has('import')) {
                 showStatusModal('error', 'Operation Failed', 'Something went wrong. Please try again.');
@@ -221,7 +220,7 @@
         $(document).ready(function() {
             $('#fleetTable').DataTable({
                 pageLength: 8,
-                 ordering: true,
+                ordering: true,
                 dom: '<"flex justify-between items-center mb-6"f>rtip',
                 language: {
                     search: "",

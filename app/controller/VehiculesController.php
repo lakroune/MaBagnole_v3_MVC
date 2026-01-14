@@ -40,7 +40,7 @@ class VehiculesController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->remplerObject($this->vehicule, $_POST);
             $path = $this->vehicule->ajouterVehicule() ? "success" : "failed";
-            header("Location: /admin_fleet/add/$path");
+            header("Location: " . PATH_ROOT . "/dashboard/vehicules/add/$path");
             exit;
         }
     }
@@ -49,7 +49,17 @@ class VehiculesController
     {
         if (isset($_POST['idVehicule'])) {
             $path = $this->vehicule->supprimerVehicule((int)$_POST['idVehicule']) ? "success" : "failed";
-            header("Location: /admin_fleet/delete/$path");
+            header("Location: " . PATH_ROOT . "/dashboard/vehicules/delete/$path");
+            exit;
+        }
+    }
+
+    public function update()
+    {
+        if (isset($_POST['idVehicule'])) {
+            $this->remplerObject($this->vehicule, $_POST);
+            $path = $this->vehicule->modifierVehicule() ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/dashboard/vehicules/update/$path");
             exit;
         }
     }
