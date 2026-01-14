@@ -1,24 +1,3 @@
-<?php
-
-namespace app\view;
-
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-use app\model\Categorie;
-use app\model\Client;
-
-
-
-
-if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'admin') {
-    header('Location: login.php');
-    exit();
-} else {
-
-    $client = new Client();
-    $clients = $client->getAllClients();
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 

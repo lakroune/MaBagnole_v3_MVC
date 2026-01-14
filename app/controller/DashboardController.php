@@ -3,6 +3,7 @@
 
 namespace app\controller;
 
+use app\model\Avis;
 use app\model\Categorie;
 use app\model\Client;
 use app\model\Reservation;
@@ -10,11 +11,11 @@ use app\model\Vehicule;
 
 class DashboardController
 {
-    private $connect = false;
     private Client $client;
     private Reservation $reservation;
     private Vehicule $vehicule;
     private Categorie $categorie;
+    private Avis $avis;
 
 
     public function __construct()
@@ -23,13 +24,13 @@ class DashboardController
         $this->reservation = new Reservation();
         $this->vehicule = new Vehicule();
         $this->categorie = new Categorie();
-        $this->connect = $this->isConnected();
+        $this->avis = new Avis();
     }
 
 
     public function index()
     {
-        if (!$this->connect) {
+        if (!$this->isConnected()) {
             header('Location: ' . PATH_ROOT);
             exit();
         }
@@ -99,6 +100,11 @@ class DashboardController
             header('Location: ' . PATH_ROOT);
             exit();
         }
+        $client = $this->client;
+        $avis = $this->avis;
+        $vehicule = $this->vehicule;
+        $reservation = $this->reservation;
+        $allReviews = $avis->getAllAvis();
         require_once __DIR__ . '/../view/admin_reviews.php';
     }
     public function clients()

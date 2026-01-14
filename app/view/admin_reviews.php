@@ -1,25 +1,3 @@
-<?php
-
-namespace app\view;
-
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-use app\model\Avis;
-use app\model\Client;
-use app\model\Vehicule;
-use app\model\Reservation;
-
-
-if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'admin') {
-    header('Location: login.php');
-    exit();
-}
-$client = new Client();
-$avis = new Avis();
-$vehicule = new Vehicule();
-$reservation = new Reservation();
-$allReviews = $avis->getAllAvis();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
