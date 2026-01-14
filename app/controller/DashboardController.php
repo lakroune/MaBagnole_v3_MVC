@@ -92,4 +92,22 @@ class DashboardController
         $categories = $this->categorie->getAllCategories();
         require_once __DIR__ . '/../view/admin_categories.php';
     }
+
+    public function reviews()
+    {
+        if (!$this->isConnected()) {
+            header('Location: ' . PATH_ROOT);
+            exit();
+        }
+        require_once __DIR__ . '/../view/admin_reviews.php';
+    }
+    public function clients()
+    {
+        if (!$this->isConnected()) {
+            header('Location: ' . PATH_ROOT);
+            exit();
+        }
+        $clients = $this->client->getAllClients();
+        require_once __DIR__ . '/../view/admin_clients.php';
+    }
 }

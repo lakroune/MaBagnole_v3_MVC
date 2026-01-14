@@ -9,9 +9,7 @@ use app\model\Client;
 use app\model\Vehicule;
 use app\model\Reservation;
 
-session_start();
 
-// التحقق من صلاحيات الأدمن
 if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'admin') {
     header('Location: login.php');
     exit();
