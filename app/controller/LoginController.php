@@ -26,11 +26,12 @@ class LoginController
         $this->remplerObject($this->client, $_POST);
         $path =  $this->client->seConnecter();
         if ($path == "client") {
-            header("Location: " . PATH_ROOT . "/accueil");
+            header("Location: " . PATH_ROOT . "/");
         } else if ($path == "admin") {
             header("Location: " . PATH_ROOT . "/admin_dashboard");
-        }
-        header("Location: " . PATH_ROOT . "/login/failed");
+        } else
+            header("Location: " . PATH_ROOT . "/login/failed");
+        exit();
     }
     private function remplerObject($object, $data)
     {

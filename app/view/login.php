@@ -100,7 +100,7 @@
             <div class="mt-12 text-center">
                 <p class="text-sm text-slate-400 font-medium">
                     Don't have an account?
-                    <a href="<?= PATH_ROOT ?>/register" class="text-blue-600 font-black hover:underline">Sign Up</a> or <a href="<?= PATH_ROOT ?>/register register" class="text-blue-600 font-black hover:underline">Create Account</a>
+                    <a href="<?= PATH_ROOT ?>/register" class="text-blue-600 font-black hover:underline">Sign Up</a> or <a href="<?= PATH_ROOT ?>/register " class="text-blue-600 font-black hover:underline">Create Account</a>
                 </p>
             </div>
         </div>
