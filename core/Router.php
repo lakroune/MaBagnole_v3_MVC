@@ -1,22 +1,32 @@
 <?php
+
+namespace core;
+
 class Router
 {
-    private $url;
+    private  $url;
 
-    public function __construct($url)
+    public function __construct(array $url)
     {
-        $this->url = parse_url($url ?? "accueil", PHP_URL_PATH);
+        $this->url = $url;
     }
 
     public function run()
     {
-        $controllerName = !empty($this->url[0]) ? ucfirst($this->url[0]) . 'Controller' : 'HomeController';
+        $path = "app\\controller\\";
+        $controllerName = !empty($this->url[0]) ? $path . ucfirst($this->url[0]) . 'Controller' : $path . 'HomeController';
+        echo $controllerName;
         $methodName = isset($this->url[1]) ? $this->url[1] : 'index';
+        echo "/" . $methodName;
         $params = array_slice($this->url, 2);
+        // echo " " . json_encode($params);
 
         if (class_exists($controllerName)) {
+            echo "class exist";
+
             $controller = new $controllerName();
             if (method_exists($controller, $methodName)) {
+                echo "method exist";
                 call_user_func_array([$controller, $methodName], $params);
             } else {
                 $this->error404();

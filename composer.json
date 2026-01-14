@@ -1,7 +1,19 @@
 {
     "autoload": {
         "psr-4": {
-            "app\\": "app/"
+            "app\\": "app/",
+            "core\\": "core/"
         }
-    }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "name": "ismaillakroune/phpmvc",
+    "description": "",
+    "type": "project",
+    "version": "1.0.0",
+    "main": "index.php"
 }

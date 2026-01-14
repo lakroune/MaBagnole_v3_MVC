@@ -1,10 +1,10 @@
 <?php
 
-namespace app\controler;
+namespace app\controller;
 
 use app\model\Vehicule;
 
-class VehiculeControler
+class VehiculeController
 {
     private Vehicule $vehicule;
 
