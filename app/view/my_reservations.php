@@ -52,7 +52,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
     <nav class="flex justify-between items-center px-8 py-4 bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
         <div class="hidden md:flex gap-8 items-center">
-            <a href="accueil" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Browse Cars</a>
+            <a href="<?= PATH_ROOT ?>/" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Browse Cars</a>
             <a href="reservations" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1">My Bookings</a>
             <a href="favorites" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favorites</a>
         </div>

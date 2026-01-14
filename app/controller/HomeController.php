@@ -59,7 +59,7 @@ class HomeController
         $connect = $this->connect;
         $vehicules = $this->vehicule->getAllVehicules();
         $categories = $this->categorie->getAllCategories();
-        $favoris = $this->favori;
+        $favori = $this->favori;
         require_once __DIR__ . '/../view/accueil.php';
     }
     public function show(int $idVehicule): void

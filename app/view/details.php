@@ -1,34 +1,3 @@
-<?php
-
-// namespace app\view;
-
-// require_once __DIR__ . '/../../vendor/autoload.php';
-
-// use app\model\Vehicule;
-// use app\model\Avis;
-// use app\model\Reservation;
-
-// session_start();
-// $connect = true;
-// if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !== 'client') {
-//     $connect =  false;
-// }
-// $v = new Vehicule();
-// if (empty($id)) {
-//     header('Location: accueil');
-//     exit();
-// }
-
-// $avis = new Avis();
-// $reviews =     $avis->getAllAvisByVehicule($idVehicule);
-
-// if ($connect) {
-//     $reservation = new Reservation();
-//     $isReserver = $reservation->getReservationByClientVehicule($idClient = $_SESSION['Utilisateur']->getIdUtilisateur(), $idVehicule);
-//     $dejaCommente = $avis->checkAvis($idClient, $isReserver);
-// }
-// 
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,8 +23,8 @@
 
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="../" class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></a>
-            <a href="../accueil" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">
+            <a href="<?= PATH_ROOT ?>" class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></a>
+            <a href="<?= PATH_ROOT ?>" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">
                 <i class="fas fa-arrow-left mr-2"></i> Back to Fleet
             </a>
         </div>
@@ -405,7 +374,7 @@
             <div class="flex flex-col gap-3">
                 <button onclick="closeError()" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">try again</button>
 
-                <a href="home" class="text-sm font-bold text-blue-600 hover:underline">
+                <a href="<?= PATH_ROOT ?>" class="text-sm font-bold text-blue-600 hover:underline">
                     <i class="fas fa-arrow-left mr-2"></i>back to fleet</a>
             </div>
         </div>
@@ -424,7 +393,7 @@
 
             <div class="flex flex-col gap-3">
 
-                <a href="accueil" class=" feedback w-full bg-slate-900 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-slate-800 transition">
+                <a href="<?= PATH_ROOT ?>" class=" feedback w-full bg-slate-900 text-white py-4 rounded-2xl font-black shadow-lg hover:bg-slate-800 transition">
                     <i class="fas fa-arrow-left mr-2"></i> Back to Fleet
                 </a>
             </div>

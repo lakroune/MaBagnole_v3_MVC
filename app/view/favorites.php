@@ -7,7 +7,6 @@ use app\model\Vehicule;
 
 
 
-session_start();
 
 if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'client') {
     header('Location: login');
