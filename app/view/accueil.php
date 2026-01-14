@@ -77,7 +77,7 @@ use app\controller\HomeController;
                 <a href="favorites" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Favorites</a>
             <?php endif; ?>
         </div>
-        <?php include('infoClient.php'); ?> 
+        <?php include('infoClient.php'); ?>
     </nav>
 
     <header class="relative py-20 bg-slate-900 overflow-hidden">
@@ -135,22 +135,26 @@ use app\controller\HomeController;
                                         <span class="bg-slate-900 text-white px-3 py-1 rounded-full text-[10px] font-bold"><?= $vehicule->getAnneeVehicule() ?></span>
                                         <span class="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-slate-900">
                                             <?php
-                                            $categorieFeilter = new HomeController;
-                                            $categorieFeilter = $categorieFeilter->getCategoriebyId($vehicule->getIdCategorie());
-                                            echo $categorieFeilter->getTitreCategorie();
+
+                                            foreach ($categories as $categorie) {
+                                                if ($vehicule->getIdCategorie() == $categorie->getIdCategorie()) {
+                                                    echo $categorie->getTitreCategorie();
+                                                    break;
+                                                }
+                                            }
                                             ?>
                                         </span>
 
-                                       
-                                            <?php
-                                            if ($vehicule->getStatusVehicule() == 1) {
-                                                // color badge green
-                                                echo "<span class='bg-green-500 text-white px-3 py-1 rounded-full text-[10px] font-bold'>Disponible</span>  ";
-                                            } else {
-                                                // color badge red
-                                                echo "<span class='bg-red-500 text-white px-3 py-1 rounded-full text-[10px] font-bold'>Indisponible</span>  ";
-                                            }
-                                            ?>
+
+                                        <?php
+                                        if ($vehicule->getStatusVehicule() == 1) {
+                                            // color badge green
+                                            echo "<span class='bg-green-500 text-white px-3 py-1 rounded-full text-[10px] font-bold'>Disponible</span>  ";
+                                        } else {
+                                            // color badge red
+                                            echo "<span class='bg-red-500 text-white px-3 py-1 rounded-full text-[10px] font-bold'>Indisponible</span>  ";
+                                        }
+                                        ?>
 
                                     </div>
 
@@ -164,8 +168,8 @@ use app\controller\HomeController;
                                             onclick="toggleModal('rentPopup')" <?php else:; ?>
                                             onclick="toggleFavorite(this)" <?php endif; ?> class="
                                                <?php if (($connect)) echo ' favorite-btn '; ?>
-                                             <?php $vavorie = new Favori();
-                                                if ($connect && $vavorie->isFavori($_SESSION['Utilisateur']->getIdUtilisateur(), $vehicule->getIdVehicule()))
+                                             <?php
+                                                if ($connect && $favori->isFavori($_SESSION['Utilisateur']->getIdUtilisateur(), $vehicule->getIdVehicule()))
                                                     echo ' is-favorite ';
                                                 ?>
                                              absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition shadow-lg">

@@ -4,6 +4,7 @@ namespace app\controller;
 
 use app\model\Avis;
 use app\model\Categorie;
+use app\model\Favori;
 use app\model\Reservation;
 use app\model\Vehicule;
 
@@ -14,6 +15,7 @@ class HomeController
     private Avis $avis;
     private Reservation $reservation;
     private Categorie $categorie;
+    private Favori $favori;
     private bool $comment = false;
     private bool  $reserver = false;
     private bool $connect = false;
@@ -24,6 +26,7 @@ class HomeController
         $this->avis = new Avis();
         $this->reservation = new Reservation();
         $this->categorie = new Categorie();
+        $this->favori = new Favori();
         $this->connect = $this->isConnected();
     }
     private function isConnected(): bool
@@ -36,7 +39,7 @@ class HomeController
     }
     private function isReserver($idVehicule): bool
     {
-        if (isset($_SESSION['Utilisateur']) && $_SESSION['Utilisateur']->getRole() === 'client') {
+        if ($this->connect) {
             $idClient = $_SESSION['Utilisateur']->getIdUtilisateur();
             $this->reservation = new Reservation();
             $this->reserver = $this->reservation->getReservationByClientVehicule($idClient, $idVehicule);
@@ -57,6 +60,7 @@ class HomeController
         $connect = $this->connect;
         $vehicules = $this->vehicule->getAllVehicules();
         $categories = $this->categorie->getAllCategories();
+        $favoris = $this->favori;
         require_once __DIR__ . '/../view/accueil.php';
     }
     public function show(int $idVehicule): void
