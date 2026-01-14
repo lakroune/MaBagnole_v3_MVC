@@ -21,7 +21,6 @@ class HomeController
     private bool $connect = false;
     public function __construct()
     {
-        session_start();
         $this->vehicule = new Vehicule();
         $this->avis = new Avis();
         $this->reservation = new Reservation();

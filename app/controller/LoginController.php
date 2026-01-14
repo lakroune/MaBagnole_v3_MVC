@@ -10,7 +10,6 @@ class LoginController
 
     public function __construct()
     {
-        session_start();
         $this->client = new Client();
     }
     public function index()
