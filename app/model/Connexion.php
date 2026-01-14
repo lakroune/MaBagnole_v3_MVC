@@ -2,6 +2,9 @@
 
 namespace app\model;
 
+use PDO;
+use PDOException;
+
 class Connexion
 {
     private string $nomDB = "MaBagnole";
@@ -14,10 +17,10 @@ class Connexion
     private function __construct()
     {
         try {
-            $pdo = new \PDO("mysql:host=$this->hostDB;dbname=$this->nomDB;charset=utf8", $this->userDB, $this->passDB);
-            $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $pdo = new PDO("mysql:host=$this->hostDB;dbname=$this->nomDB;charset=utf8", $this->userDB, $this->passDB);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo = $pdo;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             $this->pdo = null;
         }
@@ -29,7 +32,7 @@ class Connexion
         }
         return self::$instance;
     }
-    public function getConnexion(): ?\PDO
+    public function getConnexion(): ?PDO
     {
         return $this->pdo;
     }

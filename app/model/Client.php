@@ -4,6 +4,8 @@ namespace app\model;
 
 use app\model\Utilisateur;
 use app\model\Connexion;
+use Exception;
+use PDO;
 
 class Client extends Utilisateur
 {
@@ -39,7 +41,7 @@ class Client extends Utilisateur
 
     public function setStatusClient(int $statusClient): bool
     {
-        if (  ($statusClient == 0 || $statusClient == 1)) {
+        if (($statusClient == 0 || $statusClient == 1)) {
             $this->statusClient = $statusClient;
             return true;
         }
@@ -99,7 +101,7 @@ class Client extends Utilisateur
                 return true;
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }
@@ -118,7 +120,7 @@ class Client extends Utilisateur
             } else {
                 return null;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return null;
         }
@@ -131,13 +133,13 @@ class Client extends Utilisateur
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":email", $email);
             $stmt->execute();
-            $client = $stmt->fetch(\PDO::FETCH_CLASS, Client::class);
+            $client = $stmt->fetch(PDO::FETCH_CLASS, Client::class);
             if ($client) {
                 return $client;
             } else {
                 return null;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return null;
         }
@@ -150,9 +152,9 @@ class Client extends Utilisateur
             $sql = "select * from utilisateurs where role='client'";
             $stmt = $db->prepare($sql);
             $stmt->execute();
-            $results = $stmt->fetchAll(\PDO::FETCH_CLASS, Client::class);
+            $results = $stmt->fetchAll(PDO::FETCH_CLASS, Client::class);
             return $results;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return $clients;
         }
@@ -166,9 +168,9 @@ class Client extends Utilisateur
             $sql = "select count(*) as total from utilisateurs where role='client'";
             $stmt = $db->prepare($sql);
             $stmt->execute();
-            $result = $stmt->fetch(\PDO::FETCH_OBJ);
+            $result = $stmt->fetch(PDO::FETCH_OBJ);
             return (int)$result->total;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return 0;
         }
@@ -182,9 +184,9 @@ class Client extends Utilisateur
             $stmt = $db->prepare($sql);
             $stmt->bindValue(":dateCreation", $toDay . "%");
             $stmt->execute();
-            $result = $stmt->fetch(\PDO::FETCH_OBJ);
+            $result = $stmt->fetch(PDO::FETCH_OBJ);
             return (int)$result->total;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return 0;
         }
@@ -200,7 +202,7 @@ class Client extends Utilisateur
                 return true;
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }
@@ -216,7 +218,7 @@ class Client extends Utilisateur
                 return true;
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }

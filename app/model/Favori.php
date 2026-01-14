@@ -3,14 +3,14 @@
 namespace app\model;
 
 use app\model\Connexion;
+use Exception;
+use InvalidArgumentException;
 
 class Favori
 {
     private int $idClient;
     private int $idVehicule;
-    // constructeur
     public function __construct() {}
-    // getters
     public function getIdClient(): int
     {
         return $this->idClient;
@@ -22,11 +22,10 @@ class Favori
     }
 
 
-    // setters
     public function setIdClient($idClient): void
     {
         if ($idClient < 1) {
-            throw new \InvalidArgumentException("ID client invalide");
+            throw new InvalidArgumentException("ID client invalide");
         } else {
             $this->idClient = $idClient;
 
@@ -36,7 +35,7 @@ class Favori
     public function setIdVehicule($idVehicule): void
     {
         if ($idVehicule < 1) {
-            throw new \InvalidArgumentException("ID vehicule invalide");
+            throw new InvalidArgumentException("ID vehicule invalide");
         } else {
             $this->idVehicule = $idVehicule;
         }
@@ -58,7 +57,7 @@ class Favori
                 return true;
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }
@@ -75,13 +74,12 @@ class Favori
                 return true;
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }
     }
 
-    // si deja Favori
     public function isFavori(int $idClient, int $idVehicule): bool
     {
         try {
@@ -98,7 +96,7 @@ class Favori
             }
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }

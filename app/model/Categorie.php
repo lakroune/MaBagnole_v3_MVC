@@ -3,6 +3,8 @@
 namespace app\model;
 
 use app\model\Connexion;
+use Exception;
+use PDO;
 
 class Categorie
 {
@@ -28,7 +30,7 @@ class Categorie
     }
 
 
-    //setters
+    
     public function setIdCategorie($idCategorie): bool
     {
         if ($idCategorie > 0) {
@@ -92,7 +94,7 @@ class Categorie
                 return true;
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }
@@ -109,7 +111,7 @@ class Categorie
                 return true;
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }
@@ -127,7 +129,7 @@ class Categorie
             } else {
                 return null;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return null;
         }
@@ -140,12 +142,12 @@ class Categorie
             $sql = "select * from categories where deleteCategorie=0";
             $stmt = $db->prepare($sql);
             if ($stmt->execute()) {
-                $categories = $stmt->fetchAll(\PDO::FETCH_CLASS, Categorie::class);
+                $categories = $stmt->fetchAll(PDO::FETCH_CLASS, Categorie::class);
                 return $categories;
             } else {
                 return [];
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return [];
         }
@@ -157,9 +159,9 @@ class Categorie
             $sql = "select count(*) as nombre from categories where deleteCategorie=0";
             $stmt = $db->prepare($sql);
             $stmt->execute();
-            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return (int)$result['nombre'];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return 0;
         }

@@ -1,22 +1,6 @@
 <?php
 
-namespace app\view;
-
-
-use app\model\Categorie;
-use app\model\Favori;
-use app\model\Vehicule;
-
-session_start();
-$connect = true;
-if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !== 'client') {
-    $connect =  false;
-}
-$vehicule = new Vehicule();
-$vehicules = $vehicule->getAllVehicules();
-
-$categorie = new Categorie();
-$categories = $categorie->getAllCategories();
+use app\controller\HomeController;
 
 ?>
 <!DOCTYPE html>
@@ -151,7 +135,7 @@ $categories = $categorie->getAllCategories();
                                         <span class="bg-slate-900 text-white px-3 py-1 rounded-full text-[10px] font-bold"><?= $vehicule->getAnneeVehicule() ?></span>
                                         <span class="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-slate-900">
                                             <?php
-                                            $categorieFeilter = new Categorie();
+                                            $categorieFeilter = new HomeController;
                                             $categorieFeilter = $categorieFeilter->getCategoriebyId($vehicule->getIdCategorie());
                                             echo $categorieFeilter->getTitreCategorie();
                                             ?>

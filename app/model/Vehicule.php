@@ -2,8 +2,9 @@
 
 namespace app\model;
 
-
-use app\model\Connexion;
+use Exception;
+use InvalidArgumentException;
+use PDO;
 
 class Vehicule
 {
@@ -78,18 +79,17 @@ class Vehicule
         return $this->idCategorie;
     }
 
-    //setters
     public function setIdVehicule(int $idVehicule): void
     {
         if (empty($idVehicule))
-            throw new \InvalidArgumentException("ID vehicule invalide");
+            throw new InvalidArgumentException("ID vehicule invalide");
         $this->idVehicule = $idVehicule;
     }
 
     public function setMarqueVehicule(string  $marqueVehicule): void
     {
         if (empty($marqueVehicule)) {
-            throw new \InvalidArgumentException("La marque est obligatoire");
+            throw new InvalidArgumentException("La marque est obligatoire");
         } else
             $this->marqueVehicule = $marqueVehicule;
     }
@@ -98,7 +98,7 @@ class Vehicule
     public function setModeleVehicule(string $modeleVehicule): void
     {
         if (empty($modeleVehicule)) {
-            throw new \InvalidArgumentException("Le modele est obligatoire");
+            throw new InvalidArgumentException("Le modele est obligatoire");
         } else
             $this->modeleVehicule = $modeleVehicule;
     }
@@ -106,7 +106,7 @@ class Vehicule
     public function setAnneeVehicule(string $anneeVehicule): void
     {
         if (empty($anneeVehicule)) {
-            throw new \InvalidArgumentException("L'annee est obligatoire");
+            throw new InvalidArgumentException("L'annee est obligatoire");
         } else
             $this->anneeVehicule = $anneeVehicule;
     }
@@ -114,7 +114,7 @@ class Vehicule
     public function setImageVehicule(string $imageVehicule): void
     {
         if ($imageVehicule < 1) {
-            throw new \InvalidArgumentException("La photo est obligatoire");
+            throw new InvalidArgumentException("La photo est obligatoire");
         } else
             $this->imageVehicule = $imageVehicule;
     }
@@ -124,7 +124,7 @@ class Vehicule
     public function setTypeBoiteVehicule(string $typeBoiteVehicule): void
     {
         if (empty($typeBoiteVehicule)) {
-            throw new \InvalidArgumentException("Le type de boite est obligatoire");
+            throw new InvalidArgumentException("Le type de boite est obligatoire");
         } else
             $this->typeBoiteVehicule = $typeBoiteVehicule;
     }
@@ -132,7 +132,7 @@ class Vehicule
     public function setTypeCarburantVehicule(string $typeCarburantVehicule): void
     {
         if (empty($typeCarburantVehicule)) {
-            throw new \InvalidArgumentException("Le type de carburant est obligatoire");
+            throw new InvalidArgumentException("Le type de carburant est obligatoire");
         } else
             $this->typeCarburantVehicule = $typeCarburantVehicule;
     }
@@ -140,7 +140,7 @@ class Vehicule
     public function setCouleurVehicule(string $couleurVehicule): void
     {
         if (empty($couleurVehicule)) {
-            throw new \InvalidArgumentException("La couleur est obligatoire");
+            throw new InvalidArgumentException("La couleur est obligatoire");
         } else
             $this->couleurVehicule = $couleurVehicule;
     }
@@ -148,7 +148,7 @@ class Vehicule
     public function setPrixVehicule(float $prixVehicule): void
     {
         if ($prixVehicule <= 0) {
-            throw new \InvalidArgumentException("Le prix est obligatoire");
+            throw new InvalidArgumentException("Le prix est obligatoire");
         } else
             $this->prixVehicule = $prixVehicule;
     }
@@ -156,7 +156,7 @@ class Vehicule
     public function setStatusVehicule(int $statusVehicule): void
     {
         if ($statusVehicule != 1 && $statusVehicule != 0) {
-            throw new \InvalidArgumentException("Le status est obligatoire");
+            throw new InvalidArgumentException("Le status est obligatoire");
         } else
             $this->statusVehicule = $statusVehicule;
     }
@@ -164,7 +164,7 @@ class Vehicule
     public function setIdCategorie(int $idCategorie): void
     {
         if (empty($idCategorie)) {
-            throw new \InvalidArgumentException("La categorie est obligatoire");
+            throw new InvalidArgumentException("La categorie est obligatoire");
         } else
             $this->idCategorie = $idCategorie;
     }
@@ -196,7 +196,7 @@ class Vehicule
                 return true;
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }
@@ -221,7 +221,7 @@ class Vehicule
                 return true;
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }
@@ -234,12 +234,12 @@ class Vehicule
             $db = Connexion::connect()->getConnexion();
             $sql = "call supprimerVehicule(:idVehicule)";
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(":idVehicule", $idVehicule, \PDO::PARAM_INT);
+            $stmt->bindParam(":idVehicule", $idVehicule, PDO::PARAM_INT);
             if ($stmt->execute())
                 return true;
             else
                 return false;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return false;
         }
@@ -257,7 +257,7 @@ class Vehicule
             } else {
                 return null;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return null;
         }
@@ -269,17 +269,16 @@ class Vehicule
             $sql = "select * from vehicules where deleteVehicule =0 ";
             $stmt = $db->prepare($sql);
             if ($stmt->execute()) {
-                $vehicules = $stmt->fetchAll(\PDO::FETCH_CLASS, Vehicule::class);
+                $vehicules = $stmt->fetchAll(PDO::FETCH_CLASS, Vehicule::class);
                 return $vehicules;
             } else {
                 return [];
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return [];
         }
     }
-    //getVehiculesByCategorie
     public function getVehiculesByCategorie(int $idCategorie): array
     {
         try {
@@ -288,17 +287,16 @@ class Vehicule
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idCategorie", $idCategorie);
             if ($stmt->execute()) {
-                $vehicules = $stmt->fetchAll(\PDO::FETCH_CLASS, Vehicule::class);
+                $vehicules = $stmt->fetchAll(PDO::FETCH_CLASS, Vehicule::class);
                 return $vehicules;
             } else {
                 return [];
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return [];
         }
     }
-    // get nombre Favoris par client
     public function getVehiculesFavorisByClient(int $idClient): array
     {
         try {
@@ -307,18 +305,17 @@ class Vehicule
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idClient", $idClient);
             if ($stmt->execute()) {
-                $vehicules = $stmt->fetchAll(\PDO::FETCH_CLASS, Vehicule::class);
+                $vehicules = $stmt->fetchAll(PDO::FETCH_CLASS, Vehicule::class);
                 return $vehicules;
             }
             return [];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return [];
         }
     }
 
 
-    // counter vehicules
     public static function counterVehicules(): int
     {
         try {
@@ -326,9 +323,9 @@ class Vehicule
             $sql = "select count(*) as total from vehicules where deleteVehicule=0 ";
             $stmt = $db->prepare($sql);
             $stmt->execute();
-            $result = $stmt->fetch(\PDO::FETCH_OBJ);
+            $result = $stmt->fetch(PDO::FETCH_OBJ);
             return (int)$result->total;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return 0;
         }
@@ -340,9 +337,9 @@ class Vehicule
             $sql = "select count(*) as total from vehicules where deleteVehicule=0 and idVehicule not in (select idVehicule from reservations where statusReservation='confirmer' and dateFinReservation >= now())";
             $stmt = $db->prepare($sql);
             $stmt->execute();
-            $result = $stmt->fetch(\PDO::FETCH_OBJ);
+            $result = $stmt->fetch(PDO::FETCH_OBJ);
             return (int)$result->total;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return 0;
         }
@@ -355,9 +352,9 @@ class Vehicule
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":idv", $idv);
             $stmt->execute();
-            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
             return $result["dateFinReservation"];
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return "";
         }

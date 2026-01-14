@@ -2,7 +2,9 @@
 
 namespace app\model;
 
+
 use app\model\Connexion;
+use Exception;
 
 class Utilisateur
 {
@@ -12,9 +14,7 @@ class Utilisateur
     protected string $email;
     protected string $password;
     protected string $role;
-    // constructeur
     public function __construct() {}
-    // getters
 
     public function getIdUtilisateur(): int
     {
@@ -49,7 +49,6 @@ class Utilisateur
 
 
 
-    // setters
     public function setIdUtilisateur(int $idUtilisateur): bool
     {
         if ($idUtilisateur > 0) {
@@ -107,12 +106,10 @@ class Utilisateur
 
 
 
-    //toString
     public function __toString(): string
     {
         return "idUtilisateur=$this->idUtilisateur, nomUtilisateur=$this->nomUtilisateur, prenomUtilisateur=$this->prenomUtilisateur, email=$this->email, role=$this->role";
     }
-    //seconnecter
     public function seConnecter(): string
     {
         try {
@@ -130,12 +127,11 @@ class Utilisateur
 
                 return "error";
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
             return "error";
         }
     }
-    //sdeconnecter
     public function seDeconnecter(): bool
     {
         if (session_status() === PHP_SESSION_NONE) {

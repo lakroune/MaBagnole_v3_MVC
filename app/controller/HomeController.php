@@ -3,6 +3,7 @@
 namespace app\controller;
 
 use app\model\Avis;
+use app\model\Categorie;
 use app\model\Reservation;
 use app\model\Vehicule;
 
@@ -12,6 +13,7 @@ class HomeController
     private Vehicule $vehicule;
     private Avis $avis;
     private Reservation $reservation;
+    private Categorie $categorie;
     private bool $comment = false;
     private bool  $reserver = false;
     private bool $connect = false;
@@ -21,6 +23,7 @@ class HomeController
         $this->vehicule = new Vehicule();
         $this->avis = new Avis();
         $this->reservation = new Reservation();
+        $this->categorie = new Categorie();
         $this->connect = $this->isConnected();
     }
     private function isConnected(): bool
@@ -51,7 +54,9 @@ class HomeController
     }
     public function index()
     {
+        $connect = $this->connect;
         $vehicules = $this->vehicule->getAllVehicules();
+        $categories = $this->categorie->getAllCategories();
         require_once __DIR__ . '/../view/accueil.php';
     }
     public function show(int $idVehicule): void
