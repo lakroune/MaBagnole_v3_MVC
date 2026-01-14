@@ -74,5 +74,13 @@ class DashboardController
         require_once __DIR__ . '/../view/admin_reservations.php';
     }
 
- 
+    public function vehicules()
+    {
+        if (!$this->isConnected()) {
+            header('Location: ' . PATH_ROOT);
+            exit();
+        }
+        $vehicules = $this->vehicule->getAllVehicules();
+        require_once __DIR__ . '/../view/admin_fleet.php';
+    }
 }
