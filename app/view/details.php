@@ -143,7 +143,7 @@
                     <?php if ($connect and $isReserver and !$dejaCommente) : ?>
                         <div class="mt-12 pt-8 border-t border-slate-100">
                             <h4 class="font-bold text-lg text-slate-800 mb-4">Leave an Evaluation</h4>
-                            <form action="ClientControler" method="POST" id="form-ajout-avis">
+                            <form action="<?= PATH_ROOT ?>/avis/add" method="POST" id="form-ajout-avis">
                                 <div class="flex gap-2 mb-4" id="star-selector">
                                     <i class="fas fa-star cursor-pointer text-slate-200 text-xl hover:text-yellow-400" data-value="1"></i>
                                     <i class="fas fa-star cursor-pointer text-slate-200 text-xl hover:text-yellow-400" data-value="2"></i>
@@ -179,9 +179,10 @@
                         <span class="text-slate-400 font-medium">MAD/ total</span>
                     </div>
 
-                    <form action="../ReservationContoler" method="POST" class="space-y-4">
+                    <form action="<?= PATH_ROOT ?>/reservations/add" method="POST" class="space-y-4">
                         <input type="hidden" name="idVehicule" value="<?php echo $vehicule->getIdVehicule(); ?>">
                         <input type="hidden" id="dureeReservation" name="dureeReservation" value="1">
+                        <input type="hidden" id="id-client" name="idClient" value="<?php echo $_SESSION['Utilisateur']->getIdUtilisateur() ?? ""; ?>">
                         <input type="hidden" name="page" value="details">
                         <input type="hidden" name="action" value="rent">
 
@@ -418,7 +419,7 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="<?php echo PATH_ROOT ?>/app/view/js/main.js"></script>
     <script>
         function submitReview() {
             const text = document.getElementById('new-review-text').value;
@@ -434,38 +435,26 @@
         }
 
         function openEditReviewModal(idAvis, currentComment) {
-            // Remplir l'ID caché
             document.getElementById('edit_avis_id').value = idAvis;
-            // Remplir le textarea avec le texte actuel
             document.getElementById('edit_comment_text').value = currentComment;
-            // Afficher le modal
             toggleModal('editReviewModal');
         }
 
 
 
-        // Auto-trigger based on URL Parameters
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            const lastPart = parts[parts.length - 1];
 
-            // Handle Success
-            if (urlParams.has('rent') && urlParams.get('rent') === "success") {
+            if (lastPart === "success") {
                 showModal('successModal');
             }
-
-
-            // Handle Errors
-            if (urlParams.has('rent') && urlParams.get('rent') === "failed") {
-                const errorType = urlParams.get('reservation');
-                const errorText = document.getElementById('errorMessage');
-
-                if (errorType === "failed") {
-                    errorText.innerText = "Please fill all fields correctly and try again .";
-                }
-
+            if (lastPart === "failed") {
                 showModal('errorModal');
             }
 
+            urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('addReview') && urlParams.get('addReview') === "success") {
                 showReviewPopup('success', 'Thank You!', 'Your review has been submitted successfully and is waiting for admin approval.');
 

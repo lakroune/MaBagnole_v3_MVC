@@ -43,4 +43,22 @@ class ReservationsController
         $arrayReservations = $this->reservation->getResrvationByIdClient($_SESSION['Utilisateur']->getIdUtilisateur());
         require_once __DIR__ . '/../view/reservations.php';
     }
+    public function add()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->remplerObject($this->reservation, $_POST);
+            $path = $this->reservation->ajouterReservation() ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/home/show/" . $this->reservation->getIdVehicule() . "/$path");
+            exit;
+        }
+    }
+    private function remplerObject($object, $data)
+    {
+        foreach ($data as $key => $value) {
+            $method = 'set' . ucfirst($key);
+            if (method_exists($object, $method)) {
+                $object->$method($value);
+            }
+        }
+    }
 }

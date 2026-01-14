@@ -4,7 +4,7 @@ namespace app\controler;
 
 use app\model\Avis;
 
-class AvaisControler
+class AvisController
 {
     private Avis $avis;
     public function __construct()
@@ -83,4 +83,3 @@ class AvaisControler
 
 
 
-$clientControler = new AvaisControler();
