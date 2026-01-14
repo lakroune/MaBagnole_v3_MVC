@@ -1,35 +1,33 @@
 <?php
 
-namespace app\view;
+// namespace app\view;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+// require_once __DIR__ . '/../../vendor/autoload.php';
 
-use app\model\Vehicule;
-use app\model\Avis;
-use app\model\Reservation;
+// use app\model\Vehicule;
+// use app\model\Avis;
+// use app\model\Reservation;
 
-session_start();
-$connect = true;
-if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !== 'client') {
-    $connect =  false;
-}
-$v = new Vehicule();
-if (empty($id)) {
-    header('Location: accueil');
-    exit();
-}
-$idVehicule = (int)$id;
-$vehicle = $v->getVehiculeById($idVehicule);
+// session_start();
+// $connect = true;
+// if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !== 'client') {
+//     $connect =  false;
+// }
+// $v = new Vehicule();
+// if (empty($id)) {
+//     header('Location: accueil');
+//     exit();
+// }
+ 
+// $avis = new Avis();
+// $reviews =     $avis->getAllAvisByVehicule($idVehicule);
 
-$avis = new Avis();
-$reviews =     $avis->getAllAvisByVehicule($idVehicule);
-
-if ($connect) {
-    $reservation = new Reservation();
-    $isReserver = $reservation->getReservationByClientVehicule($idClient = $_SESSION['Utilisateur']->getIdUtilisateur(), $idVehicule);
-    $dejaCommente = $avis->checkAvis($idClient, $isReserver);
-}
-?>
+// if ($connect) {
+//     $reservation = new Reservation();
+//     $isReserver = $reservation->getReservationByClientVehicule($idClient = $_SESSION['Utilisateur']->getIdUtilisateur(), $idVehicule);
+//     $dejaCommente = $avis->checkAvis($idClient, $isReserver);
+// }
+// ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,11 +65,11 @@ if ($connect) {
 
             <div class="lg:w-2/3">
                 <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 mb-8">
-                    <img src="<?= $vehicle->getImageVehicule() ?>"
+                    <img src="<?= $vehicule->getImageVehicule() ?>"
                         alt="Car Display" class="w-full h-[450px] object-cover">
 
                 </div>
-                <?php if (!$vehicle->getStatusVehicule()) : ?>
+                <?php if (!$vehicule->getStatusVehicule()) : ?>
                     <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 mb-8">
                         <div class="flex items-center justify-between p-6">
                             <div class="flex items-center gap-4">
@@ -82,7 +80,7 @@ if ($connect) {
                                     <p class="font-bold text-slate-800">Indisponible</p>
                                     <p class="text-sm text-slate-500">This vehicle is currently unavailable</p>
                                     <!-- mais ilay deisponible le date -->
-                                    <p class="text-sm text-slate-500">Available on: <span class="font-bold text-slate-800"> <?php echo $vehicle->getDateDisponibiliteVehicule($idVehicule) ?> </span></p>
+                                    <p class="text-sm text-slate-500">Available on: <span class="font-bold text-slate-800"> <?php echo $vehicule->getDateDisponibiliteVehicule($idVehicule) ?> </span></p>
                                 </div>
                             </div>
                         </div>
@@ -92,22 +90,22 @@ if ($connect) {
                     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
                         <i class="fas fa-cog text-blue-600 mb-2"></i>
                         <p class="text-[10px] uppercase font-bold text-slate-400">Transmission</p>
-                        <p class="font-bold text-slate-800"><?php echo $vehicle->getTypeBoiteVehicule() ?></p>
+                        <p class="font-bold text-slate-800"><?php echo $vehicule->getTypeBoiteVehicule() ?></p>
                     </div>
                     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
                         <i class="fas fa-gas-pump text-blue-600 mb-2"></i>
                         <p class="text-[10px] uppercase font-bold text-slate-400">Fuel</p>
-                        <p class="font-bold text-slate-800"><?php echo $vehicle->getTypeCarburantVehicule() ?></p>
+                        <p class="font-bold text-slate-800"><?php echo $vehicule->getTypeCarburantVehicule() ?></p>
                     </div>
                     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
                         <i class="fas fa-calendar-check text-blue-600 mb-2"></i>
                         <p class="text-[10px] uppercase font-bold text-slate-400">Year</p>
-                        <p class="font-bold text-slate-800"><?= $vehicle->getAnneeVehicule()  ?></p>
+                        <p class="font-bold text-slate-800"><?= $vehicule->getAnneeVehicule()  ?></p>
                     </div>
                     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
                         <i class="fas fa-palette text-blue-600 mb-2"></i>
                         <p class="text-[10px] uppercase font-bold text-slate-400">Color</p>
-                        <p class="font-bold text-slate-800"><?php echo $vehicle->getCouleurVehicule() ?></p>
+                        <p class="font-bold text-slate-800"><?php echo $vehicule->getCouleurVehicule() ?></p>
                     </div>
                 </div>
 
@@ -115,7 +113,7 @@ if ($connect) {
                     <h3 class="text-2xl font-bold text-slate-800 mb-8">Customer Feedback</h3>
 
                     <div id="reviews-list" class="space-y-8">
-                        <?php if ($avis) : ?>
+                        
                             <?php foreach ($reviews as $review) : ?>
                                 <div id="review-101" class="border-b border-slate-100 pb-8 last:border-0 group">
                                     <div class="flex justify-between items-start">
@@ -169,7 +167,7 @@ if ($connect) {
                                     </div> -->
                                 </div>
                             <?php endforeach ?>
-                        <?php endif ?>
+                        
 
                     </div>
                     <?php if ($connect and $isReserver and !$dejaCommente) : ?>
@@ -201,18 +199,18 @@ if ($connect) {
                 <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-xl sticky top-24">
                     <div class="mb-6">
                         <span class="text-blue-600 font-bold text-xs uppercase tracking-widest">Premium Selection</span>
-                        <h2 class="text-3xl font-black text-slate-800 mt-1"><?= $vehicle->getMarqueVehicule() . ' ' . $vehicle->getModeleVehicule() ?></h2>
+                        <h2 class="text-3xl font-black text-slate-800 mt-1"><?= $vehicule->getMarqueVehicule() . ' ' . $vehicule->getModeleVehicule() ?></h2>
                     </div>
 
-                    <input type="hidden" id="base-price" value="<?php echo $vehicle->getPrixVehicule(); ?>">
+                    <input type="hidden" id="base-price" value="<?php echo $vehicule->getPrixVehicule(); ?>">
 
                     <div class="flex items-baseline gap-1 mb-6">
-                        <span id="total-display" class="text-5xl font-black text-slate-900"><?= $vehicle->getPrixVehicule(); ?></span>
+                        <span id="total-display" class="text-5xl font-black text-slate-900"><?= $vehicule->getPrixVehicule(); ?></span>
                         <span class="text-slate-400 font-medium">MAD/ total</span>
                     </div>
 
                     <form action="../ReservationContoler" method="POST" class="space-y-4">
-                        <input type="hidden" name="idVehicule" value="<?php echo $vehicle->getIdVehicule(); ?>">
+                        <input type="hidden" name="idVehicule" value="<?php echo $vehicule->getIdVehicule(); ?>">
                         <input type="hidden" id="dureeReservation" name="dureeReservation" value="1">
                         <input type="hidden" name="page" value="details">
                         <input type="hidden" name="action" value="rent">
@@ -406,7 +404,7 @@ if ($connect) {
             <div class="flex flex-col gap-3">
                 <button onclick="closeError()" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">try again</button>
 
-                <a href="accueil" class="text-sm font-bold text-blue-600 hover:underline">
+                <a href="../" class="text-sm font-bold text-blue-600 hover:underline">
                     <i class="fas fa-arrow-left mr-2"></i>back to fleet</a>
             </div>
         </div>

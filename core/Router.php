@@ -19,14 +19,14 @@ class Router
         $methodName = isset($this->url[1]) ? $this->url[1] : 'index';
         echo "/" . $methodName;
         $params = array_slice($this->url, 2);
-        // echo " " . json_encode($params);
+        echo "/" . json_encode($params);
 
         if (class_exists($controllerName)) {
-            echo "class exist";
+            echo " class exist";
 
             $controller = new $controllerName();
             if (method_exists($controller, $methodName)) {
-                echo "method exist";
+                echo " method exist";
                 call_user_func_array([$controller, $methodName], $params);
             } else {
                 $this->error404();
