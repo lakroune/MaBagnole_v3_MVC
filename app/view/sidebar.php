@@ -6,22 +6,22 @@
          </div>
 
          <nav class="space-y-1">
-             <a href="dashboard" class="flex items-center gap-3 text-blue-500 font-bold bg-blue-500/10 p-3 rounded-xl">
+             <a href="<?= PATH_ROOT ?>/dashboard" class="flex items-center gap-3 text-blue-500 font-bold bg-blue-500/10 p-3 rounded-xl">
                  <i class="fas fa-chart-line"></i> Dashboard
              </a>
-             <a href="vehicules" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="<?= PATH_ROOT ?>/dashboard/vehicules" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-car"></i> Fleet
              </a>
-             <a href="reservations" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="<?= PATH_ROOT ?>/dashboard/reservations" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-calendar-check"></i> Reservations
              </a>
-             <a href="categories" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="<?= PATH_ROOT ?>/categories" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-tags"></i> Categories
              </a>
-             <a href="reviews" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="<?= PATH_ROOT ?>/dashboard/reviews" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-star"></i> Manage Reviews
              </a>
-             <a href="clients" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="<?= PATH_ROOT ?>/dashboard/clients" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-users"></i> Clients
              </a>
              <a href="articles" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">

@@ -11,31 +11,30 @@ class ReservationsController
     private Client $client;
     private Reservation $reservation;
     private Vehicule $vehicule;
-    private bool $connect;
 
     public function __construct()
     {
+
         $this->client = new Client();
         $this->reservation = new Reservation();
         $this->vehicule = new Vehicule();
-        $this->connect = $this->isConnected();
     }
     public function default()
     {
         $this->index();
     }
 
-    private function isConnected(): bool
+    private function isConnected(string $role): bool
     {
         $connect = true;
-        if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !== 'client') {
+        if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !== $role) {
             $connect =  false;
         }
         return $connect;
     }
     public function index()
     {
-        if (!$this->connect) {
+        if (!$this->isConnected('client')) {
             header('Location: ' . PATH_ROOT);
             exit();
         }
@@ -45,7 +44,7 @@ class ReservationsController
     }
     public function add()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->isConnected('client')) {
             $this->remplerObject($this->reservation, $_POST);
             $path = $this->reservation->ajouterReservation() ? "success" : "failed";
             header("Location: " . PATH_ROOT . "/home/show/" . $this->reservation->getIdVehicule() . "/$path");
@@ -54,7 +53,7 @@ class ReservationsController
     }
     public function approve()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->isConnected('admin')) {
             $path = $this->reservation->confirmerReservation($_POST['idReservation']) ? "success" : "failed";
             header("Location: " . PATH_ROOT . "/dashboard/reservations/$path");
             exit;
@@ -62,7 +61,7 @@ class ReservationsController
     }
     public function annuler()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->isConnected('admin')) {
             $path = $this->reservation->annulerReservation($_POST['idReservation']) ? "success" : "failed";
             header("Location: " . PATH_ROOT . "/dashboard/reservations/$path");
             exit;

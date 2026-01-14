@@ -8,7 +8,6 @@ use app\model\Reservation;
 use app\model\Client;
 use app\model\Vehicule;
 
-session_start();
 
 if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'admin') {
     header('Location: login.php');
@@ -16,8 +15,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
 } else {
 
     $reservation = new Reservation();
-    $client = new Client();
-    $vehicule = new Vehicule();
+   
     $reservations = $reservation->getAllReservations();
 }
 ?>

@@ -29,6 +29,10 @@ class DashboardController
 
     public function index()
     {
+        if (!$this->connect) {
+            header('Location: ' . PATH_ROOT);
+            exit();
+        }
         $statistiques = [
             'totalClients' => $this->client->counterClients(),
             'totalVehicules' => $this->vehicule->counterVehicules(),
@@ -45,6 +49,10 @@ class DashboardController
         ];
         require_once __DIR__ . '/../view/admin_dashboard.php';
     }
+    public function default()
+    {
+        $this->index();
+    }
 
     private function isConnected(): bool
     {
@@ -54,4 +62,17 @@ class DashboardController
         }
         return $connect;
     }
+    public function reservations()
+    {
+        if (!$this->isConnected()) {
+            header('Location: ' . PATH_ROOT);
+            exit();
+        }
+        $client = $this->client;
+        $vehicule = $this->vehicule;
+        $reservations = $this->reservation->getAllReservations();
+        require_once __DIR__ . '/../view/admin_reservations.php';
+    }
+
+ 
 }
