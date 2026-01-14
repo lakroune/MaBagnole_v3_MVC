@@ -56,9 +56,7 @@ class HomeController
     }
     public function show(int $idVehicule): void
     {
-
         $vehicule = $this->vehicule->getVehiculeById($idVehicule);
-       
         $reviews = $this->avis->getAllAvisByVehicule($idVehicule);
         $connect = $this->connect;
         $isReserver = $this->isReserver($idVehicule);

@@ -18,7 +18,7 @@
 //     header('Location: accueil');
 //     exit();
 // }
- 
+
 // $avis = new Avis();
 // $reviews =     $avis->getAllAvisByVehicule($idVehicule);
 
@@ -27,7 +27,8 @@
 //     $isReserver = $reservation->getReservationByClientVehicule($idClient = $_SESSION['Utilisateur']->getIdUtilisateur(), $idVehicule);
 //     $dejaCommente = $avis->checkAvis($idClient, $isReserver);
 // }
-// ?>
+// 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -113,44 +114,44 @@
                     <h3 class="text-2xl font-bold text-slate-800 mb-8">Customer Feedback</h3>
 
                     <div id="reviews-list" class="space-y-8">
-                        
-                            <?php foreach ($reviews as $review) : ?>
-                                <div id="review-101" class="border-b border-slate-100 pb-8 last:border-0 group">
-                                    <div class="flex justify-between items-start">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600">JD</div>
-                                            <div>
-                                                <h4 class="font-bold text-slate-800">John Doe</h4>
-                                                <div class="flex text-yellow-400 text-[10px]">
-                                                    <?php for ($i = 0; $i < 5; $i++) : ?>
-                                                        <?php if ($i < $review->getNoteAvis()) : ?>
 
-                                                            <i class="fas fa-star"></i>
-                                                        <?php else: ?>
-                                                            <i class="fas fa-star text-slate-200"></i>
-                                                        <?php endif ?>
-                                                    <?php endfor ?>
-                                                </div>
+                        <?php foreach ($reviews as $review) : ?>
+                            <div id="review-101" class="border-b border-slate-100 pb-8 last:border-0 group">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600">JD</div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-800">John Doe</h4>
+                                            <div class="flex text-yellow-400 text-[10px]">
+                                                <?php for ($i = 0; $i < 5; $i++) : ?>
+                                                    <?php if ($i < $review->getNoteAvis()) : ?>
+
+                                                        <i class="fas fa-star"></i>
+                                                    <?php else: ?>
+                                                        <i class="fas fa-star text-slate-200"></i>
+                                                    <?php endif ?>
+                                                <?php endfor ?>
                                             </div>
                                         </div>
-                                        <div class="flex gap-4">
-                                            <?php if ($connect and $_SESSION['Utilisateur']->getIdUtilisateur() == $review->getIdClient()) : ?>
-                                                <button
-                                                    onclick="openEditReviewModal(<?= $review->getIdAvis() ?>, '<?= addslashes($review->getCommentaireAvis()) ?>')"
-                                                    class="text-xs font-bold text-blue-400 hover:text-blue-600 transition">
-                                                    Edit
-                                                </button> <button onclick="openDeleteReviewModal(<?= $review->getIdAvis() ?>)" class="text-xs font-bold text-red-400 hover:text-red-600 transition">
-                                                    Delete
-                                                </button>
-                                            <?php endif ?>
-                                        </div>
                                     </div>
+                                    <div class="flex gap-4">
+                                        <?php if ($connect and $_SESSION['Utilisateur']->getIdUtilisateur() == $review->getIdClient()) : ?>
+                                            <button
+                                                onclick="openEditReviewModal(<?= $review->getIdAvis() ?>, '<?= addslashes($review->getCommentaireAvis()) ?>')"
+                                                class="text-xs font-bold text-blue-400 hover:text-blue-600 transition">
+                                                Edit
+                                            </button> <button onclick="openDeleteReviewModal(<?= $review->getIdAvis() ?>)" class="text-xs font-bold text-red-400 hover:text-red-600 transition">
+                                                Delete
+                                            </button>
+                                        <?php endif ?>
+                                    </div>
+                                </div>
 
-                                    <p id="review-text-<?php echo $review->getIdAvis() ?>" class="mt-4 text-slate-600 italic leading-relaxed">
-                                        <?php echo $review->getCommentaireAvis() ?>
-                                    </p>
+                                <p id="review-text-<?php echo $review->getIdAvis() ?>" class="mt-4 text-slate-600 italic leading-relaxed">
+                                    <?php echo $review->getCommentaireAvis() ?>
+                                </p>
 
-                                    <!-- <div class="mt-4 flex items-center gap-6">
+                                <!-- <div class="mt-4 flex items-center gap-6">
                                         <button <?php if ($connect) : ?>onclick="handleReaction(101, 'like')" <?php endif ?> id="like-btn-101" class="flex items-center gap-2 text-slate-400 hover:text-blue-600 transition group">
                                             <div class="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-blue-50">
                                                 <i class="far fa-thumbs-up text-sm"></i>
@@ -165,9 +166,9 @@
                                             <span id="dislike-count-101" class="text-xs font-bold">2</span>
                                         </button>
                                     </div> -->
-                                </div>
-                            <?php endforeach ?>
-                        
+                            </div>
+                        <?php endforeach ?>
+
 
                     </div>
                     <?php if ($connect and $isReserver and !$dejaCommente) : ?>
@@ -404,7 +405,7 @@
             <div class="flex flex-col gap-3">
                 <button onclick="closeError()" class="w-full bg-slate-50 text-slate-600 py-4 rounded-2xl font-bold hover:bg-slate-100 transition">try again</button>
 
-                <a href="../" class="text-sm font-bold text-blue-600 hover:underline">
+                <a href="home" class="text-sm font-bold text-blue-600 hover:underline">
                     <i class="fas fa-arrow-left mr-2"></i>back to fleet</a>
             </div>
         </div>
