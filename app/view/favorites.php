@@ -44,7 +44,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
     <nav class="flex justify-between items-center px-8 py-4 bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="text-2xl font-black text-blue-600">Ma<span class="text-slate-800">Bagnole</span></div>
         <div class="hidden md:flex gap-8 items-center">
-            <a href="accueil" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Browse Cars</a>
+            <a href="<?= PATH_ROOT ?>" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">Browse Cars</a>
             <a href="reservations" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition">My Bookings</a>
             <a href="favorites" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Favorites</a>
         </div>
@@ -113,7 +113,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
             <p class="text-slate-400 mt-1 mb-8 max-w-[250px] mx-auto">
                 Start exploring and save cars you love!
             </p>
-            <a href="accueil"
+            <a href="<?= PATH_ROOT ?>"
                 class="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 hover:scale-105 transition-all duration-200 shadow-lg shadow-blue-200">
                 Explore Fleet
             </a>

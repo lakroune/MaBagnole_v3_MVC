@@ -3,21 +3,44 @@
 namespace app\controller;
 
 use app\model\Client;
+use app\model\Reservation;
+use app\model\Vehicule;
 
 class ReservationsController
 {
     private Client $client;
+    private Reservation $reservation;
+    private Vehicule $vehicule;
+    private bool $connect;
 
     public function __construct()
     {
         $this->client = new Client();
+        $this->reservation = new Reservation();
+        $this->vehicule = new Vehicule();
+        $this->connect = $this->isConnected();
     }
     public function default()
     {
-        require_once __DIR__ . '/../view/favorites.php';
+        $this->index();
+    }
+
+    private function isConnected(): bool
+    {
+        $connect = true;
+        if (!isset($_SESSION['Utilisateur']) or  $_SESSION['Utilisateur']->getRole() !== 'client') {
+            $connect =  false;
+        }
+        return $connect;
     }
     public function index()
     {
-        require_once __DIR__ . '/../view/favorites.php';
+        if (!$this->connect) {
+            header('Location: ' . PATH_ROOT);
+            exit();
+        }
+        $vehicule = $this->vehicule;
+        $arrayReservations = $this->reservation->getResrvationByIdClient($_SESSION['Utilisateur']->getIdUtilisateur());
+        require_once __DIR__ . '/../view/reservations.php';
     }
 }
