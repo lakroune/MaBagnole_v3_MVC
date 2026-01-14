@@ -1,22 +1,4 @@
-<?php
 
-namespace app\view;
-
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-use app\model\Categorie;
-
-
-
-session_start();
-
-if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 'admin') {
-    header('Location: login.php');
-    exit();
-} else {
-
-    $categories = Categorie::getAllCategories();
-}
 
 ?>
 <!DOCTYPE html>

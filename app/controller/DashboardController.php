@@ -83,4 +83,13 @@ class DashboardController
         $vehicules = $this->vehicule->getAllVehicules();
         require_once __DIR__ . '/../view/admin_fleet.php';
     }
+    public function categories()
+    {
+        if (!$this->isConnected()) {
+            header('Location: ' . PATH_ROOT);
+            exit();
+        }
+        $categories = $this->categorie->getAllCategories();
+        require_once __DIR__ . '/../view/admin_categories.php';
+    }
 }

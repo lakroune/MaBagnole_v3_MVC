@@ -15,7 +15,7 @@
              <a href="<?= PATH_ROOT ?>/dashboard/reservations" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-calendar-check"></i> Reservations
              </a>
-             <a href="<?= PATH_ROOT ?>/categories" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
+             <a href="<?= PATH_ROOT ?>/dashboard/categories" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
                  <i class="fas fa-tags"></i> Categories
              </a>
              <a href="<?= PATH_ROOT ?>/dashboard/reviews" class="flex items-center gap-3 text-slate-400 hover:text-white transition p-3">
