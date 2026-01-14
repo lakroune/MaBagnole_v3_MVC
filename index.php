@@ -2,9 +2,14 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$uri = $_SERVER['REQUEST_URI'];
-$route = explode("/", $uri);
+// $uri = $_SERVER['REQUEST_URI'];
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+// $x = explode('/', filter_var(trim($uri, '/'), FILTER_SANITIZE_URL));
+
+
+$uri = rtrim($uri, '/');
+$route = explode("/", $uri);
 
 switch ($route[2]) {
     case '':
@@ -40,7 +45,7 @@ switch ($route[2]) {
     case 'register':
         require_once('app/view/register.php');
         break;
-    case 'dashboard':
+    case 'admin_dashboard':
         require_once('app/view/admin_dashboard.php');
         break;
 
