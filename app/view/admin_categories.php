@@ -64,10 +64,10 @@
             <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">New Category</h3>
             <form action="<?= PATH_ROOT ?>/categories/add" method="POST" class="space-y-4">
                 <input type="hidden" name="action" value="add">
-                <input type="hidden" name="page" value="admin_categories">
+                <input type="hidden" name="descriptionCategorie" value="desc">
                 <div>
                     <label class="text-xs font-bold uppercase text-slate-400 block mb-2">Category Name</label>
-                    <input type="text" name="nomCategorie" required class="w-full p-4 bg-slate-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+                    <input type="text" name="titreCategorie" required class="w-full p-4 bg-slate-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 font-medium">
                 </div>
                 <div class="flex gap-3 mt-6">
                     <button type="button" onclick="toggleModal('addCategoryModal')" class="flex-1 py-3 font-bold text-slate-400 bg-slate-100 rounded-xl">Cancel</button>
@@ -83,11 +83,11 @@
             <form action="<?= PATH_ROOT ?>/categories/update" method="POST" class="space-y-4">
                 <input type="hidden" name="idCategorie" id="edit_cat_id">
                 <input type="hidden" name="action" value="update">
-                <input type="hidden" name="page" value="admin_categories">
+                <input type="hidden" name="descriptionCategorie" value="desc">
 
                 <div>
                     <label class="text-xs font-bold uppercase text-slate-400 block mb-2">Category Name</label>
-                    <input type="text" name="nomCategorie" id="edit_cat_name" required class="w-full p-4 bg-slate-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+                    <input type="text" name="titreCategorie" id="edit_cat_name" required class="w-full p-4 bg-slate-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 font-medium">
                 </div>
                 <div class="flex gap-3 mt-6">
                     <button type="button" onclick="toggleModal('editCategoryModal')" class="flex-1 py-3 font-bold text-slate-400 bg-slate-100 rounded-xl">Cancel</button>
@@ -129,22 +129,30 @@
             </button>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="js/main.js"></script>>
+    <script src="<?= PATH_ROOT ?>/app/view/js/main.js"></script>>
     <script>
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
 
-            if (urlParams.has('add') && urlParams.get('add') === "success") {
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            const resultat = parts[parts.length - 1];
+            const action = parts[parts.length - 2];
+            if (action === "add" && resultat === "success") {
                 showStatusModal('success', 'Operation Successful', 'The category has been added successfully.');
-            } else if (urlParams.has('delete') && urlParams.get('delete') === "success") {
+            }
+            if (action === "delete" && resultat === "success") {
                 showStatusModal('success', 'Operation Successful', 'The category has been deleted successfully.');
-            } else if (urlParams.has('update') && urlParams.get('update') === "success") {
+            }
+            if (action === "update" && resultat === "success") {
                 showStatusModal('success', 'Operation Successful', 'The category has been updated successfully.');
-            } else if (urlParams.has('add') || urlParams.has('delete') || urlParams.has('update')) {
+            }
+            if ((action === "add" || action === "delete" || action === "update") && resultat === "failed") {
                 showStatusModal('error', 'Operation Failed', 'Something went wrong. Please try again.');
             }
+
         };
     </script>
     <script>

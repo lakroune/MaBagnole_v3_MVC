@@ -156,14 +156,11 @@
             <button onclick="closeStatusModal()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600">
                 <i class="fas fa-times"></i>
             </button>
-
             <div id="statusIconContainer" class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl border-4 border-white shadow-sm">
                 <i id="statusIcon" class="fas"></i>
             </div>
-
             <h3 id="statusTitle" class="text-2xl font-black text-slate-800 mb-2"></h3>
             <p id="statusMessage" class="text-slate-500 text-sm mb-8 leading-relaxed"></p>
-
             <button onclick="closeStatusModal()" id="statusBtn" class="w-full text-white py-4 rounded-2xl font-black shadow-lg transition active:scale-95">
                 Dismiss
             </button>
