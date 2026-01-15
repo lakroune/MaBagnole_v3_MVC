@@ -30,6 +30,14 @@ class AvisController
         }
     }
 
+    public function approve()
+    {
+        if (isset($_POST['idAvis'])) {
+            $path = $this->avis->approveReview((int)$_POST['idAvis']) ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/dashboard/reviews/avis/approve/$path");
+            exit;
+        }
+    }
 
     private function remplerObject($object, $data)
     {
