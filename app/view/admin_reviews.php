@@ -259,7 +259,7 @@
                 title: 'Delete Review',
                 message: 'Are you sure? This action cannot be undone.',
                 confirmText: 'Yes, Delete',
-                formAction: '<?php echo PATH_ROOT ?>/avis/delete'
+                formAction: '<?php echo PATH_ROOT ?>/avis/reject'
             });
         }
     </script>
