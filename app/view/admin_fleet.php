@@ -106,7 +106,7 @@
     <div id="editVehicleModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="bg-white w-full max-w-2xl rounded-3xl p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
             <h3 class="text-2xl font-bold text-slate-800 mb-6">Update Vehicle</h3>
-            <form action="<?= PATH_ROOT ?>/vehicules/edit" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form action="<?= PATH_ROOT ?>/vehicules/update" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input type="hidden" name="idVehicule" id="edit_id">
                 <input type="hidden" name="page" value="admin_fleet">
                 <input type="hidden" name="action" value="update">
@@ -202,19 +202,27 @@
     <script src="<?= PATH_ROOT ?>/app/view/js/main.js"></script>>
     <script>
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            const resultat = parts[parts.length - 1];
+            const action = parts[parts.length - 2];
 
-            if (urlParams.has('add') && urlParams.get('add') === "success") {
+            if (action === "add" && resultat === "success") {
                 showStatusModal('success', 'Operation Successful', 'The  fleet has been added successfully.');
-            } else if (urlParams.has('delete') && urlParams.get('delete') === "success") {
+            }
+            if (action === "delete" && resultat === "success") {
                 showStatusModal('success', 'Operation Successful', 'The fleet has been deleted successfully.');
-            } else if (urlParams.has('update') && urlParams.get('update') === "success") {
+            }
+            if (action === "update" && resultat === "success") {
                 showStatusModal('success', 'Operation Successful', 'The fleet has been updated successfully.');
-            } else if (urlParams.has('import') && urlParams.get('import') === "success") {
+            }
+            if (action === "import" && resultat === "success") {
                 showStatusModal('success', 'Operation Successful', 'The fleet has been imported successfully.');
-            } else if (urlParams.has('add') || urlParams.has('delete') || urlParams.has('update') || urlParams.has('import')) {
+            }
+            if ((action === "add" || action === "delete" || action === "update" || action === "import") && resultat === "failed") {
                 showStatusModal('error', 'Operation Failed', 'Something went wrong. Please try again.');
             }
+
         };
 
         $(document).ready(function() {

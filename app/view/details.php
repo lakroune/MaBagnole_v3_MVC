@@ -182,7 +182,7 @@
                     <form action="<?= PATH_ROOT ?>/reservations/add" method="POST" class="space-y-4">
                         <input type="hidden" name="idVehicule" value="<?php echo $vehicule->getIdVehicule(); ?>">
                         <input type="hidden" id="dureeReservation" name="dureeReservation" value="1">
-                        <input type="hidden" id="id-client" name="idClient" value="<?php echo $_SESSION['Utilisateur']->getIdUtilisateur() ?? ""; ?>">
+                        <input type="hidden" id="id-client" name="idClient" value="<?php if ($connect) echo $_SESSION['Utilisateur']->getIdUtilisateur(); ?>">
                         <input type="hidden" name="page" value="details">
                         <input type="hidden" name="action" value="rent">
 
@@ -267,7 +267,7 @@
                         <?php if (!$connect): ?>
                             <div class="bg-red-100 border border-red-100 text-red-400 px-4 py-3 rounded relative mt-6" role="alert">
                                 <span class="block sm:inline">You must be logged in to make a reservation.
-                                    <a href="../login" class="absolute top-2 right-2 text-red-900">Sign In</a>
+                                    <a href="<?= PATH_ROOT ?>/login" class="absolute top-2 right-2 text-red-900">Sign In</a>
                                 </span>
 
                             </div>
@@ -424,7 +424,7 @@
         function submitReview() {
             const text = document.getElementById('new-review-text').value;
 
-            // Validation Check
+
             if (!text || selectedRating == 0 || !text.trim() || selectedRating == 0) {
                 return showReviewPopup('error', 'Incomplete', 'Please provide both a rating and a comment before submitting.');
             } else {
@@ -446,6 +446,7 @@
             const path = window.location.pathname;
             const parts = path.split('/');
             const lastPart = parts[parts.length - 1];
+            const last1PArt = parts[parts.length - 2];
 
             if (lastPart === "success") {
                 showModal('successModal');

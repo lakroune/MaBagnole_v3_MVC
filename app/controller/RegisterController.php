@@ -17,13 +17,13 @@ class RegisterController
     {
         require_once __DIR__ . '/../view/register.php';
     }
-    public function default()
+    public function default(): void
     {
         require_once __DIR__ . '/../view/register.php';
     }
 
 
-    public function register()
+    public function register(): void
     {
 
         $this->remplerObject($this->client, $_POST);
@@ -32,7 +32,7 @@ class RegisterController
     }
 
 
-    private function remplerObject($object, $data)
+    private function remplerObject($object, $data): void
     {
         foreach ($data as $key => $value) {
             $method = 'set' . ucfirst($key);
