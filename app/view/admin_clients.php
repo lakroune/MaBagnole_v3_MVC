@@ -9,8 +9,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="./css/style.css">
-    
-  
+
+
 </head>
 
 <body class="bg-slate-50 min-h-screen flex">
@@ -108,7 +108,7 @@
                 Are you sure you want to change the status of <span id="modalClientName" class="font-bold text-slate-700"></span>?
             </p>
 
-            <form action="clients/changeStatus" method="POST" class="flex gap-3">
+            <form action="" method="POST" class="flex gap-3">
                 <input type="hidden" name="idClient" id="modalUserId">
                 <input type="hidden" name="statusClient" id="modalActionType">
                 <input type="hidden" name="page" value="admin_clients">
@@ -130,7 +130,7 @@
             $('#clientTable').DataTable({
                 paging: true,
                 pageLength: 7,
-                 ordering: true,
+                ordering: true,
                 dom: '<"flex justify-between items-center mb-6"f>rtip',
                 language: {
                     search: "",

@@ -193,15 +193,18 @@
             const resultat = parts[parts.length - 1];
             const action = parts[parts.length - 2];
             if (action === "delete" && resultat === "success") {
-                showReviewPopup('success', 'Operation Successful', 'The review has been deleted successfully.');
+                showStatusModal('success', 'Operation Successful', 'The review has been deleted successfully.');
             }
             if (action === "approve" && resultat === "success") {
-                showReviewPopup('success', 'Operation Successful', 'The review has been approved successfully.');
+                showStatusModal('success', 'Operation Successful', 'The review has been approved successfully.');
             }
             if (action === "reject" && resultat === "success") {
-                showReviewPopup('success', 'Operation Successful', 'The review has been rejected successfully.');
+                showStatusModal('success', 'Operation Successful', 'The review has been rejected successfully.');
             }
-        };
+            if ((action === "delete" || action === "approve" || action === "reject") && resultat === "failed") {
+                showStatusModal('error', 'Operation Failed', 'Something went wrong. Please try again.');
+            }
+        }
 
         function closeActionModal() {
             document.getElementById('actionModal').classList.replace('flex', 'hidden');

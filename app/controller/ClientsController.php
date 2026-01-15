@@ -39,6 +39,15 @@ class AvisController
         }
     }
 
+    public function changeStatus()
+    {
+        if (isset($_POST['idClient'])) {
+            $this->remplerObject($this->client, $_POST);
+            $path = $this->client->changeStatusClient() ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/dashboard/clients/status/$path");
+            exit;
+        }
+    }
     private function remplerObject($object, $data)
     {
         foreach ($data as $key => $value) {
