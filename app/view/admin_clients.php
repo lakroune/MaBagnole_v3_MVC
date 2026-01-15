@@ -42,7 +42,7 @@
                             <tr class="hover:bg-slate-50/50 transition">
                                 <td class="px-4 py-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600">AH</div>
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600"><?= $client->getNomUtilisateur()[0]."".$client->getPrenomUtilisateur()[0] ?></div>
                                         <div>
                                             <p class="font-bold text-slate-800"><?= $client->getNomUtilisateur() . " " . $client->getPrenomUtilisateur() ?></p>
                                             <p class="text-[10px] text-slate-400 uppercase">ID: #<?= $client->getIdUtilisateur() ?></p>
@@ -67,7 +67,7 @@
                             <tr class="hover:bg-slate-50/50 transition">
                                 <td class="px-4 py-4 opacity-60">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-400">KO</div>
+                                        <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-400"><?= $client->getNomUtilisateur()[0]."".$client->getPrenomUtilisateur()[0] ?></div>
                                         <div>
                                             <p class="font-bold text-slate-800"><?= $client->getNomUtilisateur() . " " . $client->getPrenomUtilisateur() ?></p>
                                             <p class="text-[10px] text-slate-400 uppercase">ID: #<?= $client->getIdUtilisateur() ?></p>
