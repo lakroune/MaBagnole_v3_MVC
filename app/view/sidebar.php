@@ -57,7 +57,7 @@
  </div>
  <script>
      function logout() {
-         window.location.href = 'logout';
+         window.location.href = '<?= PATH_ROOT ?>/logout';
      }
 
      function toggleLogoutModal() {
