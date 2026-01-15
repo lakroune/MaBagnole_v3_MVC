@@ -25,7 +25,6 @@ function openDeleteReviewModal(idAvis) {
         toggleModal('deleteReviewModal');
     }
 }
-// --- Soft Delete ---
 function softDelete(id) {
     if (confirm("Do you really want to remove this review?")) {
         const item = document.getElementById(`review-${id}`);
@@ -38,7 +37,6 @@ function softDelete(id) {
     }
 }
 
-// --- Edit Logic ---
 function toggleEdit(id) {
     const currentText = document.getElementById(`review-text-${id}`).innerText.replace(/"/g, '');
     document.getElementById('edit-id').value = id;
@@ -54,10 +52,8 @@ function saveEdit() {
     const id = document.getElementById('edit-id').value;
     const text = document.getElementById('edit-text').value;
 
-    // UI Update
     document.getElementById(`review-text-${id}`).innerText = `"${text}"`;
     closeEdit();
-    // In real app: Send fetch() request to PHP backend to save changes
 }
 function calculateTotal() {
     let days = 1;

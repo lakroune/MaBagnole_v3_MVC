@@ -151,11 +151,28 @@
             </div>
         </div>
     </div>
+    <div id="statusModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[200] p-4">
+        <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 shadow-2xl text-center relative">
+            <button onclick="closeStatusModal()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600">
+                <i class="fas fa-times"></i>
+            </button>
 
+            <div id="statusIconContainer" class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl border-4 border-white shadow-sm">
+                <i id="statusIcon" class="fas"></i>
+            </div>
+
+            <h3 id="statusTitle" class="text-2xl font-black text-slate-800 mb-2"></h3>
+            <p id="statusMessage" class="text-slate-500 text-sm mb-8 leading-relaxed"></p>
+
+            <button onclick="closeStatusModal()" id="statusBtn" class="w-full text-white py-4 rounded-2xl font-black shadow-lg transition active:scale-95">
+                Dismiss
+            </button>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="<?= PATH_ROOT ?>/app/view/js/main.js"></script>
     <script>
         $(document).ready(function() {
             $('#reviewsTable').DataTable({
@@ -169,6 +186,22 @@
             });
         });
 
+        window.onload = function() {
+
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            const resultat = parts[parts.length - 1];
+            const action = parts[parts.length - 2];
+            if (action === "delete" && resultat === "success") {
+                showReviewPopup('success', 'Operation Successful', 'The review has been deleted successfully.');
+            }
+            if (action === "approve" && resultat === "success") {
+                showReviewPopup('success', 'Operation Successful', 'The review has been approved successfully.');
+            }
+            if (action === "reject" && resultat === "success") {
+                showReviewPopup('success', 'Operation Successful', 'The review has been rejected successfully.');
+            }
+        };
 
         function closeActionModal() {
             document.getElementById('actionModal').classList.replace('flex', 'hidden');
@@ -229,33 +262,6 @@
                 formAction: '<?php echo PATH_ROOT ?>/avis/delete'
             });
         }
-
-
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-
-
-
-            if (urlParams.has('approve') && urlParams.get('approve') === "success") {
-                showReviewPopup('success', 'Thank You!', 'Your review has been approved successfully.');
-
-            }
-            if (urlParams.has('approve') && urlParams.get('approve') === "failed") {
-                showReviewPopup('error', 'Error', 'An error occurred while approving your review.');
-
-            }
-
-            if (urlParams.has('reject') && urlParams.get('reject') === "success") {
-                showReviewPopup('success', 'Thank You!', 'Your review has been rejected successfully.');
-
-            }
-            if (urlParams.has('reject') && urlParams.get('reject') === "failed") {
-                showReviewPopup('error', 'Error', 'An error occurred while rejecting your review.');
-            } else {
-                showReviewPopup('error', 'Error', 'Something went wrong. Please try again.');
-            }
-
-        };
     </script>
 </body>
 
