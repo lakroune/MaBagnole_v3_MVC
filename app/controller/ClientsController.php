@@ -2,17 +2,14 @@
 
 namespace app\controller;
 
-use app\model\Avis;
 use app\model\Client;
 
-class AvisController
+class ClientsController
 {
     private Client $client;
-    private Avis $avis;
 
     public function __construct()
     {
-        $this->avis = new Avis();
         $this->client = new Client();
     }
     public function index()
@@ -21,33 +18,25 @@ class AvisController
     }
 
 
-    public function delete()
-    {
-        if (isset($_POST['idAvis'])) {
-            $path = $this->avis->rejectReview((int)$_POST['idAvis']) ? "success" : "failed";
-            header("Location: " . PATH_ROOT . "/dashboard/reviews/avis/delete/$path");
-            exit;
-        }
-    }
-
-    public function approve()
-    {
-        if (isset($_POST['idAvis'])) {
-            $path = $this->avis->approveReview((int)$_POST['idAvis']) ? "success" : "failed";
-            header("Location: " . PATH_ROOT . "/dashboard/reviews/avis/approve/$path");
-            exit;
-        }
-    }
-
-    public function changeStatus()
+    public function Suspend()
     {
         if (isset($_POST['idClient'])) {
-            $this->remplerObject($this->client, $_POST);
-            $path = $this->client->changeStatusClient() ? "success" : "failed";
-            header("Location: " . PATH_ROOT . "/dashboard/clients/status/$path");
+            $path = $this->client->suspendClient((int)$_POST['idClient']) ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/dashboard/clients/suspend/$path");
             exit;
         }
     }
+
+    public function activate()
+    {
+        if (isset($_POST['idClient'])) {
+            $path = $this->client->activateClient((int)$_POST['idClient']) ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/dashboard/clients/activate/$path");
+            exit;
+        }
+    }
+
+  
     private function remplerObject($object, $data)
     {
         foreach ($data as $key => $value) {

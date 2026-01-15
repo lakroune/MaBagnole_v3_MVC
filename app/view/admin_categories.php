@@ -84,7 +84,6 @@
                 <input type="hidden" name="idCategorie" id="edit_cat_id">
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="descriptionCategorie" value="desc">
-
                 <div>
                     <label class="text-xs font-bold uppercase text-slate-400 block mb-2">Category Name</label>
                     <input type="text" name="titreCategorie" id="edit_cat_name" required class="w-full p-4 bg-slate-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 font-medium">

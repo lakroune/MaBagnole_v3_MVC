@@ -108,7 +108,7 @@
                 Are you sure you want to change the status of <span id="modalClientName" class="font-bold text-slate-700"></span>?
             </p>
 
-            <form action="" method="POST" class="flex gap-3">
+            <form action="" method="POST" id="formaction" class="flex gap-3">
                 <input type="hidden" name="idClient" id="modalUserId">
                 <input type="hidden" name="statusClient" id="modalActionType">
                 <input type="hidden" name="page" value="admin_clients">
@@ -145,6 +145,7 @@
             const icon = document.getElementById('modalIcon');
             const title = document.getElementById('modalTitle');
             const submitBtn = document.getElementById('modalSubmitBtn');
+            const formaction = document.getElementById('formaction');
             let actionType = "";
             if (type == 1) {
                 actionType = "suspend";
@@ -161,12 +162,14 @@
                 title.innerText = "Suspend Account";
                 submitBtn.innerText = "Suspend";
                 submitBtn.className = "flex-1 px-6 py-3 bg-red-500 text-white rounded-xl font-bold hover:bg-red-600 shadow-lg shadow-red-100";
+                formaction.action = '<?php echo PATH_ROOT ?>/clients/suspend';
             } else {
                 iconContainer.className = "w-20 h-20 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl";
                 icon.className = "fas fa-user-check";
                 title.innerText = "Activate Account";
                 submitBtn.innerText = "Activate";
                 submitBtn.className = "flex-1 px-6 py-3 bg-green-600 text-white rounded-xl font-bold hover:bg-green-600 shadow-lg shadow-green-100";
+                formaction.action = '<?php echo PATH_ROOT ?>/clients/activate';
             }
 
             modal.classList.replace('hidden', 'flex');
