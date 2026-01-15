@@ -38,6 +38,7 @@ class CategoriesContoller
             header("Location: " . PATH_ROOT . "/dashboard/categories/add/$path");
             exit;
         }
+        $this->index();
     }
 
     public function delete()
@@ -47,6 +48,18 @@ class CategoriesContoller
             header("Location: " . PATH_ROOT . "/dashboard/categories/delete/$path");
             exit;
         }
+        $this->index();
+    }
+
+    public function update()
+    {
+        if (isset($_POST['idCategorie'])) {
+            $this->remplerObject($this->categorie, $_POST);
+            $path = $this->categorie->modifierCategorie() ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/dashboard/categories/update/$path");
+            exit;
+        }
+        $this->index();
     }
 
     private function remplerObject($object, $data)

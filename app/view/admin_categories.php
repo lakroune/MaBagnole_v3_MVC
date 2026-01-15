@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,7 +62,7 @@
     <div id="addCategoryModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-8 shadow-2xl">
             <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">New Category</h3>
-            <form action="categories/add" method="POST" class="space-y-4">
+            <form action="<?= PATH_ROOT ?>/categories/add" method="POST" class="space-y-4">
                 <input type="hidden" name="action" value="add">
                 <input type="hidden" name="page" value="admin_categories">
                 <div>
@@ -81,7 +80,7 @@
     <div id="editCategoryModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-8 shadow-2xl">
             <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">Edit Category</h3>
-            <form action="categories/update" method="POST" class="space-y-4">
+            <form action="<?= PATH_ROOT ?>/categories/update" method="POST" class="space-y-4">
                 <input type="hidden" name="idCategorie" id="edit_cat_id">
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="page" value="admin_categories">
@@ -103,7 +102,7 @@
             <div class="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl"><i class="fas fa-exclamation-circle"></i></div>
             <h3 class="text-xl font-bold text-slate-800 mb-2">Delete Category?</h3>
             <p class="text-slate-400 text-sm mb-6">This will affect all vehicles linked to this category.</p>
-            <form action="categories/delete" method="POST" class="flex gap-3">
+            <form action="<?= PATH_ROOT ?>/categories/delete" method="POST" class="flex gap-3">
                 <input type="hidden" name="idCategorie" id="delete_cat_id">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="page" value="admin_categories">
@@ -152,7 +151,7 @@
         $(document).ready(function() {
             $('#catTable').DataTable({
                 pageLength: 7,
-               ordering: true,
+                ordering: true,
                 dom: '<"flex justify-between items-center mb-6"f>rtip',
                 language: {
                     search: "",
