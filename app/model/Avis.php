@@ -13,9 +13,7 @@ class Avis
     private int $idReservation;
     private int $statusAvis;
     private int $idClient;
-    // constructeur
     public function __construct() {}
-    // getters
     public function getIdAvis(): int
     {
         return $this->idAvis;
@@ -44,7 +42,6 @@ class Avis
     {
         return $this->idClient;
     }
-    // setters 
     public function setIdAvis(int $idAvis): void
     {
         if ($idAvis < 1)
@@ -107,12 +104,10 @@ class Avis
             $this->idClient = $idClient;
     }
 
-    // tostring
     public function __toString(): string
     {
         return "idAvis : $this->idAvis , ";
     }
-    // ajouter Avis
     public function ajouterAvis(): bool
     {
         try {
@@ -135,8 +130,7 @@ class Avis
     }
 
 
-    // modifier Avis
-    public function modifierAvis()
+    public function modifierAvis(): bool
     {
         try {
             $db = Connexion::connect()->getConnexion();
@@ -154,8 +148,7 @@ class Avis
             return false;
         }
     }
-    // supprimer Avis
-    public function rejectReview(int $idAvis)
+    public function rejectReview(int $idAvis): bool
     {
         try {
             $db = Connexion::connect()->getConnexion();
@@ -172,7 +165,7 @@ class Avis
         }
     }
 
-    public function approveReview(int $idAvis)
+    public function approveReview(int $idAvis): bool
     {
         try {
             $db = Connexion::connect()->getConnexion();
@@ -189,12 +182,11 @@ class Avis
         }
     }
 
-    // getAll Avis
-    public function getAllAvis()
+    public function getAllAvis(): array
     {
         try {
             $db = Connexion::connect()->getConnexion();
-            $sql = "select * from avis ";
+            $sql = "select * from avis where deleteAvis=0";
             $stmt = $db->prepare($sql);
             if ($stmt->execute()) {
                 $avis = $stmt->fetchAll(\PDO::FETCH_CLASS, Avis::class);
@@ -208,7 +200,6 @@ class Avis
         }
     }
 
-    // getAll Avis by vehicule
     public function getAllAvisByVehicule(int $idVehicule): array
     {
         try {
@@ -227,7 +218,6 @@ class Avis
             return [];
         }
     }
-    // check Avis
     public function checkAvis(int $idClient, int $idReservation): bool
     {
         try {

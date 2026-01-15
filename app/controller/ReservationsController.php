@@ -64,14 +64,7 @@ class ReservationsController
             exit;
         }
     }
-    public function annuler()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->isConnected('admin')) {
-            $path = $this->reservation->annulerReservation($_POST['idReservation']) ? "success" : "failed";
-            header("Location: " . PATH_ROOT . "/dashboard/reservations/$path");
-            exit;
-        }
-    }
+
     private function remplerObject($object, $data)
     {
         foreach ($data as $key => $value) {

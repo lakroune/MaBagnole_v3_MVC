@@ -7,7 +7,7 @@ namespace app\controler;
 use app\model\Avis;
 use app\model\Client;
 
-class Aviscontroller
+class AvisController
 {
     private Client $client;
     private Avis $avis;
@@ -23,12 +23,13 @@ class Aviscontroller
     }
 
 
-    public function register()
+    public function delete()
     {
-
-        $this->remplerObject($this->avis, $_POST);
-        $path =  $this->client->inscrire() ? "success" : "failed";
-        header("Location: " . PATH_ROOT . "/Home/$path");
+        if (isset($_POST['idAvis'])) {
+            $path = $this->avis->rejectReview((int)$_POST['idAvis']) ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/dashboard/avis/delete/$path");
+            exit;
+        }
     }
 
 

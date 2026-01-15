@@ -102,10 +102,9 @@ class DashboardController
             exit();
         }
         $client = $this->client;
-        $avis = $this->avis;
         $vehicule = $this->vehicule;
         $reservation = $this->reservation;
-        $allReviews = $avis->getAllAvis();
+        $allReviews = $this->avis->getAllAvis();
         require_once __DIR__ . '/../view/admin_reviews.php';
     }
     public function clients()

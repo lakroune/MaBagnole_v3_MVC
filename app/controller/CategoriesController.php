@@ -35,10 +35,10 @@ class CategoriesContoller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->remplerObject($this->categorie, $_POST);
             $path = $this->categorie->ajouterCategorie() ? "success" : "failed";
-            header("Location: " . PATH_ROOT . "/dashboard/categories/add/$path");
-            exit;
+            // header("Location: " . PATH_ROOT . "/dashboard/categories/add/$path");
+            // exit;
         }
-        $this->index();
+        // $this->index();
     }
 
     public function delete()

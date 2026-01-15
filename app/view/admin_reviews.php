@@ -43,7 +43,7 @@
                         <?php
 
                         $client = $client->getClientById($review->getIdClient());
-                        $reservation =   $reservation->getReservation($review->getIdReservation());
+                        $reservation = $reservation->getReservation($review->getIdReservation());
                         $vehicule = $vehicule->getVehiculeById($reservation->getIdVehicule());
                         ?>
                         <tr class="hover:bg-slate-50/50 transition">
@@ -96,7 +96,7 @@
             </div>
             <h3 id="actionTitle" class="text-2xl font-black text-slate-800 mb-2 tracking-tight">Confirmation</h3>
             <p id="actionMessage" class="text-slate-500 text-sm mb-8 leading-relaxed">Are you sure about this action?</p>
-            <form action="AdminControler" method="POST">
+            <form method="POST" id="formActionModel">
                 <input type="hidden" name="idAvis" id="actionId" required>
                 <input type="hidden" name="page" value="admin_reviews">
                 <input type="hidden" name="action" id="action" required>
@@ -170,7 +170,6 @@
         });
 
 
-
         function closeActionModal() {
             document.getElementById('actionModal').classList.replace('flex', 'hidden');
         }
@@ -182,9 +181,12 @@
             const title = document.getElementById('actionTitle');
             const message = document.getElementById('actionMessage');
             const confirmBtn = document.getElementById('confirmBtn');
+            const formActionModel = document.getElementById('formActionModel');
 
             document.getElementById('actionId').value = config.id;
             document.getElementById('action').value = config.action;
+
+            formActionModel.action = config.formAction;
 
             if (config.type === 'danger') {
                 iconBg.className = "w-20 h-20 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-lg shadow-red-100";
@@ -212,6 +214,7 @@
                 title: 'Approve Review',
                 message: 'Do you want to make this review public?',
                 confirmText: 'Yes, Approve',
+                formAction: '<?php echo PATH_ROOT ?>/avis/approve'
             });
         }
 
@@ -223,21 +226,14 @@
                 title: 'Delete Review',
                 message: 'Are you sure? This action cannot be undone.',
                 confirmText: 'Yes, Delete',
+                formAction: '<?php echo PATH_ROOT ?>/avis/delete'
             });
         }
 
 
-
-
-
-
-
-
-        // Auto-trigger based on URL Parameters
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
 
-            // Handle Success
 
 
             if (urlParams.has('approve') && urlParams.get('approve') === "success") {
@@ -258,7 +254,6 @@
             } else {
                 showReviewPopup('error', 'Error', 'Something went wrong. Please try again.');
             }
-
 
         };
     </script>

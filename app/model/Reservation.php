@@ -190,9 +190,7 @@ class Reservation
             error_log(date('y-m-d h:i:s') . " Connexion :error ." . $e . PHP_EOL, 3, "error.log");
         }
         if ($stmt->execute()) {
-            $stmt->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
-            $reservation = $stmt->fetch();
-            return $reservation;
+            return  $stmt->fetchObject(Reservation::class);
         } else {
             return null;
         }
