@@ -113,7 +113,7 @@
                 <input type="hidden" name="statusClient" id="modalActionType">
                 <input type="hidden" name="page" value="admin_clients">
 
-                <button type="button" onclick="closeStatusModal()" class="flex-1 px-6 py-3 font-bold text-slate-400 bg-slate-50 rounded-xl hover:bg-slate-100 transition">
+                <button type="button" onclick="closeStatusModal1()" class="flex-1 px-6 py-3 font-bold text-slate-400 bg-slate-50 rounded-xl hover:bg-slate-100 transition">
                     Cancel
                 </button>
                 <button type="submit" id="modalSubmitBtn" class="flex-1 px-6 py-3 text-white rounded-xl font-bold transition shadow-lg">
@@ -122,9 +122,27 @@
             </form>
         </div>
     </div>
+    <div id="statusModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[200] p-4">
+        <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 shadow-2xl text-center relative">
+            <button onclick="closeStatusModal()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600">
+                <i class="fas fa-times"></i>
+            </button>
 
+            <div id="statusIconContainer" class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl border-4 border-white shadow-sm">
+                <i id="statusIcon" class="fas"></i>
+            </div>
+
+            <h3 id="statusTitle" class="text-2xl font-black text-slate-800 mb-2"></h3>
+            <p id="statusMessage" class="text-slate-500 text-sm mb-8 leading-relaxed"></p>
+
+            <button onclick="closeStatusModal()" id="statusBtn" class="w-full text-white py-4 rounded-2xl font-black shadow-lg transition active:scale-95">
+                Dismiss
+            </button>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="<?= PATH_ROOT ?>/app/view/js/main.js"></script>
     <script>
         $(document).ready(function() {
             $('#clientTable').DataTable({
@@ -138,6 +156,24 @@
                 }
             });
         });
+        window.onload = function() {
+
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            const resultat = parts[parts.length - 1];
+            const action = parts[parts.length - 2];
+            if (action === "activate" && resultat === "success") {
+                showStatusModal('success', 'Operation Successful', 'The account has been activated successfully.');
+            }
+            if (action === "suspend" && resultat === "success") {
+                showStatusModal('success', 'Operation Successful', 'The account has been suspended successfully.');
+            }
+            if ((action === "activate" || action === "suspend") && resultat === "failed") {
+                showStatusModal('error', 'Operation Failed', 'Something went wrong. Please try again.');
+            }
+
+        };
+
 
         function confirmStatusChange(id, name, type) {
             const modal = document.getElementById('statusActionModal');
@@ -175,7 +211,7 @@
             modal.classList.replace('hidden', 'flex');
         }
 
-        function closeStatusModal() {
+        function closeStatusModal1() {
             document.getElementById('statusActionModal').classList.replace('flex', 'hidden');
         }
     </script>
