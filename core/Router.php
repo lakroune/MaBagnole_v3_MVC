@@ -19,6 +19,7 @@ class Router
         $controllerName = !empty($this->url[0]) ? $path . ucfirst($this->url[0]) . 'Controller' : $path . 'HomeController';
         $methodName = isset($this->url[1]) ? $this->url[1] : 'index';
         $params = array_slice($this->url, 2);
+        echo $controllerName . " " . $methodName . " " . print_r($params, true);
         if (class_exists($controllerName)) {
 
             $controller = new $controllerName();

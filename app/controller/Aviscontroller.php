@@ -1,8 +1,6 @@
 <?php
 
-
-
-namespace app\controler;
+namespace app\controller;
 
 use app\model\Avis;
 use app\model\Client;
@@ -27,7 +25,7 @@ class AvisController
     {
         if (isset($_POST['idAvis'])) {
             $path = $this->avis->rejectReview((int)$_POST['idAvis']) ? "success" : "failed";
-            header("Location: " . PATH_ROOT . "/dashboard/avis/delete/$path");
+            header("Location: " . PATH_ROOT . "/dashboard/reviews/avis/delete/$path");
             exit;
         }
     }
