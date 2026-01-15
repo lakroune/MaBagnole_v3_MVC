@@ -9,15 +9,16 @@ class CategoriesController
     private Categorie $categorie;
     function __construct()
     {
+        if (!$this->isConnected()) {
+            header('Location: ' . PATH_ROOT);
+            exit();
+        }
         $this->categorie = new Categorie();
     }
 
     public function index()
     {
-        if (!$this->isConnected()) {
-            header('Location: ' . PATH_ROOT);
-            exit();
-        }
+
         header('Location: ' . PATH_ROOT . '/dashboard/categories');
     }
 

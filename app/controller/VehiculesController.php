@@ -26,6 +26,11 @@ class VehiculesController
         $vehicules = $this->vehicule->getAllVehicules();
         require_once __DIR__ . '/../view/admin_fleet.php';
     }
+
+    public function default()
+    {
+        header("Location: " . PATH_ROOT . "/dashboard/vehicules");
+    }
     private function isConnected(): bool
     {
         $connect = true;
