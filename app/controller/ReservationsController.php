@@ -51,11 +51,16 @@ class ReservationsController
             exit;
         }
     }
-    public function approve()
+    public function status()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->isConnected('admin')) {
-            $path = $this->reservation->confirmerReservation($_POST['idReservation']) ? "success" : "failed";
-            header("Location: " . PATH_ROOT . "/dashboard/reservations/$path");
+            if (isset($_POST['action']) && $_POST['action'] == "confirmer") {
+                $reslt =    $this->reservation->confirmerReservation($_POST['idReservation']) ? "success" : "failed";
+            }
+            if (isset($_POST['action']) && $_POST['action'] == "annuler") {
+                $reslt =  $this->reservation->annulerReservation($_POST['idReservation']) ? "success" : "failed";
+            }
+            header("Location: " . PATH_ROOT . "/dashboard/reservations/status/$reslt");
             exit;
         }
     }

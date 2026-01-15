@@ -15,7 +15,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
 } else {
 
     $reservation = new Reservation();
-   
+
     $reservations = $reservation->getAllReservations();
 }
 ?>
@@ -30,7 +30,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="./css/style.css">
-   
+
 </head>
 
 <body class="bg-slate-50 min-h-screen flex">
@@ -115,10 +115,10 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
         </div>
     </div>
 
-    <div id="statusModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div id="statusModalUpdate" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-8 shadow-2xl">
             <h3 class="text-xl font-bold text-slate-800 mb-6 text-center">Update Status</h3>
-            <form action="AdminControler" method="POST" class="space-y-4">
+            <form action="<?= PATH_ROOT ?>/reservations/status" method="POST" class="space-y-4">
                 <input type="hidden" name="idReservation" id="status_id">
                 <input type="hidden" name="page" value="admin_reservations">
                 <select name="action" id="status_select" class="w-full p-4 bg-slate-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 font-bold">
@@ -133,10 +133,44 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
             </form>
         </div>
     </div>
+    <div id="statusModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[200] p-4">
+        <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 shadow-2xl text-center relative">
+            <button onclick="closeStatusModal()" class="absolute top-6 right-6 text-slate-300 hover:text-slate-600">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div id="statusIconContainer" class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl border-4 border-white shadow-sm">
+                <i id="statusIcon" class="fas"></i>
+            </div>
+
+            <h3 id="statusTitle" class="text-2xl font-black text-slate-800 mb-2"></h3>
+            <p id="statusMessage" class="text-slate-500 text-sm mb-8 leading-relaxed"></p>
+
+            <button onclick="closeStatusModal()" id="statusBtn" class="w-full text-white py-4 rounded-2xl font-black shadow-lg transition active:scale-95">
+                Dismiss
+            </button>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="<?= PATH_ROOT ?>/app/view/js/main.js"></script>
     <script>
+        window.onload = function() {
+            const path = window.location.pathname;
+            const parts = path.split('/');
+            const resultat = parts[parts.length - 1];
+            const action = parts[parts.length - 2];
+
+            if (action === "status" && resultat === "success") {
+                showStatusModal('success', 'Operation Successful', 'the reservation has been updated successfully.');
+            }
+            if (action === "status" && resultat === "failed") {
+                showStatusModal('error', 'Operation Failed', 'Something went wrong. Please try again.');
+            }
+
+        };
+
         $(document).ready(function() {
             $('#resTable').DataTable({
                 pageLength: 7,
@@ -169,7 +203,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
         function openStatusModal(id, currentStatus) {
             document.getElementById('status_id').value = id;
             document.getElementById('status_select').value = currentStatus;
-            toggleModal('statusModal');
+            toggleModal('statusModalUpdate');
         }
     </script>
 </body>
