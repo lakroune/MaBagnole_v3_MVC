@@ -108,7 +108,7 @@
                 Are you sure you want to change the status of <span id="modalClientName" class="font-bold text-slate-700"></span>?
             </p>
 
-            <form action="AdminControler" method="POST" class="flex gap-3">
+            <form action="clients/changeStatus" method="POST" class="flex gap-3">
                 <input type="hidden" name="idClient" id="modalUserId">
                 <input type="hidden" name="statusClient" id="modalActionType">
                 <input type="hidden" name="page" value="admin_clients">
