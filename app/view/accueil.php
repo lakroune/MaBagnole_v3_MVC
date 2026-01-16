@@ -1,8 +1,4 @@
-<?php
-
-use app\controller\HomeController;
-
-?>
+ 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,10 +144,8 @@ use app\controller\HomeController;
 
                                         <?php
                                         if ($vehicule->getStatusVehicule() == 1) {
-                                            // color badge green
                                             echo "<span class='bg-green-500 text-white px-3 py-1 rounded-full text-[10px] font-bold'>Disponible</span>  ";
                                         } else {
-                                            // color badge red
                                             echo "<span class='bg-red-500 text-white px-3 py-1 rounded-full text-[10px] font-bold'>Indisponible</span>  ";
                                         }
                                         ?>
@@ -167,12 +161,11 @@ use app\controller\HomeController;
                                         <button type="button" <?php if (!($connect)) :  ?>
                                             onclick="toggleModal('rentPopup')" <?php else:; ?>
                                             onclick="toggleFavorite(this)" <?php endif; ?> class="
-                                               <?php if (($connect)) echo ' favorite-btn '; ?>
-                                             <?php
+                                               <?php if (($connect))
+                                                    echo ' favorite-btn ';
                                                 if ($connect && $favori->isFavori($_SESSION['Utilisateur']->getIdUtilisateur(), $vehicule->getIdVehicule()))
                                                     echo ' is-favorite ';
-                                                ?>
-                                             absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition shadow-lg">
+                                                ?> absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 transition shadow-lg">
                                             <i class="fas fa-heart"></i>
                                         </button>
                                     </form>
@@ -247,7 +240,7 @@ use app\controller\HomeController;
                 const $form = $btn.closest('form');
                 const formData = $form.serialize();
                 $.ajax({
-                    url: '../controler/ClientControler.php',
+                    url: '<?= PATH_ROOT ?>/app/controller/FavoriController.php',
                     type: 'POST',
                     data: formData,
                     dataType: 'json',
@@ -271,7 +264,6 @@ use app\controller\HomeController;
             modal.classList.toggle('flex');
         }
 
-        // Close modal when clicking outside
         window.onclick = function(event) {
             const modal = document.getElementById('rentPopup');
             if (event.target == modal) {
@@ -281,7 +273,7 @@ use app\controller\HomeController;
     </script>
 
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="<?= PATH_ROOT ?>/app/view/js/main.js"></script>
 
     <script>
         $(document).ready(function() {
