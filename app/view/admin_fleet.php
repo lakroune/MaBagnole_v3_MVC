@@ -171,7 +171,7 @@
                 <input type="hidden" name="page" value="admin_fleet">
                 <input type="hidden" name="action" value="import">
                 <p class="text-sm text-slate-500 mb-4 font-medium">Paste multiple vehicles below. Format: <span class="bg-slate-100 p-1 rounded text-blue-600 font-mono text-xs">Marque, Model, Year, color , transmission, type of fuel, price,id category, image </span> (One per line)</p>
-                <textarea name="bulkData" rows="8" class="w-full p-4 bg-slate-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm" placeholder="Porsche, 911, 2023, Red, Automatic, Gas, 500, 1, https://example.com/image.jpg&#10;BMW, M4, 2023, Black, Manual, Diesel, 600, 2, https://example.com/image2.jpg"></textarea>
+                <textarea name="texte" rows="8" class="w-full p-4 bg-slate-50 border rounded-2xl outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm" placeholder="Porsche, 911, 2023, Red, Automatic, Gas, 500, 1, https://example.com/image.jpg&#10;BMW, M4, 2023, Black, Manual, Diesel, 600, 2, https://example.com/image2.jpg"></textarea>
                 <div class="flex justify-end gap-3 mt-6">
                     <button type="button" onclick="toggleModal('bulkAddModal')" class="px-6 py-2 text-slate-400 font-bold">Cancel</button>
                     <button type="submit" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-bold shadow-lg">Start Import</button>

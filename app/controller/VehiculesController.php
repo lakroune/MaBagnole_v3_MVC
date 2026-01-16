@@ -48,6 +48,7 @@ class VehiculesController
             header("Location: " . PATH_ROOT . "/dashboard/vehicules/add/$path");
             exit;
         }
+        header("Location: " . PATH_ROOT . "/dashboard/vehicules");
     }
 
     public function delete()
@@ -57,6 +58,7 @@ class VehiculesController
             header("Location: " . PATH_ROOT . "/dashboard/vehicules/delete/$path");
             exit;
         }
+        header("Location: " . PATH_ROOT . "/dashboard/vehicules");
     }
 
     public function update()
@@ -67,6 +69,7 @@ class VehiculesController
             header("Location: " . PATH_ROOT . "/dashboard/vehicules/update/$path");
             exit;
         }
+        header("Location: " . PATH_ROOT . "/dashboard/vehicules");
     }
     public function import()
     {
@@ -75,6 +78,7 @@ class VehiculesController
             header("Location: " . PATH_ROOT . "/dashboard/vehicules/import/$path");
             exit;
         }
+        header("Location: " . PATH_ROOT . "/dashboard/vehicules");
     }
 
     private function remplerObject($object, $data)
