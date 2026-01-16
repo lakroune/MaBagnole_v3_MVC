@@ -68,6 +68,14 @@ class VehiculesController
             exit;
         }
     }
+    public function import()
+    {
+        if (isset($_POST['texte'])) {
+            $path = $this->remplirObjectText($this->vehicule, $_POST['texte']) ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/dashboard/vehicules/import/$path");
+            exit;
+        }
+    }
 
     private function remplerObject($object, $data)
     {
@@ -77,5 +85,27 @@ class VehiculesController
                 $object->$method($value);
             }
         }
+    }
+    private function remplirObjectText($object, $texte)
+    {
+        $lignes = explode("\n", str_replace("\r", "", $texte));
+        $count = 0;
+        foreach ($lignes as $ligne) {
+            $data = explode(",", $ligne);
+            if (count($data) === 7) {
+                $object->setMarqueVehicule(trim($data[0]));
+                $object->setModeleVehicule(trim($data[1]));
+                $object->setAnneeVehicule(trim($data[2]));
+                $object->setCouleurVehicule(trim($data[3]));
+                $object->setTypeBoiteVehicule(trim($data[4]));
+                $object->setTypeCarburantVehicule(trim($data[5]));
+                $object->setPrixVehicule(trim($data[6]));
+                $object->setIdCategorie(trim($data[7] ?? 1));
+                $object->setImageVehicule(trim($data[8] ?? 'image'));
+                if ($object->ajouterVehicule())
+                    $count++;
+            }
+        }
+        return $count;
     }
 }
