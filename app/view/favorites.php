@@ -72,6 +72,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
                                 <input type="hidden" name="idVehicule" value="<?= $vehicule->getIdVehicule() ?>">
                                 <input type="hidden" name="page" value="accueil">
                                 <input type="hidden" name="action" value="favorite">
+                                <input type="hidden" name="idClient" value="<?= isset($_SESSION['Utilisateur']) ? $_SESSION['Utilisateur']->getIdUtilisateur() : '' ?>">
                                 <button onclick="removeFavorite(this, 101)" id="favoriteButton" type="button"
                                     class=" favorite-btn absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-red-500 shadow-lg hover:scale-110 transition active:scale-95">
                                     <i class="fas fa-heart text-lg"></i>
@@ -121,7 +122,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
     </main>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="./js/main.js"></script>
+    <script src="<?= PATH_ROOT ?>/app/view/js/main.js"></script>
     <script>
         function removeFavorite(button, carId) {
             const card = button.closest('.car-card');
@@ -148,11 +149,6 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
 
 
 
-
-
-
-
-
         $(document).ready(function() {
 
             $('.favorite-btn').on('click', function(e) {
@@ -162,7 +158,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
                 const $form = $btn.closest('form');
                 const formData = $form.serialize();
                 $.ajax({
-                    url: '../controler/ClientControler.php',
+                    url: '<?= PATH_ROOT ?>/app/controller/FavoriController.php',
                     type: 'POST',
                     data: formData,
                     dataType: 'json',
@@ -174,7 +170,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
                         }
                     },
                     error: function() {
-                        console.log('error');
+                        console.log("error");
                     }
                 });
             });
