@@ -6,12 +6,14 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use app\model\Favori;
 
+
 class FavoriController
 {
     private Favori $favori;
 
     public function __construct()
     {
+        session_start();
         $this->favori = new Favori();
     }
 
@@ -19,10 +21,12 @@ class FavoriController
     {
         if ($this->isConnected()) {
             $this->changeStatus();
+        } else {
+            echo json_encode(['error' => "connexion"]);
         }
     }
 
-    
+
 
     private function isConnected(): bool
     {
@@ -46,7 +50,7 @@ class FavoriController
             }
             echo json_encode(['success' => "success"]);
         } catch (\Exception $e) {
-            echo json_encode(['error' => "error"]);
+            echo json_encode(['success' => "failed"]);
         }
     }
     private function remplerObject($object, $data)
