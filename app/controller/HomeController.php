@@ -4,6 +4,7 @@ namespace app\controller;
 
 use app\model\Avis;
 use app\model\Categorie;
+use app\model\Client;
 use app\model\Favori;
 use app\model\Reservation;
 use app\model\Vehicule;
@@ -16,6 +17,7 @@ class HomeController
     private Reservation $reservation;
     private Categorie $categorie;
     private Favori $favori;
+    private Client $client;
     private bool $comment = false;
     private int  $reserver = 0;
     private bool $connect = false;
@@ -25,6 +27,7 @@ class HomeController
         $this->avis = new Avis();
         $this->reservation = new Reservation();
         $this->categorie = new Categorie();
+        $this->client = new Client();
         $this->favori = new Favori();
         $this->connect = $this->isConnected();
     }
@@ -65,6 +68,7 @@ class HomeController
     {
         $vehicule = $this->vehicule->getVehiculeById($idVehicule);
         $reviews = $this->avis->getAllAvisByVehicule($idVehicule);
+        $client = $this->client;
         $connect = $this->connect;
         $isReserver = $this->isReserver($idVehicule);
         $dejaCommente = $this->isCommenter($idVehicule);

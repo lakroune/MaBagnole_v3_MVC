@@ -85,12 +85,13 @@
                     <div id="reviews-list" class="space-y-8">
 
                         <?php foreach ($reviews as $review) : ?>
+                            <?php $client = $client->getClientById($review->getIdClient());    ?>
                             <div id="review-101" class="border-b border-slate-100 pb-8 last:border-0 group">
                                 <div class="flex justify-between items-start">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600">JD</div>
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600"><?php echo substr($client->getPrenomUtilisateur() . ' ' . $client->getNomUtilisateur(), 0, 1);  ?></div>
                                         <div>
-                                            <h4 class="font-bold text-slate-800">John Doe</h4>
+                                            <h4 class="font-bold text-slate-800"><?php echo $client->getPrenomUtilisateur() . ' ' . $client->getNomUtilisateur() ?></h4>
                                             <div class="flex text-yellow-400 text-[10px]">
                                                 <?php for ($i = 0; $i < 5; $i++) : ?>
                                                     <?php if ($i < $review->getNoteAvis()) : ?>
