@@ -295,7 +295,7 @@
                 Are you sure you want to delete this feedback? This action cannot be undone and the review will be permanently removed.
             </p>
 
-            <form action="ClientControler" method="POST">
+            <form action="<?= PATH_ROOT ?>/avis/delete" method="POST">
                 <input type="hidden" name="page" value="details">
                 <input type="hidden" name="action" value="deleteReview">
                 <input type="hidden" name="idAvis" id="delete_avis_id">
@@ -337,7 +337,7 @@
                 <div class="mb-6">
                     <label class="block text-sm font-bold text-slate-700 mb-2 ml-1">Your Message</label>
                     <textarea
-                        name="messageAvis"
+                        name="commentaireAvis"
                         id="edit_comment_text"
                         rows="4"
                         class="w-full px-5 py-4 rounded-2xl border-2 border-slate-100 focus:border-blue-500 focus:ring-0 transition resize-none text-slate-600"
@@ -460,6 +460,18 @@
             }
             if (action === "addAvis" && resultat === "failed") {
                 showReviewPopup('error', 'Error', 'An error occurred while submitting your review.');
+            }
+            if (action === "deleteAvis" && resultat === "success") {
+                showReviewPopup('success', 'Success', 'Your review has been deleted successfully.');
+            }
+            if (action === "deleteAvis" && resultat === "failed") {
+                showReviewPopup('error', 'Error', 'An error occurred while deleting your review.');
+            }
+            if (action === "updateAvis" && resultat === "success") {
+                showReviewPopup('success', 'Success', 'Your review has been updated successfully.');
+            }
+            if (action === "updateAvis" && resultat === "failed") {
+                showReviewPopup('error', 'Error', 'An error occurred while updating your review.');
             }
 
             // urlParams = new URLSearchParams(window.location.search);
