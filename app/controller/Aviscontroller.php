@@ -38,7 +38,17 @@ class AvisController
         if ($this->isConnected('client') && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->remplerObject($this->avis, $_POST);
             $path = $this->avis->ajouterAvis() ? "success" : "failed";
-            header("Location: " . PATH_ROOT . "/home/show/" . $_POST['idVehicule'] . "/add/$path");
+            header("Location: " . PATH_ROOT . "/home/show/" . $_POST['idVehicule'] . "/addAvis/$path");
+            exit();
+        }
+        header("Location: " . PATH_ROOT . "/home/show/" . $_POST['idVehicule']);
+    }
+    public function update()
+    {
+        if ($this->isConnected('client') && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->remplerObject($this->avis, $_POST);
+            $path = $this->avis->modifierAvis() ? "success" : "failed";
+            header("Location: " . PATH_ROOT . "/home/show/" . $_POST['idVehicule'] . "/update/$path");
             exit();
         }
         header("Location: " . PATH_ROOT . "/home/show/" . $_POST['idVehicule']);

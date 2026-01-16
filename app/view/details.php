@@ -328,7 +328,7 @@
                 <p class="text-slate-500 text-sm">Update your feedback about this vehicle.</p>
             </div>
 
-            <form action="ClientControler" method="POST">
+            <form action="<?= PATH_ROOT ?>/avis/update" method="POST">
                 <input type="hidden" name="page" value="details">
                 <input type="hidden" name="action" value="updateReview">
                 <input type="hidden" name="idAvis" id="edit_avis_id">
@@ -337,7 +337,7 @@
                 <div class="mb-6">
                     <label class="block text-sm font-bold text-slate-700 mb-2 ml-1">Your Message</label>
                     <textarea
-                        name="textReview"
+                        name="messageAvis"
                         id="edit_comment_text"
                         rows="4"
                         class="w-full px-5 py-4 rounded-2xl border-2 border-slate-100 focus:border-blue-500 focus:ring-0 transition resize-none text-slate-600"
@@ -445,37 +445,44 @@
         window.onload = function() {
             const path = window.location.pathname;
             const parts = path.split('/');
-            const lastPart = parts[parts.length - 1];
-            const last1PArt = parts[parts.length - 2];
+            const resultat = parts[parts.length - 1];
+            const action = parts[parts.length - 2];
 
-            if (lastPart === "success") {
+            if (action === "add" && resultat === "success") {
                 showModal('successModal');
             }
-            if (lastPart === "failed") {
+            if (action === "add" && resultat === "failed") {
                 showModal('errorModal');
             }
 
-            urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('addReview') && urlParams.get('addReview') === "success") {
+            if (action === "addAvis" && resultat === "success") {
                 showReviewPopup('success', 'Thank You!', 'Your review has been submitted successfully and is waiting for admin approval.');
-
             }
-            if (urlParams.has('addReview') && urlParams.get('addReview') === "failed") {
+            if (action === "addAvis" && resultat === "failed") {
                 showReviewPopup('error', 'Error', 'An error occurred while submitting your review.');
+            }
 
-            }
-            if (urlParams.has('deleteReview') && urlParams.get('deleteReview') === "success") {
-                showReviewPopup('success', 'Success', 'Your review has been deleted successfully.');
-            }
-            if (urlParams.has('deleteReview') && urlParams.get('deleteReview') === "failed") {
-                showReviewPopup('error', 'Error', 'An error occurred while deleting your review.');
-            }
-            if (urlParams.has('updateReview') && urlParams.get('updateReview') === "success") {
-                showReviewPopup('success', 'Success', 'Your review has been updated successfully.');
-            }
-            if (urlParams.has('updateReview') && urlParams.get('updateReview') === "failed") {
-                showReviewPopup('error', 'Error', 'An error occurred while updating your review.');
-            }
+            // urlParams = new URLSearchParams(window.location.search);
+            // if (urlParams.has('addReview') && urlParams.get('addReview') === "success") {
+            //     showReviewPopup('success', 'Thank You!', 'Your review has been submitted successfully and is waiting for admin approval.');
+
+            // }
+            // if (urlParams.has('addReview') && urlParams.get('addReview') === "failed") {
+            //     showReviewPopup('error', 'Error', 'An error occurred while submitting your review.');
+
+            // }
+            // if (urlParams.has('deleteReview') && urlParams.get('deleteReview') === "success") {
+            //     showReviewPopup('success', 'Success', 'Your review has been deleted successfully.');
+            // }
+            // if (urlParams.has('deleteReview') && urlParams.get('deleteReview') === "failed") {
+            //     showReviewPopup('error', 'Error', 'An error occurred while deleting your review.');
+            // }
+            // if (urlParams.has('updateReview') && urlParams.get('updateReview') === "success") {
+            //     showReviewPopup('success', 'Success', 'Your review has been updated successfully.');
+            // }
+            // if (urlParams.has('updateReview') && urlParams.get('updateReview') === "failed") {
+            //     showReviewPopup('error', 'Error', 'An error occurred while updating your review.');
+            // }
 
         };
 
