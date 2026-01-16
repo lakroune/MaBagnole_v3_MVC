@@ -13,7 +13,9 @@ class FavoriController
 
     public function __construct()
     {
-        session_start();
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         $this->favori = new Favori();
     }
 
@@ -26,7 +28,10 @@ class FavoriController
         }
     }
 
-
+    public function index()
+    {
+        header("Location: " . PATH_ROOT . "/");
+    }
 
     private function isConnected(): bool
     {
@@ -37,11 +42,15 @@ class FavoriController
         return $connect;
     }
 
+
     private function changeStatus()
     {
         header('Content-Type: application/json');
+        if (!$this->isConnected()) {
+            echo json_encode(['error' => "connexion"]);
+            exit;
+        }
         try {
-
             $this->remplerObject($this->favori, $_POST);
             if ($this->favori->isFavori($this->favori->getIdClient(), $this->favori->getIdVehicule())) {
                 $this->favori->annulerFavori();

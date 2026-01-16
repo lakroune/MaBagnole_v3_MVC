@@ -13,7 +13,10 @@ class ReservationsController
     private Vehicule $vehicule;
 
     public function __construct()
-    {
+    { if (!$this->isConnected('client')) {
+            header('Location: ' . PATH_ROOT);
+            exit();
+        }
 
         $this->client = new Client();
         $this->reservation = new Reservation();
@@ -37,10 +40,11 @@ class ReservationsController
         if (!$this->isConnected('client')) {
             header('Location: ' . PATH_ROOT);
             exit();
+        } else {
+            $vehicule = $this->vehicule;
+            $arrayReservations = $this->reservation->getResrvationByIdClient($_SESSION['Utilisateur']->getIdUtilisateur());
+            require_once __DIR__ . '/../view/reservations.php';
         }
-        $vehicule = $this->vehicule;
-        $arrayReservations = $this->reservation->getResrvationByIdClient($_SESSION['Utilisateur']->getIdUtilisateur());
-        require_once __DIR__ . '/../view/reservations.php';
     }
     public function add()
     {

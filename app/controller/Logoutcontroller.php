@@ -13,7 +13,10 @@ class Logoutcontroller
     }
     public function index()
     {
-        $this->client->seDeconnecter();
-        header("Location: " . PATH_ROOT . "/login");
+        if ($this->client->seDeconnecter()) {
+            header("Location: " . PATH_ROOT . "/");
+        } else {
+            header("Location: " . PATH_ROOT . "/login/failed");
+        }
     }
 }

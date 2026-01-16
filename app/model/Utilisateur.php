@@ -136,9 +136,13 @@ class Utilisateur
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        session_unset();
-        session_abort();
-        session_destroy();
-        return true;
+        if (isset($_SESSION['Utilisateur'])) {
+            unset($_SESSION['Utilisateur']);
+            // destroy_session();
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }
