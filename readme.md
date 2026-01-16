@@ -1,8 +1,9 @@
 # MaBagnole - Plateforme de Location de Véhicules
----
-**MaBagnole** est une solution web complète conçue pour une agence de location de voitures.  
+
+- **MaBagnole** est une solution web complète conçue pour une agence de location de voitures.  
 Elle permet aux clients de réserver des véhicules en ligne et d’interagir avec la plateforme via des fonctionnalités modernes.  
 Le projet est développé en **PHP orienté objet (POO)** avec une architecture **SQL robuste**.
+
 ---
 ## 🛠️ Stack Technique
 ### Framework
@@ -59,7 +60,7 @@ Le projet est développé en **PHP orienté objet (POO)** avec une architecture 
 ---
 
 ## 📁 Structure du Projet
-
+````
 MaBagnole-v3-MVC/        -le dossier principal
 ├── app/                 -les classes de vos applications
 │   ├── Models/          -les classes de vos modèles
@@ -74,6 +75,7 @@ MaBagnole-v3-MVC/        -le dossier principal
 ├── index.php            -le point d'accueil
 ├── .htaccess            -le fichier de configuration d'Apache
 └── readme.md            -le fichier de documentation
+````
 ---
 
 ## ⚙️ Installation
@@ -86,10 +88,10 @@ composer install
 composer dump-autoload
 
 ### 3. Lancer le projet
-Utilisez XAMPP, Laragon ou le serveur PHP intégré.
+- Utilisez XAMPP, Laragon ou le serveur PHP intégré.
 ---
 ## 📊 Conception UML
-Architecture UML claire assurant maintenabilité et extensibilité.
+- Architecture UML claire assurant maintenabilité et extensibilité.
 ---
 ## 📜 License
 Ce projet est sous la license [MIT](https://github.com/lakroune/MaBagnole_v3_MVC/blob/main/LICENSE).
