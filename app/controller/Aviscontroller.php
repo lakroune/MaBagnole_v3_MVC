@@ -38,8 +38,8 @@ class AvisController
         if ($this->isConnected('client') && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->remplerObject($this->avis, $_POST);
             $path = $this->avis->ajouterAvis() ? "success" : "failed";
-            header("Location: " . PATH_ROOT . "/home/show/" . $_POST['idVehicule'] . "add/$path");
-            exit;
+            header("Location: " . PATH_ROOT . "/home/show/" . $_POST['idVehicule'] . "/add/$path");
+            exit();
         }
         header("Location: " . PATH_ROOT . "/home/show/" . $_POST['idVehicule']);
     }

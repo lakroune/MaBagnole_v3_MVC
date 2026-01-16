@@ -93,7 +93,7 @@ if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getRole() !== 
                             </div>
 
                             <div class="mt-auto pt-6 border-t border-slate-50 flex gap-3">
-                                <a href="details/<?= $vehicule->getIdVehicule() ?>" class="flex-1 py-3 px-4 rounded-xl text-center font-bold bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-100">
+                                <a href="<?= PATH_ROOT ?>/home/show/<?= $vehicule->getIdVehicule() ?>" class="flex-1 py-3 px-4 rounded-xl text-center font-bold bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-100">
                                     Book Now
                                 </a>
                             </div>

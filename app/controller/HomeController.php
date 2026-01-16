@@ -17,7 +17,7 @@ class HomeController
     private Categorie $categorie;
     private Favori $favori;
     private bool $comment = false;
-    private bool  $reserver = false;
+    private int  $reserver = 0;
     private bool $connect = false;
     public function __construct()
     {
@@ -36,11 +36,10 @@ class HomeController
         }
         return $connect;
     }
-    private function isReserver($idVehicule): bool
+    private function isReserver($idVehicule): int
     {
         if ($this->connect) {
             $idClient = $_SESSION['Utilisateur']->getIdUtilisateur();
-            $this->reservation = new Reservation();
             $this->reserver = $this->reservation->getReservationByClientVehicule($idClient, $idVehicule);
         }
         return $this->reserver;

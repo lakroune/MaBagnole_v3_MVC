@@ -151,12 +151,11 @@
                                     <i class="fas fa-star cursor-pointer text-slate-200 text-xl hover:text-yellow-400" data-value="4"></i>
                                     <i class="fas fa-star cursor-pointer text-slate-200 text-xl hover:text-yellow-400" data-value="5"></i>
                                 </div>
-                                <input type="hidden" name="ratings" id="rating">
-                                <input type="hidden" name="page" value="details">
-                                <input type="hidden" name="action" value="addReview">
+                                <input type="hidden" name="noteAvis" id="rating">
                                 <input type="hidden" name="idVehicule" value="<?= $idVehicule ?>">
                                 <input type="hidden" name="idReservation" value="<?= $isReserver ?>">
-                                <textarea name="textReview" id="new-review-text" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition" rows="3" placeholder="Share your experience..."></textarea>
+                                <input type="hidden" name="idClient" value="<?= isset($_SESSION['Utilisateur']) ? $_SESSION['Utilisateur']->getIdUtilisateur() : 0 ?>">
+                                <textarea name="commentaireAvis" id="new-review-text" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition" rows="3" placeholder="Share your experience..."></textarea>
                                 <button type="button" id="btn-ajout-avis" onclick="submitReview()" class=" btn-ajout-avis  mt-4 bg-blue-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-700 transition">Post Review</button>
 
                             </form>
